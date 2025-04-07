@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpcdxy573u2de"]
+
+[ext_resource type="Script" uid="uid://driorb1fen2f1" path="res://start_button.gd" id="1_44r3r"]
+[ext_resource type="Texture2D" uid="uid://qkcbovksbuxp" path="res://assets/play_white.png" id="1_p82kt"]
+[ext_resource type="Script" uid="uid://dcdkj1d3h7nlw" path="res://demo_button.gd" id="3_uu34q"]
+
+[sub_resource type="Gradient" id="Gradient_xf8kj"]
+colors = PackedColorArray(0, 0, 0, 0.95, 0, 0, 0, 0.95)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_50v0l"]
+gradient = SubResource("Gradient_xf8kj")
+
+[node name="StartButton" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(273.043, 139.828)
+scale = Vector2(7.89029, 1488.34)
+texture = SubResource("GradientTexture1D_50v0l")
+
+[node name="Button" type="Button" parent="."]
+offset_right = 178.0
+offset_bottom = 90.0
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+text = "Tap to Start"
+icon = ExtResource("1_p82kt")
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("1_44r3r")
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 288.0
+offset_top = 72.0
+offset_right = 552.0
+offset_bottom = 382.0
+scale = Vector2(0.5, 0.5)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+text = "Demo mode"
+icon = ExtResource("1_p82kt")
+icon_alignment = 1
+vertical_icon_alignment = 0
+script = ExtResource("3_uu34q")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]

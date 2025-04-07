@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://cj6ncxgdvp86m"]
+
+[ext_resource type="Script" uid="uid://dgvpdc6ru52co" path="res://path_2d.gd" id="1_nyid5"]
+[ext_resource type="Texture2D" uid="uid://cdncv2sxb7xg0" path="res://icon.svg" id="2_7l7e7"]
+[ext_resource type="Script" uid="uid://2dj6b3galxt" path="res://path_follow_2d.gd" id="2_700kd"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ufspk"]
+
+[sub_resource type="Curve2D" id="Curve2D_wibap"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 330, 59, -77.2985, -20.2165, 77.2985, 20.2165, 542, -59, -206.922, -11.8921, 206.922, 11.8921, 655, 118, -102.272, 35.6762, 102.272, -35.6762, 808, -47, 0, 0, 0, 0, 982, -27)
+}
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_hkpmg"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Path2D" type="Path2D" parent="."]
+material = SubResource("CanvasItemMaterial_ufspk")
+position = Vector2(72, 199)
+curve = SubResource("Curve2D_wibap")
+script = ExtResource("1_nyid5")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(330, 59)
+rotation = -0.507899
+script = ExtResource("2_700kd")
+
+[node name="cheese" type="Sprite2D" parent="Path2D/PathFollow2D"]
+position = Vector2(5.83607, -10.4852)
+rotation = 0.507899
+texture = ExtResource("2_7l7e7")
+
+[node name="Line2D" type="Line2D" parent="Path2D/PathFollow2D"]
+position = Vector2(-225.778, -420.942)
+rotation = 0.507899
+scale = Vector2(150, 150)
+points = PackedVector2Array(396, 260)
+width = 50.0
+width_curve = SubResource("Curve_hkpmg")

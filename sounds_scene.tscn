@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://b3bp53mq72y42"]
+
+[ext_resource type="Script" uid="uid://cddsn0wobfjt3" path="res://sounds_scene.gd" id="1_ybcvh"]
+[ext_resource type="AudioStream" uid="uid://bpvv6dlwq2r82" path="res://assets/soumds/kirks_song_1.mp3" id="2_42fmv"]
+[ext_resource type="AudioStream" uid="uid://nl027mo3ol2s" path="res://assets/soumds/kirks_song_2.mp3" id="3_3y0w7"]
+[ext_resource type="AudioStream" uid="uid://5jawin4tw2iu" path="res://assets/soumds/kirks_song_3.mp3" id="4_3lcsg"]
+[ext_resource type="AudioStream" uid="uid://bgoka0eqq0wb2" path="res://assets/soumds/in.mp3" id="5_fvhep"]
+[ext_resource type="AudioStream" uid="uid://d5fn16xqcif4" path="res://assets/soumds/out.mp3" id="6_u60cn"]
+[ext_resource type="AudioStream" uid="uid://bx2b1mkn2tuq6" path="res://assets/soumds/hold.mp3" id="7_h3e2e"]
+
+[node name="Sounds" type="Node2D"]
+script = ExtResource("1_ybcvh")
+
+[node name="kirks_song_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_42fmv")
+
+[node name="kirks_song_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3y0w7")
+
+[node name="kirks_song_3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3lcsg")
+
+[node name="breathe_in" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fvhep")
+volume_db = 5.0
+pitch_scale = 1.5
+max_polyphony = 2
+
+[node name="breathe_out" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_u60cn")
+volume_db = 5.0
+pitch_scale = 1.5
+
+[node name="breathe_hold" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_h3e2e")
+volume_db = 5.0
+pitch_scale = 1.5

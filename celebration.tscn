@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=3 uid="uid://ckybw80l3pjfs"]
+
+[ext_resource type="Script" uid="uid://b4q3wqq0tdbk2" path="res://celebration.gd" id="1_42tbd"]
+
+[sub_resource type="Gradient" id="Gradient_s8v8u"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ncrsc"]
+gradient = SubResource("Gradient_s8v8u")
+
+[sub_resource type="Gradient" id="Gradient_fp7md"]
+offsets = PackedFloat32Array(0, 0.434426, 0.721311, 1)
+colors = PackedColorArray(0.385129, 0.447185, 0.822832, 1, 0.400899, 0.290834, 0.528121, 1, 0.629191, 0.453249, 0.832008, 1, 0.70464, 0.711265, 0.955907, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_or67a"]
+gradient = SubResource("Gradient_fp7md")
+
+[sub_resource type="Gradient" id="Gradient_hijtn"]
+offsets = PackedFloat32Array(0, 0.483607, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3yoo2"]
+gradient = SubResource("Gradient_hijtn")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gh871"]
+emission_shape = 3
+emission_box_extents = Vector3(75, 75, 1)
+gravity = Vector3(0, -98, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 24.73
+tangential_accel_min = -70.0
+tangential_accel_max = 70.0
+scale_min = 0.0
+scale_max = 0.0
+color = Color(0.590177, 0.40743, 0.762157, 1)
+color_ramp = SubResource("GradientTexture1D_3yoo2")
+color_initial_ramp = SubResource("GradientTexture1D_or67a")
+hue_variation_min = -2.23517e-08
+hue_variation_max = 0.06
+turbulence_enabled = true
+turbulence_influence_min = 0.049
+turbulence_influence_max = 0.12
+turbulence_initial_displacement_min = 1.49012e-06
+turbulence_initial_displacement_max = 1.49012e-06
+sub_emitter_mode = 1
+sub_emitter_frequency = 100.0
+
+[sub_resource type="Gradient" id="Gradient_54hq4"]
+offsets = PackedFloat32Array(0, 0.229508, 0.581967, 1)
+colors = PackedColorArray(4.96, 2.608, 2.881, 1, 2.914, 2.251, 2.811, 1, 2.983, 2.608, 2.732, 1, 2.731, 2.448, 2.929, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_50f44"]
+gradient = SubResource("Gradient_54hq4")
+use_hdr = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7o1av"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+color_initial_ramp = SubResource("GradientTexture1D_50f44")
+
+[sub_resource type="Gradient" id="Gradient_ow7us"]
+offsets = PackedFloat32Array(0, 0.430769, 0.846154)
+colors = PackedColorArray(0.716296, 0.716296, 0.716296, 1, 0.747587, 0.747587, 0.747587, 1, 0, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_6015a"]
+offsets = PackedFloat32Array(0, 0.410256, 0.85641, 1)
+colors = PackedColorArray(0.995178, 0.307696, 0, 1, 0.98859, 0.833651, 3.08037e-06, 1, 1, 0.238553, 0.241029, 1, 0.724095, 0, 0.0899664, 1)
+
+[node name="Celebration" type="Node2D"]
+script = ExtResource("1_42tbd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(778.5, 517)
+scale = Vector2(9.50391, 1770)
+texture = SubResource("GradientTexture1D_ncrsc")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(1032, 736)
+scale = Vector2(10, 10)
+emitting = false
+sub_emitter = NodePath("boom")
+visibility_rect = Rect2(-100, -100, 100, 100)
+process_material = SubResource("ParticleProcessMaterial_gh871")
+
+[node name="boom" type="GPUParticles2D" parent="GPUParticles2D"]
+z_index = -1
+emitting = false
+amount = 100
+one_shot = true
+explosiveness = 1.0
+trail_sections = 2
+process_material = SubResource("ParticleProcessMaterial_7o1av")
+
+[node name="firework" type="CPUParticles2D" parent="."]
+position = Vector2(1032, 736)
+scale = Vector2(10, 10)
+emitting = false
+amount = 300
+one_shot = true
+explosiveness = 0.85
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+scale_amount_min = 15.0
+scale_amount_max = 25.0
+color_ramp = SubResource("Gradient_ow7us")
+color_initial_ramp = SubResource("Gradient_6015a")
+hue_variation_max = 1.0

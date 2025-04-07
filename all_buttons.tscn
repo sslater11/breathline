@@ -1,0 +1,79 @@
+[gd_scene load_steps=8 format=3 uid="uid://b4kt580jgclxf"]
+
+[ext_resource type="Script" uid="uid://dq6n5ktqivcg6" path="res://all_buttons.gd" id="1_eqcxi"]
+[ext_resource type="Texture2D" uid="uid://dmtffhy0ymbd4" path="res://assets/restart.png" id="2_ycagm"]
+[ext_resource type="Texture2D" uid="uid://dki6usqo5mwxk" path="res://assets/play.png" id="3_2x4nk"]
+[ext_resource type="Texture2D" uid="uid://5dj7du15eryn" path="res://assets/music_on.png" id="4_twshn"]
+[ext_resource type="Texture2D" uid="uid://cbvhybhcu8tya" path="res://assets/voice_on.png" id="5_qtmb7"]
+
+[sub_resource type="Gradient" id="Gradient_2jpk7"]
+colors = PackedColorArray(0.404, 0.937, 0.988, 0.5, 0.404, 0.937, 0.988, 0.5)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_it0u1"]
+gradient = SubResource("Gradient_2jpk7")
+
+[node name="AllButtons" type="Node2D"]
+script = ExtResource("1_eqcxi")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(566.5, 81.5)
+scale = Vector2(4.5, 215)
+texture = SubResource("GradientTexture1D_it0u1")
+
+[node name="reset" type="Button" parent="."]
+offset_right = 264.0
+offset_bottom = 362.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Reset"
+icon = ExtResource("2_ycagm")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="play_pause" type="Button" parent="."]
+offset_left = 208.0
+offset_right = 472.0
+offset_bottom = 362.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Playing"
+icon = ExtResource("3_2x4nk")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="music_on_off" type="Button" parent="."]
+offset_left = 416.0
+offset_right = 680.0
+offset_bottom = 362.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Music Off"
+icon = ExtResource("4_twshn")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="voice_on_off" type="Button" parent="."]
+offset_left = 624.0
+offset_right = 888.0
+offset_bottom = 362.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Voice Off"
+icon = ExtResource("5_qtmb7")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="countdown" type="RichTextLabel" parent="."]
+offset_left = 828.0
+offset_top = -28.0
+offset_right = 1187.0
+offset_bottom = 177.0
+bbcode_enabled = true
+text = "[font_size=150][color=black][/color][/font_size]"
+fit_content = true
+scroll_active = false
+
+[connection signal="pressed" from="reset" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="play_pause" to="." method="_on_play_pause_pressed"]
+[connection signal="pressed" from="music_on_off" to="." method="_on_music_on_off_pressed"]
+[connection signal="pressed" from="voice_on_off" to="." method="_on_voice_on_off_pressed"]

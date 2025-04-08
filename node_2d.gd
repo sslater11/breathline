@@ -149,7 +149,7 @@ func _ready() -> void:
 	shit_everywhere_particles.emitting = false
 
 	Globals.start_time_in_millis = Time.get_ticks_msec()
-	Globals.start_time_in_millis -= 4.82 * 60 * 1000 # make it start a bit later
+	#Globals.start_time_in_millis -= 4.75 * 60 * 1000 # make it start a bit later
 	
 	#breathline.curve.clear_points()
 	#breathline.curve.add_point( Vector2( 300, 500 ), Vector2(0,0), Vector2(0,0), 0 )
@@ -268,55 +268,20 @@ func _process(delta):
 			Globals.are_fireworks_on = true
 			#Globals.is_playing = false
 	if Globals.is_playing:
-		#print("jjjjjjjjjjjjjj is playing")
 		if (car.visible == false) and (toilet.visible == false):
 			car.visible = true
 			car_trail_particles.emitting = true
 
-		#car.z_index = car.global_position.y + ( ( car.texture.get_height() * scale.y * car.scale.y ) )
-
 		car.z_index = car.global_position.y - 150
-		
-		
-		#
 		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
-		#var position_as_percent : float = float(current_time_in_millis) / float( Globals.total_time_in_millis )
-		#var location_on_line = position_as_percent
-		#
-		##print( "location_on_line: " + str(location_on_line) )
-		##print( "start: " + str(start_time_in_millis) )
-		##print( "current: " + str(current_time_in_millis) )
-		##print( "total: " + str(total_time_in_millis) )
-		##location_on_line = path_follow_2d.progress_ratio + (delta / 50 )
-		##var location_on_line = path_follow_2d.progress_ratio + (delta / 50 )
-#
-		#if location_on_line >= 1.0:
-			#location_on_line = 0
-			#set_color()
-			#print("reset location")
-		##path_follow_2d.progress_ratio = location_on_line
-		##camera_path_follow.progress_ratio = location_on_line
-		#
-		#var current_breath : int = floor( float( breathline.curve.point_count -1 ) * location_on_line )
 		var current_breath : int = 0
-		#print("current_breath: " + str(current_breath) )
-		#print( breathline.curve.point_count * location_on_line )
-		
-		
-		
+
 		# Use pure maths to figure out the current breath that we are on.
 		var total_breath_length : int = 0
 		for i in breath_length:
 			total_breath_length += i
 		
 		
-		# Get the lenth of the line
-		var line_start : float = breathline.curve.get_point_position(0).x
-		var line_end   : float = breathline.curve.get_point_position( breathline.curve.point_count -1 ).x
-		var line_length : float = line_end - line_start
-		#print( line_start )
-		#print( line_end   )
-		#print( "")
 		
 		# Trying different maths to calculate location on the line.
 		
@@ -332,168 +297,38 @@ func _process(delta):
 		#/_________\
 		# Get our position along the line in pixels.
 		# (a / b) * t
+		# TODO BUG:
+		# Not sure why, but the car stops moving just before it gets to the end of the line.
+		# The distance_to() method seems to only count the distance by the x, meaning it forgets the y coordinates
+		# get_baked_length() seems to get the length with the x and y accounted for.
+		# yet, doing division of these 2 different numbers seems to put the car perfectly in time with the breaths.
+		# It just refuses to go up to 100% of the line's length.
+		# Tried a few different things, but nothing works!!!!!!!!!!q
+		
 		var delta_b = (breathline.curve.get_baked_length() / Globals.total_time_in_millis) * current_time_in_millis
+		delta_b += breathline.curve.get_baked_points()[0].x
 
-		var offset : Vector2 = breathline.curve.get_closest_point( Vector2( delta_b, 0.0 ) )
-		var other_offset = offset#breathline.curve.get_offset( offset )
-		print("fffffff: other_offset: " + str(other_offset) )
-		print("fffffff: last_point:   " + str(breathline.curve.get_baked_points()[len(breathline.curve.get_baked_points())-1]) )
-		print("fffffff: last_point:   " + str(breathline.curve.get_baked_points()[len(breathline.curve.get_baked_points())-1]) )
-		print("fffffff")
-		
-		
-		current_time_in_millis / Globals.total_time_in_millis
-		breathline.curve.get_closest_offset( Vector2( delta_b, 0 ) )
-		#breathline.curve.
-		var distance = breathline.curve.get_baked_points()[0].distance_to( breathline.curve.get_closest_point( Vector2( delta_b, 0) ) )
-		
-		other_offset = distance / breathline.curve.get_baked_length()
-		
-		
-		
-		other_offset = delta_b / line_length
-		other_offset = delta_b / breathline.curve.get_baked_length()
-		other_offset = delta_b
-		
-		
-		
 		# Find the point that is closest to the current x location on the line.
-		# If this works, turn it into a binary search.
-		#delta_b = (float(float(total_time_in_millis) / float(line_length)) * float(current_time_in_millis)) / 10.0
 		var baked_points = breathline.curve.get_baked_points()
 		var current_point : Vector2 = Vector2( 0.0, 0.0 )
-		var point_after  : Vector2 = Vector2( 0.0, 0.0 )
-		delta_b += breathline.curve.get_baked_points()[0].x
-		var current_x_offset = delta_b - START_X
-		for i in range( baked_points.size() ):
-			if baked_points[i].x <= delta_b:
-				current_point = baked_points[i]
-			else:
-				if (baked_points[i].x - delta_b) < (current_point.x - delta_b):
-					current_point = baked_points[i]
-				else:
-					current_point = current_point
-				break
-		
-		
-		
-		# Attempting to turn the above code into a binary search to make it more efficient.
-		# Will also look to calculate the x position between the baked_points, so that is is more accurate.
-		#var index_low : int = 0
-		#var index_high : int = baked_points.size() -1
-		#var index_middle          : int = -1
-		#var previous_middle_index : int = -2
-		##while not( previous_middle_index == index_middle ):
-		#while not( ( index_low == (index_high -1)) or (index_low == index_high) ):
-			#if( previous_middle_index == index_middle):
-				#print("iiiiiiiiiii WTFFFFFFFFFFFFFFFFFFFFFF"  )
-			#print("----------------------iiiiiiiiiii"  )
-			#print("iiiiiiiiiii: "  + str( delta_b ) )
-			#print("iiiiiiiiiii"  )
-#
-			#print("iiiiiiiiiii: prev: " + str( previous_middle_index ) )
-			#print("iiiiiiiiiii: mid : " + str( index_middle ) )
-#
-			#previous_middle_index = index_middle
-			#index_middle = ( index_high - index_low ) / 2
-			#if index_middle < index_low:
-				#break
-			#elif index_middle > index_high:
-				#break
-#
-			#if baked_points[index_middle].x < delta_b:
-				#print("iiiiiiiiiii   aaa"  )
-#
-				#index_low  = index_middle
-			#elif baked_points[ index_middle ].x > delta_b:
-				#index_high = index_middle
-				#print("iiiiiiiiiii   bbb"  )
-			#else:
-				#index_high = index_middle
-				#index_low  = index_middle
-				#break
-				#print("iiiiiiiiiii   ccc"  )
-			#print("iiiiiiiiiii"  )
-#
-			#print("iiiiiiiiiii: prev: " + str( previous_middle_index ) )
-			#print("iiiiiiiiiii: mid : " + str( index_middle ) )
-			#print("iiiiiiiiiii: high: " + str( index_high ) )
-			#print("iiiiiiiiiii: low : " + str( index_low ) )
-			#if previous_middle_index == index_middle:
-				#print("iiiiii yes")
-			#else:
-				#print("iiiiii no")
-#
-		#print("iiiiiiiiiii: binary_search_result: " + str( baked_points[index_middle] ) )
 		
 		var all_closest_points = binary_search_to_get_closest_point_to_x( baked_points, delta_b, 0, baked_points.size()-1)
 		current_point = all_closest_points[0]
-		for point in all_closest_points:
-			var current_point_diff = abs( current_point.x - delta_b )
-			var point_diff = abs( point.x - delta_b )
-			if point_diff < current_point_diff:
-				current_point = point
-			
 		
-		# Find out which point is the closest and use that one.
-		#var low_diff  = abs(baked_points[index_low].x - delta_b) 
-		#var high_diff = abs(baked_points[index_high].x - delta_b) 
-		#
-		#if low_diff < high_diff:
-			#current_point = baked_points[ index_low ]
-		#else:
-			#current_point = baked_points[ index_high ]
-		#
+		var dddistance = baked_points[0].distance_to( current_point )
+		var other_offset = dddistance / breathline.curve.get_baked_length()
 		
-		#print("---- closest point 0   --- " + str(breathline.curve.get_closest_point( Vector2( delta_b, 0.0 ) ) ) )
-		#print("---- closest point ymax--- " + str(breathline.curve.get_closest_point( Vector2( delta_b, START_Y + LINE_HEIGHT ) ) ) )
-		#var aa = breathline.curve.get_closest_point( Vector2( delta_b, 0.0 ) )
-		#
-		#aa = current_point
-		var dddistance = breathline.curve.get_baked_points()[0].distance_to( current_point )
-		other_offset = dddistance / breathline.curve.get_baked_length()
-		
-		
-		
-		
-		
-		
-		
+		# Set the car and camera positions.
 		path_follow_2d.progress_ratio     = other_offset
 		camera_path_follow.progress_ratio = other_offset
-		#path_follow_2d.progress_ratio     = get_percentage_at_x( delta_b )
-		#camera_path_follow.progress_ratio = get_percentage_at_x( delta_b )
 		
-		#print("jjjjjjjjjjjj offset: " + str(other_offset) + "length: " + str(breathline.curve.get_baked_length()) + "   dddistance: " + str(dddistance) )
-		#
-		#
-		#
-		#print()
-		##print("dddistance: " + str(dddistance))
-		##print("current_point: " + str(current_point))
-		##print("baked_length: " + str(breathline.curve.get_baked_length()))
-		##print("line_length: " + str(line_length) )
-		##print( "distance: " + str(distance) )
-		#print("other_offset:  " + str(other_offset) + " <<<<<<<<<<<<<<<<<<<<")
-		##print("baked_length:  " + str(breathline.curve.get_baked_length()))
-		##print( "closest offset: " + str( breathline.curve.get_closest_offset( Vector2( delta_b, 0.0 ) ) ) )
-		##print( "closest point: " + str( breathline.curve.get_closest_point( Vector2( delta_b, 0.0 ) ) ) )
-		#print()
-		#end result is to convert the current time to the place on the line's x axis, which is different from it's line length.
-		
-		# Get the distance of the line up to our point.
-		
-		
+
+
+
 		# Split the line into breaths
 		# Get the current breath in time as a float
 		# Convert the float to a number from 0.0 - 1.0
 		var current_breath_as_float : float = (current_time_in_millis / 1000) / float(total_breath_length)
-		#line_place = line_place / 
-		#print("aaaaaaaaaaaaa: " + str( current_breath_as_float ) )
-		
-		
-		
-		
 		
 		# Working code to time the animations
 		var breath = (current_time_in_millis / 1000) % total_breath_length
@@ -539,6 +374,35 @@ func _process(delta):
 		#remove_old_trees()
 		update_cloud_locations( delta )
 		#remove_old_clouds()
+
+# Calculate the distance to a point along the x axis,
+# whilst taking into account the distance traveled along the y axis.
+# This can only calculate the distance for lines in one direction, not loops or steps backwards.
+# If the exact x co-ordinate is not found, it will look to find the closes point and calculate the distance from that point to the end point passed.
+func euclidean_distance_to_x( path_2d : Path2D, end_point : Vector2 ) -> float:
+	var length : float = 0.0
+	var baked_points : PackedVector2Array = path_2d.curve.get_baked_points()
+	if len( baked_points ) == 0:
+		return 0.0
+		
+	var previous_point : Vector2 = baked_points[0]
+	for i in range( len( baked_points ) ):
+		var point_1 : Vector2 = previous_point
+		var point_2 : Vector2 = baked_points[ i ]
+		
+		if baked_points[i].x >= end_point.x:
+			point_2 = end_point
+			# Calculate the distance between the two points using the Euclidean distance formula
+			var distance = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
+			length += distance
+			break
+		else:
+			# Calculate the distance between the two points using the Euclidean distance formula
+			var distance = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
+			length += distance
+		previous_point = point_2
+
+	return length
 
 
 func animation_breathe_in() -> void:
@@ -593,11 +457,6 @@ func animation_breathe_out() -> void:
 # tartget_x is the x offset we are trying to find the closest point for.
 func binary_search_to_get_closest_point_to_x( all_points : PackedVector2Array, target_x : float, index_low : int, index_high : int ) -> Array[Vector2]:
 	var index_middle = index_low + (( index_high - index_low ) / 2)
-	#print("iiiiii: " )
-	#print("iiiiii: index_low    " + str( index_low ) )
-	#print("iiiiii: index_high   " + str( index_high ) )
-	#print("iiiiii: index_middle " + str( index_middle ) )
-	#print("iiiiii: index_low    " + str( index_low ) )
 
 	if all_points[index_middle].x == target_x:
 		return [ all_points[index_middle] ]
@@ -761,26 +620,3 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 	# add 10 seconds to the position.
 	# If the position doesn't exit(out of bounds)
 	#		then just use the last y coordinates
-
-#func remove_old_trees():
-	#var index = 0
-	#while index < len(all_trees):
-		#var tree : Sprite2D = all_trees[index]
-		##if tree.global_position.x < car.global_position.x - 2000:
-		#var x_cut_off : float = camera_path_follow.position.x
-		#x_cut_off -= camera_2d.get_viewport_rect().end.x * 1.25
-		#if tree.global_position.x < x_cut_off:
-			#all_trees.remove_at( index )
-			#tree.queue_free()
-		#else:
-			#return
-			#
-#func remove_old_clouds():
-	#while len(clouds_to_remove) > 0:
-		#print( clouds_to_remove[0])
-		#var cloud : Sprite2D = all_clouds[ clouds_to_remove[0] ]
-#
-#
-		#all_clouds.remove_at( clouds_to_remove[0] )
-		#cloud.queue_free()
-		#clouds_to_remove.remove_at(0)

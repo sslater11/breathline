@@ -2,7 +2,7 @@ extends Node2D
 @onready var firework: CPUParticles2D = $firework
 
 var all_fireworks : Array[ CPUParticles2D ] = []
-var random_spawn_amount = 20
+var random_spawn_amount : int = 20
 
 const SCREEN_WIDTH = 1000.0
 const SCREEN_HEIGHT = 1000.0
@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 
 func create_new_firework() -> void:
 	# Create a new firework explosion.
-	var random_spawn = randi_range(0, 100)
+	var random_spawn : int = randi_range(0, 100)
 	if random_spawn < random_spawn_amount:
 		print("ffffffffff 111111")
 		var new_firework : CPUParticles2D = firework.duplicate()
@@ -34,16 +34,16 @@ func create_new_firework() -> void:
 		var hue_variation : float = randf_range(0.0, 1.0)
 		new_firework.hue_variation_min = hue_variation
 		new_firework.hue_variation_max = hue_variation
-		var firework_scale = randf_range(5.5, 15.5)
+		var firework_scale : float = randf_range(5.5, 15.5)
 		new_firework.scale = Vector2( firework_scale, firework_scale )
 		new_firework.lifetime = randf_range( 1.0, 3.0 )
 		
 		# Create a new color to offset the hue with.
-		var random_color = Color( randf_range( 0.0, 1.0 ), randf_range( 0.0, 1.0 ), randf_range( 0.0, 1.0 ) )
+		var random_color : Color = Color( randf_range( 0.0, 1.0 ), randf_range( 0.0, 1.0 ), randf_range( 0.0, 1.0 ) )
 		random_color *= 18.5 # add a glow effect
 		var random_gradient : PackedColorArray = PackedColorArray()
 
-		var new_color_ramp = new_firework.color_initial_ramp.duplicate()
+		var new_color_ramp : Resource = new_firework.color_initial_ramp.duplicate()
 		
 		for i in range( 0, new_color_ramp.colors.size() ):
 			random_gradient.append( new_color_ramp.colors[i] * random_color )

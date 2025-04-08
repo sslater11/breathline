@@ -18,8 +18,8 @@ func _process(delta: float) -> void:
 
 	if Globals.is_playing:
 		# update the countdown timer.
-		var current_time_in_millis = Time.get_ticks_msec() - Globals.start_time_in_millis
-		var time_left = Globals.total_time_in_millis - current_time_in_millis
+		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
+		var time_left : int = Globals.total_time_in_millis - current_time_in_millis
 		var minutes : int = abs( time_left / 1000 / 60 )
 		var seconds : int = abs( (time_left / 1000) - (minutes * 60) )
 		var seconds_str : String = ""
@@ -55,9 +55,9 @@ func _on_play_pause_pressed() -> void:
 			
 			print("ccccccccccccccccc: start: " + str(Globals.start_time_in_millis))
 			
-			var current_time_in_millis = Time.get_ticks_msec()
+			var current_time_in_millis : int = Time.get_ticks_msec()
 			
-			var time_diff = Time.get_ticks_msec() - Globals.paused_time_in_millis
+			var time_diff : int = Time.get_ticks_msec() - Globals.paused_time_in_millis
 			Globals.start_time_in_millis += time_diff
 			
 			print("ccccccccccccccccc: diff : " + str(time_diff))
@@ -67,7 +67,7 @@ func _on_play_pause_pressed() -> void:
 			SoundsScene.resume_background_music()
 		update_play_pause_icon()
 
-func update_play_pause_icon():
+func update_play_pause_icon() -> void:
 	if Globals.is_playing:
 		play_pause.icon = preload("res://assets/play.png")
 		play_pause.text = "Playing"
@@ -80,7 +80,7 @@ func _on_music_on_off_pressed() -> void:
 	SoundsScene.play_pause_toggle_background_music()
 	update_music_on_off_icon()
 
-func update_music_on_off_icon():
+func update_music_on_off_icon() -> void:
 	if SoundsScene.is_music_paused():
 		music_on_off.icon = preload("res://assets/music_off.png")
 		music_on_off.text = "Music Off"
@@ -93,7 +93,7 @@ func _on_voice_on_off_pressed() -> void:
 	SoundsScene.is_voice_enabled = not SoundsScene.is_voice_enabled
 	update_voice_on_off_icon()
 
-func update_voice_on_off_icon():
+func update_voice_on_off_icon() -> void:
 	if SoundsScene.is_voice_enabled:
 		voice_on_off.icon = preload("res://assets/voice_on.png")
 		voice_on_off.text = "Voice On"

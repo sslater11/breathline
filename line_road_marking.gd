@@ -12,7 +12,7 @@ func _process(delta: float) -> void:
 	clear_points()
 	
 	for i in range( len( breathline.curve.get_baked_points() ) ):
-		var y_offset = 50
+		var y_offset : float = 50
 		var position : Vector2 = Vector2( breathline.curve.get_baked_points()[i].x, breathline.curve.get_baked_points()[i].y + y_offset )
 		add_point( position )
 	

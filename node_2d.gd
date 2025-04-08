@@ -80,11 +80,11 @@ var clouds_to_remove : Array[int] = []
 
 var is_blue : bool = false
 
-var has_shit_spray_played = false
+var has_shit_spray_played : bool = false
 
 var last_breath : int = 0
 
-func set_color():
+func set_color() -> void:
 	if is_blue:
 		animation_change_color.play("color_red")
 	else:
@@ -95,25 +95,25 @@ func set_color():
 # Function to get the percentage of the distance along the path for a given x
 func get_percentage_at_x(x: float) -> float:
 	var curve : Curve2D = breathline.curve
-	var total_length = breathline.curve.get_baked_length()
+	var total_length : float = breathline.curve.get_baked_length()
 
 	# Get the number of points in the curve
-	var point_count = curve.get_point_count()
+	var point_count : int = curve.get_point_count()
 
 	# Initialize distance from the start
-	var distance_from_start = 0.0
+	var distance_from_start : float = 0.0
 
 	for i in range(point_count - 1):
-		var p0 = curve.get_point_position(i)
-		var p1 = curve.get_point_position(i + 1)
+		var p0 : Vector2 = curve.get_point_position(i)
+		var p1 : Vector2 = curve.get_point_position(i + 1)
 		
 		# Check if x is between the x-coordinates of the current segment
 		if ( (p0.x <= x) and ( x <= p1.x) ) or ( (p1.x <= x) and (x <= p0.x) ):
 			pass
 			#print("vvvvvvvvvvvvvvvvvvvvv")
 			# Perform linear interpolation to find the corresponding y
-			var t = (x - p0.x) / (p1.x - p0.x)
-			var y = p0.y + (p1.y - p0.y) * t
+			var t : float = (x - p0.x) / (p1.x - p0.x)
+			var y : float = p0.y + (p1.y - p0.y) * t
 			
 			# Calculate the distance from the start to the point (x, y)
 			distance_from_start += p0.distance_to(Vector2(x, y))
@@ -124,7 +124,7 @@ func get_percentage_at_x(x: float) -> float:
 			distance_from_start += p0.distance_to(p1)
 			
 	# Calculate the percentage of the distance from the start
-	var percentage = (distance_from_start / total_length)
+	var percentage : float = (distance_from_start / total_length)
 	#print("fffffffffffffffffff: percentage: " + str( percentage ) )
 	return percentage
 
@@ -185,8 +185,8 @@ func _ready() -> void:
 			#var new_x : float = 0.0
 			#var new_y : float = 0.0
 
-			var new_x = last_x + ( breath_length[ i ] * LINE_LENGTH_FOR_ONE_SECOND )
-			var new_y = last_y
+			var new_x : float = last_x + ( breath_length[ i ] * LINE_LENGTH_FOR_ONE_SECOND )
+			var new_y : float = last_y
 			
 			#print( "l_x: " + str(last_x) + "\tl_y: " + str(last_y) )
 			#print( breathline.curve.get_point_position( i ) )
@@ -230,7 +230,7 @@ func _ready() -> void:
 	#var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
 	#bunny.position = Vector2( last_point.x-140, last_point.y -200)
 	
-func _process(delta):
+func _process(delta : float) -> void:
 	if Globals.is_first_breath and Globals.is_playing:
 		Globals.is_first_breath = false
 		animation_breathe_in()
@@ -305,19 +305,19 @@ func _process(delta):
 		# It just refuses to go up to 100% of the line's length.
 		# Tried a few different things, but nothing works!!!!!!!!!!q
 		
-		var delta_b = (breathline.curve.get_baked_length() / Globals.total_time_in_millis) * current_time_in_millis
+		var delta_b : float = (breathline.curve.get_baked_length() / Globals.total_time_in_millis) * current_time_in_millis
 		delta_b += breathline.curve.get_baked_points()[0].x
 
 		# Find the point that is closest to the current x location on the line.
-		var baked_points = breathline.curve.get_baked_points()
+		var baked_points : PackedVector2Array = breathline.curve.get_baked_points()
 		var current_point : Vector2 = Vector2( 0.0, 0.0 )
 		
-		var all_closest_points = binary_search_to_get_closest_point_to_x( baked_points, delta_b, 0, baked_points.size()-1)
+		var all_closest_points : Array[Vector2] = binary_search_to_get_closest_point_to_x( baked_points, delta_b, 0, baked_points.size()-1)
 		current_point = all_closest_points[0]
 		
-		var dddistance = baked_points[0].distance_to( current_point )
-		var other_offset = dddistance / breathline.curve.get_baked_length()
-		
+		var dddistance : float = baked_points[0].distance_to( current_point )
+		var other_offset : float = dddistance / breathline.curve.get_baked_length()
+
 		# Set the car and camera positions.
 		path_follow_2d.progress_ratio     = other_offset
 		camera_path_follow.progress_ratio = other_offset
@@ -331,7 +331,7 @@ func _process(delta):
 		var current_breath_as_float : float = (current_time_in_millis / 1000) / float(total_breath_length)
 		
 		# Working code to time the animations
-		var breath = (current_time_in_millis / 1000) % total_breath_length
+		var breath : float = (current_time_in_millis / 1000) % total_breath_length
 		#print( "b: " + str( breath ) )
 		if breath < breath_length[0]:
 			current_breath = 0
@@ -393,12 +393,12 @@ func euclidean_distance_to_x( path_2d : Path2D, end_point : Vector2 ) -> float:
 		if baked_points[i].x >= end_point.x:
 			point_2 = end_point
 			# Calculate the distance between the two points using the Euclidean distance formula
-			var distance = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
+			var distance : float = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
 			length += distance
 			break
 		else:
 			# Calculate the distance between the two points using the Euclidean distance formula
-			var distance = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
+			var distance : float = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
 			length += distance
 		previous_point = point_2
 
@@ -410,8 +410,8 @@ func animation_breathe_in() -> void:
 	SoundsScene.play_breathe_in()
 	print("breathe in")
 	#animation_breathe.play("breath_in_complete")
-	var tween = get_tree().create_tween()
-	var tween_length = breath_length[0] - 0.2
+	var tween : Tween = get_tree().create_tween()
+	var tween_length : float = breath_length[0] - 0.2
 	tween.set_parallel( true )
 
 	tween.tween_property( world_lighting2, "energy", 0.45, tween_length )
@@ -433,8 +433,8 @@ func animation_breathe_out() -> void:
 	#background.modulate.r = 0.5
 	#background.modulate.g = 0.5
 	print("breathe out")
-	var tween = get_tree().create_tween()
-	var tween_length = breath_length[2] - 0.2
+	var tween : Tween = get_tree().create_tween()
+	var tween_length : float = breath_length[2] - 0.2
 	#tween.tween_property( sun, "modulate", Color(10, 10, 10, 0.100 ), tween_length )
 	tween.set_parallel( true )
 
@@ -456,7 +456,7 @@ func animation_breathe_out() -> void:
 
 # tartget_x is the x offset we are trying to find the closest point for.
 func binary_search_to_get_closest_point_to_x( all_points : PackedVector2Array, target_x : float, index_low : int, index_high : int ) -> Array[Vector2]:
-	var index_middle = index_low + (( index_high - index_low ) / 2)
+	var index_middle : int = index_low + (( index_high - index_low ) / 2)
 
 	if all_points[index_middle].x == target_x:
 		return [ all_points[index_middle] ]
@@ -474,10 +474,10 @@ func binary_search_to_get_closest_point_to_x( all_points : PackedVector2Array, t
 	else:
 		return []
 
-func set_text_breath( text : String ):
+func set_text_breath( text : String ) -> void:
 	text_breath.text = "[center][font_size=30][color=black][b]" + text + "[/b][/color][/font_size][/center]"
 
-func update_cloud_locations( delta : float):
+func update_cloud_locations( delta : float) -> void:
 	for i in range(0, len(all_clouds) ):
 		if all_clouds[i] == null:
 			continue
@@ -493,7 +493,7 @@ func update_cloud_locations( delta : float):
 			clouds_to_remove.append( i )
 
 
-func draw_ground():
+func draw_ground() -> void:
 	var camera_rect : Rect2 = camera_2d.get_viewport_rect()
 	const LINE_WIDTH_MULTIPLIER = 10
 	const LINE_COUNT = 20
@@ -549,15 +549,15 @@ func draw_ground():
 	
 
 	
-func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_road : bool, spawn_amount : int ):
-	var should_spawn = randi_range( 0, spawn_amount )
+func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_road : bool, spawn_amount : int ) -> void:
+	var should_spawn : int = randi_range( 0, spawn_amount )
 	if should_spawn == 1:
 		# get the position to spawn the tree.
 		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
 		current_time_in_millis += 10000 # add a few seconds to spawn trees ahead of time.
 		var position_as_percent : float = float(current_time_in_millis) / float( Globals.total_time_in_millis )
-		var y_offset = 0
-		var x_offset = 0
+		var y_offset : float = 0
+		var x_offset : float = 0
 		
 		if position_as_percent < 1.0:
 			path_follow_for_trees.progress_ratio = position_as_percent
@@ -574,8 +574,8 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 				#y_offset -= abs( randi_range( y_offset, max_y_offset ) )
 				
 				# Instead though, it's better to have clouds appear anywhere, as that stops gaps from showing up.
-				var min_y_offset = camera_2d.get_screen_center_position().y - (camera_rect.size.y)
-				var max_y_offset = camera_2d.get_screen_center_position().y + (camera_rect.size.y / 2)
+				var min_y_offset : float = camera_2d.get_screen_center_position().y - (camera_rect.size.y)
+				var max_y_offset : float = camera_2d.get_screen_center_position().y + (camera_rect.size.y / 2)
 				
 				y_offset = randi_range( min_y_offset, max_y_offset )
 		else:
@@ -596,7 +596,7 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 		
 		
 		
-		var visible_on_screen_notifier = VisibleOnScreenNotifier2D.new()
+		var visible_on_screen_notifier : VisibleOnScreenNotifier2D = VisibleOnScreenNotifier2D.new()
 		visible_on_screen_notifier.position = Vector2( visible_on_screen_notifier.position.x, visible_on_screen_notifier.position.y )
 		visible_on_screen_notifier.has_signal("screen_exited")
 		sprite.add_child( visible_on_screen_notifier )

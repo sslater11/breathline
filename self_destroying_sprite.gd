@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 
-func gone_off_screen():
+func gone_off_screen() -> void:
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

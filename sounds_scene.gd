@@ -43,19 +43,19 @@ func play_breathe_hold() -> void:
 		breathe_hold.play( 0.0 )
 		await fade_out_and_in()
 
-func fade_out_and_in():
+func fade_out_and_in() -> void:
 	await fade_out_music( all_background_music, 0.001, -20.0, 0.1 )
 	await fade_out_music( all_background_music, -20.0, 0.001, 0.1 )
 
 
 
-func stop_background_music():
+func stop_background_music() -> void:
 	is_background_music_allowed_to_play = false
 	for track in all_background_music:
 		track.stop()
 	is_background_music_playing = false
 	
-func start_background_music():
+func start_background_music() -> void:
 	is_background_music_allowed_to_play = true
 	is_background_music_playing = false
 		
@@ -71,13 +71,13 @@ func start_background_music():
 		is_background_music_playing = false
 		
 		
-func pause_background_music():
+func pause_background_music() -> void:
 	all_background_music[ current_track_index ].stream_paused = true
 
-func resume_background_music():
+func resume_background_music() -> void:
 	all_background_music[ current_track_index ].stream_paused = false
 
-func play_pause_toggle_background_music():
+func play_pause_toggle_background_music() -> void:
 	if all_background_music[ current_track_index ].stream_paused:
 		all_background_music[ current_track_index ].stream_paused = false
 	else:
@@ -169,11 +169,11 @@ func is_music_paused() -> bool:
 	#print( "faded out fully" )
 
 	
-func fade_out_music(all_tracks : Array[AudioStreamPlayer], start_volume: float, end_volume: float, duration: float):
+func fade_out_music(all_tracks : Array[AudioStreamPlayer], start_volume: float, end_volume: float, duration: float) -> void:
 	# Set the initial volume
-	var steps = 100 * duration
-	var step_duration = duration / steps
-	var volume_delta = (end_volume - start_volume) / steps
+	var steps : float = 100 * duration
+	var step_duration : float = duration / steps
+	var volume_delta : float = (end_volume - start_volume) / steps
 
 	for i in range(steps):
 		#print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")

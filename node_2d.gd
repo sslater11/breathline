@@ -28,11 +28,11 @@ extends Node2D
 @onready var sun: Sprite2D = $breathline/camera_path_follow/sun
 @onready var moon_glow: Sprite2D = $breathline/camera_path_follow/moon_glow
 @onready var text_breath: RichTextLabel = $breathline/camera_path_follow/cloud_for_text/text_breath
-@onready var deleteme_testing: Path2D = $breathline/camera_path_follow/Camera2D/deleteme_testing
 @onready var bunny: Node = $bunny
 @onready var shit_spray_particles: CPUParticles2D = $bunny/shit_spray_particles
 @onready var celebration: Node2D = $breathline/camera_path_follow/Celebration
 @onready var headlight_sprite: Sprite2D = $breathline/PathFollow2D/car/headlight_sprite
+@onready var line_road_marking: Line2D = $line_road_marking
 
 const all_tree_textures : Array[Texture2D] = [
 	preload( "res://assets/tree0.png" ),
@@ -91,43 +91,6 @@ func set_color() -> void:
 		animation_change_color.play("color_blue")
 	is_blue = not is_blue
 
-# ChatGPT figured this confusing one out!
-# Function to get the percentage of the distance along the path for a given x
-func get_percentage_at_x(x: float) -> float:
-	var curve : Curve2D = breathline.curve
-	var total_length : float = breathline.curve.get_baked_length()
-
-	# Get the number of points in the curve
-	var point_count : int = curve.get_point_count()
-
-	# Initialize distance from the start
-	var distance_from_start : float = 0.0
-
-	for i in range(point_count - 1):
-		var p0 : Vector2 = curve.get_point_position(i)
-		var p1 : Vector2 = curve.get_point_position(i + 1)
-		
-		# Check if x is between the x-coordinates of the current segment
-		if ( (p0.x <= x) and ( x <= p1.x) ) or ( (p1.x <= x) and (x <= p0.x) ):
-			pass
-			#print("vvvvvvvvvvvvvvvvvvvvv")
-			# Perform linear interpolation to find the corresponding y
-			var t : float = (x - p0.x) / (p1.x - p0.x)
-			var y : float = p0.y + (p1.y - p0.y) * t
-			
-			# Calculate the distance from the start to the point (x, y)
-			distance_from_start += p0.distance_to(Vector2(x, y))
-			break
-		else:
-			#print("vvvvvvnnnnnnnnnnnnnnnnnnnnnn")
-			# Add the distance of the current segment to the total distance
-			distance_from_start += p0.distance_to(p1)
-			
-	# Calculate the percentage of the distance from the start
-	var percentage : float = (distance_from_start / total_length)
-	#print("fffffffffffffffffff: percentage: " + str( percentage ) )
-	return percentage
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
@@ -151,12 +114,6 @@ func _ready() -> void:
 	Globals.start_time_in_millis = Time.get_ticks_msec()
 	#Globals.start_time_in_millis -= 4.75 * 60 * 1000 # make it start a bit later
 	
-	#breathline.curve.clear_points()
-	#breathline.curve.add_point( Vector2( 300, 500 ), Vector2(0,0), Vector2(0,0), 0 )
-	#breathline.curve.add_point( Vector2( 0, 400 ), Vector2(0,0), Vector2(0,0), 0 )
-	#breathline.curve.add_point( Vector2( 0, 500 ), Vector2(0,0), Vector2(0,0), 0 )
-	#breathline.curve.add_point( Vector2( 0, 400 ), Vector2(0,0), Vector2(0,0), 0 )
-	
 	# Make sure both the sprite and path have the same position in
 	# the properties setting as this makes the sprite follow the line properly.
 	breathline.curve.clear_points()
@@ -174,7 +131,6 @@ func _ready() -> void:
 	# Starting point
 	if breathline.curve.point_count == 0:
 		breathline.curve.add_point( Vector2( START_X, START_Y ) )
-		#print( "start_x: " + str(START_X) + "\tstart_y: " + str(START_Y) )
 	
 	for k in range( Globals.total_breath_rounds ):
 		print(Globals.total_breath_rounds)
@@ -182,15 +138,8 @@ func _ready() -> void:
 			var last_x : float = breathline.curve.get_point_position( breathline.curve.point_count - 1 ).x
 			var last_y : float = breathline.curve.get_point_position( breathline.curve.point_count - 1 ).y
 
-			#var new_x : float = 0.0
-			#var new_y : float = 0.0
-
 			var new_x : float = last_x + ( breath_length[ i ] * LINE_LENGTH_FOR_ONE_SECOND )
 			var new_y : float = last_y
-			
-			#print( "l_x: " + str(last_x) + "\tl_y: " + str(last_y) )
-			#print( breathline.curve.get_point_position( i ) )
-
 			
 			if i % 2 == 1:
 				new_y = last_y
@@ -199,7 +148,6 @@ func _ready() -> void:
 				bend_out = bend_down_out
 				
 			else:
-				
 				bend_in  = bend_down_in
 				bend_out = bend_down_out
 				
@@ -211,18 +159,8 @@ func _ready() -> void:
 					#bend = bend_down
 
 			breathline.curve.add_point( Vector2( new_x, new_y ), bend_in, bend_out )
-			print("ffffaaaaa: " + str( Vector2( new_x, new_y) ) )
-			#breathline.curve.add_point( Vector2( new_x, new_y ), Vector2(0.0,0.0), Vector2(0.0,0.0) )
-			
-			#print( "new_x: " + str(new_x) + "\tnew_y: " + str(new_y) )
-			
-			#print( breathline.curve.get_baked_points() )
-	
-	# add an extra point at the end of the line in hopes it'll move the car further.
-	#var last_point = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() -1 ]
-	#var last_vector = Vector2( last_point.x +1000, last_point.y )
-	#breathline.curve.add_point( last_vector, bend_in, bend_out )
-	
+
+	line_road_marking.draw_breathline()
 	line_particles.emission_points = breathline.curve.get_baked_points()
 	draw_ground()
 	
@@ -236,7 +174,6 @@ func _process(delta : float) -> void:
 		animation_breathe_in()
 	if Input.is_key_pressed(KEY_F):
 		if Globals.are_fireworks_on == false:
-			print("fffffffffffffff ye")
 			celebration.visible = true
 			#animation_breathe.play("fireworks")
 		Globals.are_fireworks_on = true
@@ -280,59 +217,25 @@ func _process(delta : float) -> void:
 		var total_breath_length : int = 0
 		for i in breath_length:
 			total_breath_length += i
-		
-		
-		
-		# Trying different maths to calculate location on the line.
-		
-		# Formula to calculate the location of the car by the current time.
-		#a = total_time_in_millis
-		#b = line_length
-		#t = current_time_in_millis
-		#     ~
-		#    / \
-		#   / a \
-		#  /-----\
-		# / b * t \
-		#/_________\
-		# Get our position along the line in pixels.
-		# (a / b) * t
-		# TODO BUG:
-		# Not sure why, but the car stops moving just before it gets to the end of the line.
-		# The distance_to() method seems to only count the distance by the x, meaning it forgets the y coordinates
-		# get_baked_length() seems to get the length with the x and y accounted for.
-		# yet, doing division of these 2 different numbers seems to put the car perfectly in time with the breaths.
-		# It just refuses to go up to 100% of the line's length.
-		# Tried a few different things, but nothing works!!!!!!!!!!q
-		
-		var delta_b : float = (breathline.curve.get_baked_length() / Globals.total_time_in_millis) * current_time_in_millis
-		delta_b += breathline.curve.get_baked_points()[0].x
 
-		# Find the point that is closest to the current x location on the line.
-		var baked_points : PackedVector2Array = breathline.curve.get_baked_points()
-		var current_point : Vector2 = Vector2( 0.0, 0.0 )
-		
-		var all_closest_points : Array[Vector2] = binary_search_to_get_closest_point_to_x( baked_points, delta_b, 0, baked_points.size()-1)
-		current_point = all_closest_points[0]
-		
-		var dddistance : float = baked_points[0].distance_to( current_point )
-		var other_offset : float = dddistance / breathline.curve.get_baked_length()
+		var car_progress = float(current_time_in_millis) / float(Globals.total_time_in_millis)
 
+		if car_progress > 1.0:
+			car_progress = 1.0
 		# Set the car and camera positions.
-		path_follow_2d.progress_ratio     = other_offset
-		camera_path_follow.progress_ratio = other_offset
+		path_follow_2d.progress_ratio     = car_progress
+		camera_path_follow.progress_ratio = car_progress
 		
 
-
-
-		# Split the line into breaths
+		# Animation for each breath.
+		# Calculate the current breath.
 		# Get the current breath in time as a float
 		# Convert the float to a number from 0.0 - 1.0
 		var current_breath_as_float : float = (current_time_in_millis / 1000) / float(total_breath_length)
 		
 		# Working code to time the animations
 		var breath : float = (current_time_in_millis / 1000) % total_breath_length
-		#print( "b: " + str( breath ) )
+
 		if breath < breath_length[0]:
 			current_breath = 0
 		elif breath < breath_length[0] + breath_length[1]:
@@ -343,14 +246,7 @@ func _process(delta : float) -> void:
 			current_breath = 3
 		
 		
-		
 		if current_breath != last_breath:
-			#print()
-			#print( "breath: " + str( breath ) )
-			#print( "current_breath: " + str( current_breath ) )
-			#print()
-
-			#print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
 			last_breath = current_breath
 			if current_breath % 4 == 0:
 				animation_breathe_in()
@@ -360,7 +256,6 @@ func _process(delta : float) -> void:
 				print("hold after breath in")
 				SoundsScene.play_breathe_hold()
 
-
 			if current_breath % 4 == 2:
 				animation_breathe_out()
 
@@ -368,41 +263,12 @@ func _process(delta : float) -> void:
 				set_text_breath("HOLD")
 				SoundsScene.play_breathe_hold()
 				print("hold after breath out")
-		
+
 		spawn_texture_randomly( all_tree_textures, true, 5 )
 		spawn_texture_randomly( all_cloud_textures, false, 25 )
 		#remove_old_trees()
 		update_cloud_locations( delta )
 		#remove_old_clouds()
-
-# Calculate the distance to a point along the x axis,
-# whilst taking into account the distance traveled along the y axis.
-# This can only calculate the distance for lines in one direction, not loops or steps backwards.
-# If the exact x co-ordinate is not found, it will look to find the closes point and calculate the distance from that point to the end point passed.
-func euclidean_distance_to_x( path_2d : Path2D, end_point : Vector2 ) -> float:
-	var length : float = 0.0
-	var baked_points : PackedVector2Array = path_2d.curve.get_baked_points()
-	if len( baked_points ) == 0:
-		return 0.0
-		
-	var previous_point : Vector2 = baked_points[0]
-	for i in range( len( baked_points ) ):
-		var point_1 : Vector2 = previous_point
-		var point_2 : Vector2 = baked_points[ i ]
-		
-		if baked_points[i].x >= end_point.x:
-			point_2 = end_point
-			# Calculate the distance between the two points using the Euclidean distance formula
-			var distance : float = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
-			length += distance
-			break
-		else:
-			# Calculate the distance between the two points using the Euclidean distance formula
-			var distance : float = ( abs(point_2.x - point_1.x) ** 2 + abs(point_2.y - point_1.y) ** 2 ) ** 0.5
-			length += distance
-		previous_point = point_2
-
-	return length
 
 
 func animation_breathe_in() -> void:
@@ -452,28 +318,7 @@ func animation_breathe_out() -> void:
 	tween.tween_property( brakelights, "energy", 75, tween_length / 2.0 )
 
 	tween.tween_property( headlight_beam, "energy", 2.5, tween_length )
-
-
-# tartget_x is the x offset we are trying to find the closest point for.
-func binary_search_to_get_closest_point_to_x( all_points : PackedVector2Array, target_x : float, index_low : int, index_high : int ) -> Array[Vector2]:
-	var index_middle : int = index_low + (( index_high - index_low ) / 2)
-
-	if all_points[index_middle].x == target_x:
-		return [ all_points[index_middle] ]
 	
-	if index_low == index_high:
-		return[ all_points[index_low] ]
-	
-	if index_low == (index_high - 1):
-		return[ all_points[ index_low ], all_points[ index_low ] ]
-	
-	if all_points[ index_middle ].x <= target_x:
-		return binary_search_to_get_closest_point_to_x( all_points, target_x, index_middle, index_high   )
-	elif all_points[ index_middle].x >= target_x:
-		return binary_search_to_get_closest_point_to_x( all_points, target_x, index_low   , index_middle )
-	else:
-		return []
-
 func set_text_breath( text : String ) -> void:
 	text_breath.text = "[center][font_size=30][color=black][b]" + text + "[/b][/color][/font_size][/center]"
 

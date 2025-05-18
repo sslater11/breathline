@@ -1,5 +1,3 @@
-Need to prepopulate the scene with trees on start
-
 add a finishline to the game
 or a house/garage the car drives in to
 

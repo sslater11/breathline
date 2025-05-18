@@ -55,6 +55,7 @@ const LINE_LENGTH_FOR_ONE_SECOND = 200
 const START_X : float = 400.0
 const START_Y : float = 800.0
 const BEND_MULTIPLIER : float = 1.75
+const SPAWN_TIME_OFFSET_IN_MILLIS : int = 10000 #  Add a few seconds to spawn trees/clouds ahead of time.
 
 const DARK_SKY  : Color = Color(0.011, 0.244, 0.264) # Really Dark
 #const DARK_SKY  : Color = Color(0.055, 0.564, 0.604) # Little bit dark
@@ -161,6 +162,11 @@ func _ready() -> void:
 	line_particles.emission_points = breathline.curve.get_baked_points()
 	draw_ground()
 	
+	for i in range( SPAWN_TIME_OFFSET_IN_MILLIS / 20 ):
+		var position_on_line : float = float(i) / float( SPAWN_TIME_OFFSET_IN_MILLIS )
+		spawn_texture_randomly( all_tree_textures, true, position_on_line, 5 )
+		spawn_texture_randomly( all_cloud_textures, false, position_on_line, 25 )
+
 	# Move bunny to the end of the line.
 	#var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
 	#bunny.position = Vector2( last_point.x-140, last_point.y -200)
@@ -260,12 +266,11 @@ func _process(delta : float) -> void:
 				SoundsScene.play_breathe_hold()
 				print("hold after breath out")
 
-		spawn_texture_randomly( all_tree_textures, true, 5 )
-		spawn_texture_randomly( all_cloud_textures, false, 25 )
-		#remove_old_trees()
-		update_cloud_locations( delta )
-		#remove_old_clouds()
+		var spawn_position_as_percent : float = float(current_time_in_millis + SPAWN_TIME_OFFSET_IN_MILLIS) / float( Globals.total_time_in_millis )
 
+		spawn_texture_randomly( all_tree_textures, true, spawn_position_as_percent, 5 )
+		spawn_texture_randomly( all_cloud_textures, false, spawn_position_as_percent, 25 )
+		update_cloud_locations( delta )
 
 func animation_breathe_in() -> void:
 	set_text_breath("IN")
@@ -385,13 +390,9 @@ func draw_ground() -> void:
 		add_child( line )
 
 
-func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_road : bool, spawn_amount : int ) -> void:
+func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_road : bool, position_as_percent : float, spawn_amount : int ) -> void:
 	var should_spawn : int = randi_range( 0, spawn_amount )
 	if should_spawn == 1:
-		# get the position to spawn the tree.
-		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
-		current_time_in_millis += 10000 # add a few seconds to spawn trees ahead of time.
-		var position_as_percent : float = float(current_time_in_millis) / float( Globals.total_time_in_millis )
 		var y_offset : float = 0
 		var x_offset : float = 0
 		

@@ -5,6 +5,7 @@ extends Node2D
 @onready var voice_on_off: Button = $voice_on_off
 @onready var countdown: RichTextLabel = $countdown
 
+var show_countup : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,19 +16,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	update_music_on_off_icon()
-
-	if Globals.is_playing:
-		# update the countdown timer.
-		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
-		var time_left : int = Globals.total_time_in_millis - current_time_in_millis
-		var minutes : int = abs( time_left / 1000 / 60 )
-		var seconds : int = abs( (time_left / 1000) - (minutes * 60) )
-		var seconds_str : String = ""
-		if seconds < 10:
-			seconds_str = "0" + str(seconds)
-		else:
-			seconds_str = str(seconds)
-		countdown.text = "[font_size=150][color=black]" + str(minutes) + ":" + seconds_str + "[/color][/font_size]"
 
 
 func _on_reset_button_pressed() -> void:
@@ -41,8 +29,6 @@ func _on_reset_button_pressed() -> void:
 			SoundsScene.resume_background_music()
 
 
-
-
 func _on_play_pause_pressed() -> void:
 	if not Globals.is_start_button_visible:
 		if Globals.is_playing:
@@ -51,18 +37,10 @@ func _on_play_pause_pressed() -> void:
 			SoundsScene.pause_background_music()
 		else:
 			Globals.is_playing = true
-			print("ccccccccccccccccc: pause: " + str(Globals.paused_time_in_millis))
-			
-			print("ccccccccccccccccc: start: " + str(Globals.start_time_in_millis))
-			
 			var current_time_in_millis : int = Time.get_ticks_msec()
 			
 			var time_diff : int = Time.get_ticks_msec() - Globals.paused_time_in_millis
 			Globals.start_time_in_millis += time_diff
-			
-			print("ccccccccccccccccc: diff : " + str(time_diff))
-			print("ccccccccccccccccc: start: " + str(Globals.start_time_in_millis) + " new")
-			print("ccccccccccccccccc: " )
 			
 			SoundsScene.resume_background_music()
 		update_play_pause_icon()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4kt580jgclxf"]
+[gd_scene load_steps=9 format=3 uid="uid://b4kt580jgclxf"]
 
 [ext_resource type="Script" uid="uid://dq6n5ktqivcg6" path="res://all_buttons.gd" id="1_eqcxi"]
 [ext_resource type="Texture2D" uid="uid://dmtffhy0ymbd4" path="res://assets/restart.png" id="2_ycagm"]
 [ext_resource type="Texture2D" uid="uid://dki6usqo5mwxk" path="res://assets/play.png" id="3_2x4nk"]
 [ext_resource type="Texture2D" uid="uid://5dj7du15eryn" path="res://assets/music_on.png" id="4_twshn"]
 [ext_resource type="Texture2D" uid="uid://cbvhybhcu8tya" path="res://assets/voice_on.png" id="5_qtmb7"]
+[ext_resource type="Script" uid="uid://djmo3kaiuh7hh" path="res://countdown.gd" id="6_175rw"]
 
 [sub_resource type="Gradient" id="Gradient_2jpk7"]
 colors = PackedColorArray(0.404, 0.937, 0.988, 0.5, 0.404, 0.937, 0.988, 0.5)
@@ -16,8 +17,8 @@ gradient = SubResource("Gradient_2jpk7")
 script = ExtResource("1_eqcxi")
 
 [node name="background" type="Sprite2D" parent="."]
-position = Vector2(566.5, 81.5)
-scale = Vector2(4.5, 215)
+position = Vector2(575.25, 81.5)
+scale = Vector2(4.56836, 215)
 texture = SubResource("GradientTexture1D_it0u1")
 
 [node name="reset" type="Button" parent="."]
@@ -64,14 +65,17 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 
 [node name="countdown" type="RichTextLabel" parent="."]
-offset_left = 828.0
+offset_left = 736.0
 offset_top = -28.0
-offset_right = 1187.0
+offset_right = 1152.0
 offset_bottom = 177.0
 bbcode_enabled = true
-text = "[font_size=150][color=black][/color][/font_size]"
+text = "[font_size=150]58:88[color=black][/color][/font_size]"
 fit_content = true
 scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_175rw")
 
 [connection signal="pressed" from="reset" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="play_pause" to="." method="_on_play_pause_pressed"]

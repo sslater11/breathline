@@ -54,8 +54,7 @@ const LINE_HEIGHT  = 400
 const LINE_LENGTH_FOR_ONE_SECOND = 200
 const START_X : float = 400.0
 const START_Y : float = 800.0
-const BEND_MULTIPLIER : float = 1.0
-
+const BEND_MULTIPLIER : float = 1.75
 
 const DARK_SKY  : Color = Color(0.011, 0.244, 0.264) # Really Dark
 #const DARK_SKY  : Color = Color(0.055, 0.564, 0.604) # Little bit dark
@@ -112,21 +111,15 @@ func _ready() -> void:
 	shit_everywhere_particles.emitting = false
 
 	Globals.start_time_in_millis = Time.get_ticks_msec()
-	#Globals.start_time_in_millis -= 4.75 * 60 * 1000 # make it start a bit later
+	#Globals.start_time_in_millis -= 4.85 * 60 * 1000 # make it start a bit later
 	
 	# Make sure both the sprite and path have the same position in
 	# the properties setting as this makes the sprite follow the line properly.
 	breathline.curve.clear_points()
-
+	
 	var bend_size : float = float( LINE_LENGTH_FOR_ONE_SECOND ) * BEND_MULTIPLIER
-	var bend_up_in    : Vector2 = Vector2(  bend_size, 0.0 )
-	var bend_up_out   : Vector2 = Vector2( -bend_size, 0.0 )
-	
-	var bend_down_in  : Vector2 = Vector2( -bend_size, 0.0 )
-	var bend_down_out : Vector2 = Vector2(  bend_size, 0.0 )
-	
-	var bend_in       : Vector2 = Vector2(    0.0, 0.0 )
-	var bend_out      : Vector2 = Vector2(    0.0, 0.0 )
+	var bend_in  : Vector2 = Vector2( 0, 0 )
+	var bend_out : Vector2 = Vector2( 0, 0 )
 
 	# Starting point
 	if breathline.curve.point_count == 0:
@@ -143,20 +136,24 @@ func _ready() -> void:
 			
 			if i % 2 == 1:
 				new_y = last_y
-				#bend = bend_up
-				bend_in  = bend_down_in
-				bend_out = bend_down_out
-				
 			else:
-				bend_in  = bend_down_in
-				bend_out = bend_down_out
-				
 				if last_y < START_Y:
 					new_y += LINE_HEIGHT
-
 				else:
 					new_y -= LINE_HEIGHT
-					#bend = bend_down
+
+			if i % 4 == 0:
+				bend_in  = Vector2( -bend_size, 0 )
+				bend_out = Vector2( bend_size, -0 )
+			elif i % 4 == 1:
+				bend_in  = Vector2( -bend_size, 0 )
+				bend_out = Vector2( bend_size, 0 )
+			elif i % 4 == 2:
+				bend_in  = Vector2( -bend_size, 0 )
+				bend_out = Vector2( bend_size, 0 )
+			elif i % 4 == 1:
+				bend_in  = Vector2( -bend_size, 0 )
+				bend_out = Vector2( bend_size, 0 )
 
 			breathline.curve.add_point( Vector2( new_x, new_y ), bend_in, bend_out )
 
@@ -340,19 +337,20 @@ func update_cloud_locations( delta : float) -> void:
 
 func draw_ground() -> void:
 	var camera_rect : Rect2 = camera_2d.get_viewport_rect()
-	const LINE_WIDTH_MULTIPLIER = 10
-	const LINE_COUNT = 20
+	const LINE_COUNT = 30
 	const GROUND_COLOR : Color = Color( 0.5, 0.0, 0.0 )
+	var y_offset = line_road_marking.width * 3
 	
-	# draw the ground before the breathline
+	# Draw the ground before the breathline starts.
 	for i in range(0, LINE_COUNT ):
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
-		line.width = line.width * LINE_WIDTH_MULTIPLIER
+		line.width = line_road_marking.width
 		line.default_color = GROUND_COLOR
 		
 		var breathline_starting_point : Vector2 = breathline.curve.get_baked_points()[0]
-		breathline_starting_point.y = breathline_starting_point.y + (i * (line.width/2) + line.width)
+		breathline_starting_point.x += 5 # padding to avoid a gap showing.
+		breathline_starting_point.y = breathline_starting_point.y + (i * line.width) + y_offset
 		var starting_point : Vector2 = Vector2( breathline_starting_point.x - camera_rect.size.x, breathline_starting_point.y )
 		line.add_point( starting_point )
 		line.add_point( breathline_starting_point )
@@ -360,40 +358,34 @@ func draw_ground() -> void:
 		#all_ground_lines.append(line)
 		add_child( line )
 
-	
+
 	# Draw the ground for the main breathline
 	#var all_ground_lines : Array[ Line2D ] = []
 	for i in range(0, LINE_COUNT ):
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
-		line.width = line.width * LINE_WIDTH_MULTIPLIER
+		line.width = line_road_marking.width
 		line.default_color = GROUND_COLOR
 		for k in breathline.curve.get_baked_points():
-			line.add_point( Vector2( k.x, k.y + (i * (line.width/2) ) + (line.width) ) )
-			#line.add_point( Vector2( k.x, k.y + 500 ) )
-		#all_ground_lines.append(line)
+			line.add_point( Vector2( k.x, k.y + (i * (line.width) + y_offset) ) )
 		add_child( line )
 		
 		
-	# draw the after before the breathline
+	# Draw the ground after the breathline has finished.
 	for i in range(0, LINE_COUNT ):
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
-		line.width = line.width * LINE_WIDTH_MULTIPLIER
-		line.default_color = GROUND_COLOR
+		line.width = line_road_marking.width
+		line.default_color = Color.AQUA
 		
 		var breathline_ending_point : Vector2 = breathline.curve.get_baked_points()[ len(breathline.curve.get_baked_points()) -1 ]
-		breathline_ending_point.y = breathline_ending_point.y + (i * (line.width/2) + line.width)
+		breathline_ending_point.y = breathline_ending_point.y + (i * line.width) + y_offset
 		var ending_point : Vector2 = Vector2( breathline_ending_point.x + camera_rect.size.x, breathline_ending_point.y )
 		line.add_point( ending_point )
 		line.add_point( breathline_ending_point )
-			#line.add_point( Vector2( k.x, k.y + 500 ) )
-		#all_ground_lines.append(line)
 		add_child( line )
 
-	
 
-	
 func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_road : bool, spawn_amount : int ) -> void:
 	var should_spawn : int = randi_range( 0, spawn_amount )
 	if should_spawn == 1:

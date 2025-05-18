@@ -1,8 +1,5 @@
 Need to prepopulate the scene with trees on start
 
-Make the level start look better.
-	Preload trees and clouds on level start.
-
 add a finishline to the game
 or a house/garage the car drives in to
 

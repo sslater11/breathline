@@ -414,11 +414,7 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 				y_offset += randi_range( 0, get_viewport().get_camera_2d().global_position.y )
 
 			else:
-				# Working, this draws clouds above the path.
-				#var max_y_offset = y_offset - camera_rect.size.y
-				#y_offset -= abs( randi_range( y_offset, max_y_offset ) )
-				
-				# Instead though, it's better to have clouds appear anywhere, as that stops gaps from showing up.
+				# Draw clouds anywhere on the background.
 				var min_y_offset : float = camera_2d.get_screen_center_position().y - (camera_rect.size.y)
 				var max_y_offset : float = camera_2d.get_screen_center_position().y + (camera_rect.size.y / 2)
 				
@@ -430,25 +426,12 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 			else:
 				y_offset -= randi_range( 0, 200 )
 
-		
-		#var sprite : Sprite2D = Sprite2D.new()
 		var sprite : SelfDestroyingSprite = SelfDestroyingSprite.new()
 		sprite.centered = false
 		sprite.texture = all_sprite_textures[ randi_range(0, len(all_sprite_textures)-1 ) ]
 		sprite.position = Vector2( x_offset + randi_range( 0,50 ), y_offset )
 		var sprite_scale : float = randf_range( 0.5, 1.0 )
 		sprite.scale = Vector2( sprite_scale, sprite_scale )
-		
-		
-		
-		var visible_on_screen_notifier : VisibleOnScreenNotifier2D = VisibleOnScreenNotifier2D.new()
-		visible_on_screen_notifier.position = Vector2( visible_on_screen_notifier.position.x, visible_on_screen_notifier.position.y )
-		visible_on_screen_notifier.has_signal("screen_exited")
-		sprite.add_child( visible_on_screen_notifier )
-
-		
-		
-		
 		
 		add_child( sprite )
 		if is_below_road:
@@ -459,9 +442,3 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 			sprite.z_index = -1000 + y_offset # make it less, so the car and ground can appear in front of the clouds.
 
 			all_clouds.append( sprite )
-	
-
-	# Find the current position
-	# add 10 seconds to the position.
-	# If the position doesn't exit(out of bounds)
-	#		then just use the last y coordinates

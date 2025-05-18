@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bikbqdev5c825"]
+[gd_scene load_steps=59 format=3 uid="uid://bikbqdev5c825"]
 
 [ext_resource type="Script" uid="uid://c1vtd17mqywml" path="res://node_2d.gd" id="1_g6fdy"]
 [ext_resource type="Texture2D" uid="uid://cdncv2sxb7xg0" path="res://icon.svg" id="2_bvv4u"]
@@ -163,44 +163,6 @@ shader_parameter/glow_strength = 0.0
 [sub_resource type="Gradient" id="Gradient_t30ig"]
 offsets = PackedFloat32Array(0, 0.518519, 0.598765, 0.666667, 1)
 colors = PackedColorArray(0.52139, 0.191335, 0.0141775, 0.25641, 0.615946, 0.238588, 0.0829028, 1, 0.177, 0.428, 0, 1, 0.50621, 0.285941, 0.0621773, 1, 0.537255, 0.2, 0.027451, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q4nls"]
-
-[sub_resource type="Animation" id="Animation_p3o4c"]
-resource_name = "color_blue"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_ex3kc"]
-resource_name = "color_red"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7su4o"]
-_data = {
-&"color_blue": SubResource("Animation_p3o4c"),
-&"color_red": SubResource("Animation_ex3kc")
-}
 
 [sub_resource type="Animation" id="Animation_e5dgk"]
 length = 0.001
@@ -548,7 +510,7 @@ zoom = Vector2(0.55, 0.55)
 [node name="background" type="Sprite2D" parent="breathline/camera_path_follow"]
 modulate = Color(0.402557, 0.938194, 0.988738, 1)
 z_index = -4096
-position = Vector2(19.9492, 51.835)
+position = Vector2(57.0449, -37.0507)
 rotation = -0.872665
 scale = Vector2(10.9812, 2259.45)
 texture = SubResource("GradientTexture1D_1w4af")
@@ -893,21 +855,6 @@ rotation = 0.87236
 position = Vector2(-835, 26.5)
 scale = Vector2(0.796875, 0.476562)
 texture = ExtResource("2_bvv4u")
-
-[node name="Icon2" type="Sprite2D" parent="."]
-visible = false
-modulate = Color(0, 1, 1, 1)
-z_index = -100
-material = SubResource("ShaderMaterial_q4nls")
-position = Vector2(534, 265)
-scale = Vector2(7.40625, 4.46875)
-texture = ExtResource("2_bvv4u")
-
-[node name="animation_change_color" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Icon2")
-libraries = {
-&"": SubResource("AnimationLibrary_7su4o")
-}
 
 [node name="animation_breathe" type="AnimationPlayer" parent="."]
 libraries = {

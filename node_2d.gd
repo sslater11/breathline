@@ -21,7 +21,6 @@ extends Node2D
 @onready var path_follow_for_trees: PathFollow2D = $breathline/path_follow_for_trees
 @onready var camera_path_follow: PathFollow2D = $breathline/camera_path_follow
 @onready var icon: Sprite2D = $Icon
-@onready var animation_change_color: AnimationPlayer = $animation_change_color
 @onready var line_particles: CPUParticles2D = $breathline/line_particles
 @onready var background_sprite : Sprite2D = $breathline/camera_path_follow/background
 @onready var animation_breathe: AnimationPlayer = $animation_breathe
@@ -83,13 +82,6 @@ var is_blue : bool = false
 var has_shit_spray_played : bool = false
 
 var last_breath : int = 0
-
-func set_color() -> void:
-	if is_blue:
-		animation_change_color.play("color_red")
-	else:
-		animation_change_color.play("color_blue")
-	is_blue = not is_blue
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

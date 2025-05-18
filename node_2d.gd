@@ -204,7 +204,6 @@ func _process(delta : float) -> void:
 	if Globals.is_playing:
 		if (car.visible == false) and (toilet.visible == false):
 			car.visible = true
-			car_trail_particles.emitting = true
 
 		car.z_index = car.global_position.y - 150
 		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
@@ -372,7 +371,7 @@ func draw_ground() -> void:
 		
 		
 	# Draw the ground after the breathline has finished.
-	for i in range(0, LINE_COUNT ):
+	for i in range( 0, LINE_COUNT ):
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
 		line.width = line_road_marking.width

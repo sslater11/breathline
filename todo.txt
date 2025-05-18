@@ -1,7 +1,3 @@
-Make the Line2D a Curve2D, and add control points to bend the lines to make the car go up and down in a smoother manner.
-
-Music stops playing for some reason. Make it continuous.
-
 Need to prepopulate the scene with trees on start
 
 Make the level start look better.

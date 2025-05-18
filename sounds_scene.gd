@@ -21,33 +21,32 @@ func _ready() -> void:
 	randomize()
 	all_background_music = [ kirks_song_1, kirks_song_2, kirks_song_3 ]
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#if is_background_music_allowed_to_play:
-		#start_background_music()
-	pass
+	if is_background_music_allowed_to_play and (is_background_music_playing == false):
+		start_background_music()
 
 func play_breathe_in() -> void:
 	if is_voice_enabled:
-		breathe_in.play( 0.0 )
-		await fade_out_and_in()
-	
+		await fade_background_music_out_and_in( breathe_in )
+
 func play_breathe_out() -> void:
 	if is_voice_enabled:
-		breathe_out.play( 0.0 )
-		await fade_out_and_in()
+		await fade_background_music_out_and_in( breathe_out )
 
 func play_breathe_hold() -> void:
 	if is_voice_enabled:
-		breathe_hold.play( 0.0 )
-		await fade_out_and_in()
+		await fade_background_music_out_and_in( breathe_hold )
 
-func fade_out_and_in() -> void:
-	await fade_out_music( all_background_music, 0.001, -20.0, 0.1 )
-	await fade_out_music( all_background_music, -20.0, 0.001, 0.1 )
-
-
+# Fades the background music out, plays a track, then fades it back to it's original value.
+func fade_background_music_out_and_in( track : AudioStreamPlayer ) -> void:
+	if is_background_music_playing:
+		await fade_out_music( all_background_music, 0.001, -10.0, 0.1 )
+		track.play( 0.0 )
+		await track.finished
+		await fade_out_music( all_background_music, -10.0, 0.001, 0.1 )
+	else:
+		track.play( 0.0 )
 
 func stop_background_music() -> void:
 	is_background_music_allowed_to_play = false
@@ -56,8 +55,8 @@ func stop_background_music() -> void:
 	is_background_music_playing = false
 	
 func start_background_music() -> void:
+	is_background_music_playing = true
 	is_background_music_allowed_to_play = true
-	is_background_music_playing = false
 		
 	if len( all_background_music ) > 0:
 		current_track_index = randi() % len( all_background_music )

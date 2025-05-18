@@ -427,10 +427,10 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 		
 		add_child( sprite )
 		if is_below_road:
-			sprite.z_index = y_offset
+			sprite.z_index = y_offset + (sprite.texture.get_height() * sprite.scale.y)
 
 			all_trees.append( sprite )
 		else:
-			sprite.z_index = -1000 + y_offset # make it less, so the car and ground can appear in front of the clouds.
+			sprite.z_index = -1500 + y_offset + (sprite.texture.get_height() * sprite.scale.y)# make it less, so the car and ground can appear in front of the clouds.
 
 			all_clouds.append( sprite )

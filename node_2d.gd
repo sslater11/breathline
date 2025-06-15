@@ -189,21 +189,6 @@ func _process(delta : float) -> void:
 			celebration.visible = true
 			#animation_breathe.play("fireworks")
 		Globals.are_fireworks_on = true
-		
-	if Input.is_action_just_pressed("ui_accept"):
-		camera_2d.zoom = Vector2( camera_2d.zoom.x*0.5, camera_2d.zoom.y*0.5 )
-		if car.visible == true:
-			car.visible = false
-			car_trail_particles.emitting = false
-			
-			toilet.visible = true
-			toilet_trail_particles.emitting = true
-		else:
-			car.visible = true
-			car_trail_particles.emitting = true
-			
-			toilet.visible = false
-			toilet_trail_particles.emitting = false
 
 
 	if car.global_position.x > breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() -1 ].x - 500:

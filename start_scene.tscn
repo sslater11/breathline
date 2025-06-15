@@ -1059,7 +1059,7 @@ texture = ExtResource("14_g2vcy")
 
 [node name="tree_4" type="Sprite2D" parent="trees_more"]
 light_mask = 0
-position = Vector2(564, 411)
+position = Vector2(564, 462)
 texture = ExtResource("15_brwyq")
 
 [node name="Node2D" type="Node2D" parent="."]

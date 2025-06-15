@@ -1333,7 +1333,6 @@ fit_content = true
 scroll_active = false
 
 [node name="AllButtons" parent="breathline/camera_path_follow" instance=ExtResource("14_ro3g8")]
-visible = false
 light_mask = 4
 z_index = 2100
 position = Vector2(-1143.81, 379.415)

@@ -33,20 +33,15 @@ extends Node2D
 @onready var headlight_sprite: Sprite2D = $breathline/PathFollow2D/car/headlight_sprite
 @onready var line_road_marking: Line2D = $line_road_marking
 
-const all_tree_textures : Array[Texture2D] = [
-	preload( "res://assets/tree0.png" ),
-	preload( "res://assets/tree1.png" ),
-	preload( "res://assets/tree2.png" ),
-	preload( "res://assets/tree3.png" ),
-]
+@onready var tree_0: AnimatedSprite2D = $tree0
+@onready var tree_1: AnimatedSprite2D = $tree1
+@onready var tree_2: AnimatedSprite2D = $tree2
+@onready var tree_3: AnimatedSprite2D = $tree3
 
-const all_cloud_textures : Array[Texture2D] = [
-	preload( "res://assets/cloud0.png" ),
-	preload( "res://assets/cloud1.png" ),
-	preload( "res://assets/cloud2.png" ),
-	preload( "res://assets/cloud3.png" ),
-	preload( "res://assets/cloud4.png" ),
-]
+@onready var cloud_0: AnimatedSprite2D = $cloud0
+@onready var cloud_1: AnimatedSprite2D = $cloud1
+@onready var cloud_2: AnimatedSprite2D = $cloud2
+@onready var cloud_3: AnimatedSprite2D = $cloud3
 
 
 const LINE_HEIGHT  = 400
@@ -73,8 +68,13 @@ var breath_length : Array[float] = [4.0, 7.0, 6.0, 2.0] # Deep Calm from Breathl
 
 var straight_path : Curve2D = Curve2D.new()
 
-var all_trees : Array[Sprite2D] = []
-var all_clouds : Array[Sprite2D] = []
+# These are to keep all sprites that are made using godot's gui.
+var all_animated_trees  : Array[AnimatedSprite2D] = []
+var all_animated_clouds : Array[AnimatedSprite2D] = []
+
+# For keeping track of all the automatically generated sprites.
+var all_trees  : Array[AnimatedSprite2D] = []
+var all_clouds : Array[AnimatedSprite2D] = []
 var clouds_to_remove : Array[int] = []
 
 var is_blue : bool = false
@@ -85,6 +85,9 @@ var last_breath : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	all_animated_trees  = [ tree_0 , tree_1 , tree_2 , tree_3  ]
+	all_animated_clouds = [ cloud_0, cloud_1, cloud_2, cloud_3 ]
+
 	randomize()
 	SoundsScene.start_background_music()
 	
@@ -154,10 +157,22 @@ func _ready() -> void:
 	line_particles.emission_points = breathline.curve.get_baked_points()
 	draw_ground()
 	
-	for i in range( SPAWN_TIME_OFFSET_IN_MILLIS / 20 ):
-		var position_on_line : float = float(i) / float( SPAWN_TIME_OFFSET_IN_MILLIS )
-		spawn_texture_randomly( all_tree_textures, true, position_on_line, 5 )
-		spawn_texture_randomly( all_cloud_textures, false, position_on_line, 25 )
+	# TODO:
+	# figure out a better way of generating the trees and clouds dynamically.
+	# This only works for the 2 time lengths we've set.
+	if Globals.total_breath_rounds == 1:
+		# Setup trees and clouds for demo scene
+		for i in range( SPAWN_TIME_OFFSET_IN_MILLIS * 0.525 ):
+			var position_on_line : float = float(i) / float( SPAWN_TIME_OFFSET_IN_MILLIS )
+			spawn_texture_randomly( all_animated_trees , true , position_on_line, 50  )
+			spawn_texture_randomly( all_animated_clouds, false, position_on_line, 250 )
+
+	else:
+		# Setup trees and clouds for main game
+		for i in range( SPAWN_TIME_OFFSET_IN_MILLIS / 20 ):
+			var position_on_line : float = float(i) / float( SPAWN_TIME_OFFSET_IN_MILLIS )
+			spawn_texture_randomly( all_animated_trees , true , position_on_line, 5  )
+			spawn_texture_randomly( all_animated_clouds, false, position_on_line, 25 )
 
 	# Move bunny to the end of the line.
 	#var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
@@ -260,8 +275,8 @@ func _process(delta : float) -> void:
 
 		var spawn_position_as_percent : float = float(current_time_in_millis + SPAWN_TIME_OFFSET_IN_MILLIS) / float( Globals.total_time_in_millis )
 
-		spawn_texture_randomly( all_tree_textures, true, spawn_position_as_percent, 5 )
-		spawn_texture_randomly( all_cloud_textures, false, spawn_position_as_percent, 25 )
+		spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
+		spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
 		update_cloud_locations( delta )
 
 func animation_breathe_in() -> void:
@@ -382,7 +397,7 @@ func draw_ground() -> void:
 		add_child( line )
 
 
-func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_road : bool, position_as_percent : float, spawn_amount : int ) -> void:
+func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_below_road : bool, position_as_percent : float, spawn_amount : int ) -> void:
 	var should_spawn : int = randi_range( 0, spawn_amount )
 	if should_spawn == 1:
 		var y_offset : float = 0
@@ -412,17 +427,18 @@ func spawn_texture_randomly( all_sprite_textures : Array[Texture2D], is_below_ro
 
 		var sprite : SelfDestroyingSprite = SelfDestroyingSprite.new()
 		sprite.centered = false
-		sprite.texture = all_sprite_textures[ randi_range(0, len(all_sprite_textures)-1 ) ]
+		sprite.sprite_frames = all_animated_sprites[ randi_range(0, all_animated_sprites.size()-1) ].sprite_frames
 		sprite.position = Vector2( x_offset + randi_range( 0,50 ), y_offset )
 		var sprite_scale : float = randf_range( 0.5, 1.0 )
 		sprite.scale = Vector2( sprite_scale, sprite_scale )
+		sprite.play("default")
 		
 		add_child( sprite )
 		if is_below_road:
-			sprite.z_index = y_offset + (sprite.texture.get_height() * sprite.scale.y)
+			sprite.z_index = y_offset + (sprite.get_texture_of_current_frame().get_height() * sprite.scale.y)
 
 			all_trees.append( sprite )
 		else:
-			sprite.z_index = -1500 + y_offset + (sprite.texture.get_height() * sprite.scale.y)# make it less, so the car and ground can appear in front of the clouds.
+			sprite.z_index = -1500 + y_offset + (sprite.get_texture_of_current_frame().get_height() * sprite.scale.y)# make it less, so the car and ground can appear in front of the clouds.
 
 			all_clouds.append( sprite )

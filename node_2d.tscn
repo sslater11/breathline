@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=3 uid="uid://bikbqdev5c825"]
+[gd_scene load_steps=164 format=3 uid="uid://bikbqdev5c825"]
 
 [ext_resource type="Script" uid="uid://c1vtd17mqywml" path="res://node_2d.gd" id="1_g6fdy"]
 [ext_resource type="Texture2D" uid="uid://cdncv2sxb7xg0" path="res://icon.svg" id="2_bvv4u"]
@@ -15,8 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://b4kt580jgclxf" path="res://all_buttons.tscn" id="14_ro3g8"]
 [ext_resource type="Texture2D" uid="uid://c7h5h3n8mogbd" path="res://assets/bunny_booty_1.png" id="15_5ft3x"]
 [ext_resource type="Texture2D" uid="uid://e3cs7d50kqvd" path="res://assets/bunny_booty_2.png" id="16_7tq3y"]
-[ext_resource type="Shader" uid="uid://drqu4q877xd4n" path="res://headlight_glow.gdshader" id="17_4f2r7"]
-[ext_resource type="Texture2D" uid="uid://bj504yufcwjf7" path="res://car_headlight.png" id="17_kplyw"]
 [ext_resource type="PackedScene" uid="uid://ckybw80l3pjfs" path="res://celebration.tscn" id="18_0abnx"]
 [ext_resource type="Texture2D" uid="uid://chcdox8ne6vio" path="res://assets/wheel.png" id="18_1fr6y"]
 [ext_resource type="Texture2D" uid="uid://cluqvags4tib0" path="res://assets/cloud_0_200px_x_131px.png" id="18_7vxoj"]
@@ -150,9 +148,10 @@ width = 24
 height = 24
 use_hdr = true
 fill = 1
-fill_from = Vector2(0.9, 0.1)
-fill_to = Vector2(0.4, 0.6)
+fill_from = Vector2(0.73, 0.27)
+fill_to = Vector2(0.34, 0.72)
 metadata/_snap_enabled = true
+metadata/_snap_count = 100
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tw2kk"]
 blend_mode = 1
@@ -161,11 +160,6 @@ light_mode = 1
 [sub_resource type="Gradient" id="Gradient_jyeld"]
 offsets = PackedFloat32Array(0, 0.34, 0.766667, 1)
 colors = PackedColorArray(0.366281, 0.125629, 0, 1, 0.642328, 0.21792, 0.00508434, 1, 0.448469, 0.231384, 0.00552536, 1, 0.603929, 0.236465, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i31ys"]
-shader = ExtResource("17_4f2r7")
-shader_parameter/glow_color = Vector4(0, 0, 0, 0)
-shader_parameter/glow_strength = 0.0
 
 [sub_resource type="Gradient" id="Gradient_t30ig"]
 offsets = PackedFloat32Array(0, 0.518519, 0.598765, 0.666667, 1)
@@ -1339,6 +1333,7 @@ fit_content = true
 scroll_active = false
 
 [node name="AllButtons" parent="breathline/camera_path_follow" instance=ExtResource("14_ro3g8")]
+visible = false
 light_mask = 4
 z_index = 2100
 position = Vector2(-1143.81, 379.415)
@@ -1406,20 +1401,6 @@ shadow_enabled = true
 texture = ExtResource("7_qhy7c")
 texture_scale = 0.15
 
-[node name="brakelights" type="PointLight2D" parent="breathline/PathFollow2D/car"]
-light_mask = 2
-z_index = 6
-position = Vector2(-220.564, -27.0569)
-rotation = -2.92867
-scale = Vector2(2.80191, 1.7842)
-color = Color(0.999855, 0.287542, 0.225454, 1)
-energy = 16.0
-range_z_min = -4096
-range_z_max = 4096
-range_item_cull_mask = 2
-texture = ExtResource("7_qhy7c")
-texture_scale = 0.05
-
 [node name="car_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/car"]
 z_index = 4
 position = Vector2(-170.981, 111.887)
@@ -1434,13 +1415,6 @@ initial_velocity_min = 28.57
 initial_velocity_max = 28.57
 scale_amount_max = 10.0
 color_ramp = SubResource("Gradient_jyeld")
-
-[node name="headlight_sprite" type="Sprite2D" parent="breathline/PathFollow2D/car"]
-modulate = Color(13, 13, 13, 1)
-material = SubResource("ShaderMaterial_i31ys")
-position = Vector2(202.819, 11.153)
-texture = ExtResource("17_kplyw")
-flip_h = true
 
 [node name="wheel_1" type="Sprite2D" parent="breathline/PathFollow2D/car"]
 position = Vector2(-141.068, 61.0966)
@@ -1591,7 +1565,7 @@ libraries = {
 environment = SubResource("Environment_2i0gf")
 
 [node name="world_lighting2" type="DirectionalLight2D" parent="."]
-energy = 0.58
+energy = 0.0
 blend_mode = 1
 
 [node name="Path2D" type="Path2D" parent="."]

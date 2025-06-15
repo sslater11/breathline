@@ -294,7 +294,10 @@ func animation_breathe_in() -> void:
 	var tween_length : float = breath_length[0] - 0.2
 	tween.set_parallel( true )
 
-	tween.tween_property( world_lighting2, "energy", 0.45, tween_length )
+	# Set to 0 in compatibility mode.
+	tween.tween_property( world_lighting2, "energy", 0.0, tween_length )
+	# use 0.45 when the project is in mobile mode.
+	#tween.tween_property( world_lighting2, "energy", 0.45, tween_length )
 	
 	tween.tween_property( sun, "modulate", Color(3.0, 3.0, 3.0, 1.0 ), tween_length )
 	tween.tween_property( moon_glow, "modulate", Color(1, 1, 1, 0.0 ), tween_length * 1.85 )

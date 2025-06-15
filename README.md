@@ -1,11 +1,27 @@
 # Breathline Breathing for Relaxation - Autism Friendly
 
-I made this app to help someone with severe autism to have a calmer mind.
+https://github.com/sslater11/breathline/breathline.mp4
 
-Breathe along with the car :).
+I made this app to help those with severe autism to have a calmer mind.
 
-If you struggle to meditate, or explain meditation to someone, try this app.
+Breathe along as the car goes up and down hills 😊.
+
+If you struggle to meditate, or explaining meditation to someone, try this app.
 
 Breathe in as the car goes up a hill, breathe out when the car goes down a hill.
 
 
+# Available on itch.io
+https://sslater11.itch.io/breathline
+
+
+# License
+Gnu GPL v2.0 only
+
+
+# Credits
+A big thanks to Leadboots for the open source artwork and soundtrack :).
+
+Checkout Leadboots the Rock band here:
+
+https://leadboots.co.uk

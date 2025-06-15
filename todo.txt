@@ -1,3 +1,6 @@
 add a finishline to the game
 or a house/garage the car drives in to
 
+Allow the user to enter custom time lengths.
+Add different breath types.
+

@@ -3,6 +3,8 @@ extends Node2D
 @onready var path_follow_2d: PathFollow2D = $breathline/PathFollow2D
 @onready var line_road_marking: Line2D = $line_road_marking
 @onready var breathline: Path2D = $breathline
+@onready var wheel_1: Sprite2D = $breathline/PathFollow2D/car/wheel_1
+@onready var wheel_2: Sprite2D = $breathline/PathFollow2D/car/wheel_2
 
 func _ready() -> void:
 	line_road_marking.draw_breathline()
@@ -10,6 +12,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	path_follow_2d.progress_ratio += delta / 10
+	var wheel_speed : float = 5
+	wheel_1.rotate( delta * wheel_speed )
+	wheel_2.rotate( delta * wheel_speed )
 
 func draw_ground() -> void:
 	var camera_rect : Rect2 = get_viewport_rect()

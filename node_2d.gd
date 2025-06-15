@@ -6,6 +6,8 @@ extends Node2D
 @onready var breathline: Path2D = $breathline
 
 @onready var car: Sprite2D = $breathline/PathFollow2D/car
+@onready var wheel_1: Sprite2D = $breathline/PathFollow2D/car/wheel_1
+@onready var wheel_2: Sprite2D = $breathline/PathFollow2D/car/wheel_2
 @onready var toilet: Sprite2D = $breathline/PathFollow2D/toilet
 @onready var camera_2d: Camera2D = $breathline/camera_path_follow/Camera2D
 @onready var headlight_beam: PointLight2D = $breathline/PathFollow2D/car/headlight_beam
@@ -231,6 +233,10 @@ func _process(delta : float) -> void:
 
 		if car_progress > 1.0:
 			car_progress = 1.0
+		else:
+			var wheel_speed : float = 5
+			wheel_1.rotate( delta * wheel_speed )
+			wheel_2.rotate( delta * wheel_speed )
 		# Set the car and camera positions.
 		path_follow_2d.progress_ratio     = car_progress
 		camera_path_follow.progress_ratio = car_progress

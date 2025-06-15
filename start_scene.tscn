@@ -1,4 +1,4 @@
-[gd_scene load_steps=138 format=3 uid="uid://chn3pxy46w1fm"]
+[gd_scene load_steps=140 format=3 uid="uid://chn3pxy46w1fm"]
 
 [ext_resource type="Script" uid="uid://dg68o68icwj3q" path="res://start_scene.gd" id="1_33mov"]
 [ext_resource type="PackedScene" uid="uid://cpcdxy573u2de" path="res://start_button.tscn" id="1_mbe3m"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dugvvj4lodwi2" path="res://assets/car.png" id="9_0s3qj"]
 [ext_resource type="Texture2D" uid="uid://ryrufphdks6w" path="res://assets/headlights.png" id="10_5tv0e"]
 [ext_resource type="Shader" uid="uid://drqu4q877xd4n" path="res://headlight_glow.gdshader" id="11_ahqkt"]
+[ext_resource type="Texture2D" uid="uid://chcdox8ne6vio" path="res://assets/wheel.png" id="11_wrdj4"]
 [ext_resource type="Texture2D" uid="uid://bj504yufcwjf7" path="res://car_headlight.png" id="12_iwf45"]
 [ext_resource type="Texture2D" uid="uid://dk2sqgqwt46cg" path="res://assets/tree0.png" id="12_jncqt"]
 [ext_resource type="Texture2D" uid="uid://c432fjfalqym3" path="res://assets/cloud_text.png" id="13_6edj7"]
@@ -122,12 +123,12 @@ scale_max = 5.0
 color_ramp = SubResource("GradientTexture1D_1mwfc")
 color_initial_ramp = SubResource("GradientTexture1D_jdnxj")
 
-[sub_resource type="Gradient" id="Gradient_ub7e0"]
+[sub_resource type="Gradient" id="Gradient_1fr6y"]
 offsets = PackedFloat32Array(0, 0.351759, 1)
 colors = PackedColorArray(0.932146, 0.563803, 3.85046e-07, 1, 0.927229, 0.561307, 0.00134882, 0.977076, 0.717647, 0.454902, 0.0588235, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_h4h3i"]
-gradient = SubResource("Gradient_ub7e0")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n7f12"]
+gradient = SubResource("Gradient_1fr6y")
 width = 24
 height = 24
 use_hdr = true
@@ -136,18 +137,22 @@ fill_from = Vector2(0.9, 0.1)
 fill_to = Vector2(0.4, 0.6)
 metadata/_snap_enabled = true
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_272al"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0s3qj"]
 blend_mode = 1
 light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_5tv0e"]
+offsets = PackedFloat32Array(0, 0.34, 0.766667, 1)
+colors = PackedColorArray(0.366281, 0.125629, 0, 1, 0.642328, 0.21792, 0.00508434, 1, 0.448469, 0.231384, 0.00552536, 1, 0.603929, 0.236465, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ahqkt"]
+shader = ExtResource("11_ahqkt")
+shader_parameter/glow_color = Vector4(0, 0, 0, 0)
+shader_parameter/glow_strength = 0.0
 
 [sub_resource type="Gradient" id="Gradient_216v0"]
 offsets = PackedFloat32Array(0, 0.34, 0.766667, 1)
 colors = PackedColorArray(0.366281, 0.125629, 0, 1, 0.642328, 0.21792, 0.00508434, 1, 0.448469, 0.231384, 0.00552536, 1, 0.603929, 0.236465, 0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hgfgy"]
-shader = ExtResource("11_ahqkt")
-shader_parameter/glow_color = Vector4(0, 0, 0, 0)
-shader_parameter/glow_strength = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bjha6"]
 atlas = ExtResource("15_wjhjx")
@@ -935,20 +940,22 @@ flip_h = true
 self_modulate = Color(0.246539, 0.2867, 0.833646, 1)
 light_mask = 3
 visibility_layer = 3
+z_as_relative = false
 position = Vector2(481.635, 28.9894)
 rotation = -2.28987
 scale = Vector2(5, 5)
 color = Color(1, 0.753843, 0.510672, 1)
 energy = 2.15
 range_z_min = -4096
-range_z_max = -1000
+range_z_max = 10
 range_layer_max = 9
-texture = SubResource("GradientTexture2D_h4h3i")
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_n7f12")
 texture_scale = 3.38
 
 [node name="headlights" type="PointLight2D" parent="breathline/PathFollow2D/car"]
 light_mask = 2
-material = SubResource("CanvasItemMaterial_272al")
+material = SubResource("CanvasItemMaterial_0s3qj")
 position = Vector2(265.879, -54.2329)
 rotation = 0.308923
 scale = Vector2(2.80191, 1.7842)
@@ -976,7 +983,6 @@ texture = ExtResource("10_5tv0e")
 texture_scale = 0.05
 
 [node name="car_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/car"]
-visible = false
 z_index = 4
 position = Vector2(-170.981, 111.887)
 rotation = -2.76112
@@ -989,14 +995,22 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 28.57
 initial_velocity_max = 28.57
 scale_amount_max = 10.0
-color_ramp = SubResource("Gradient_216v0")
+color_ramp = SubResource("Gradient_5tv0e")
 
 [node name="headlight_sprite" type="Sprite2D" parent="breathline/PathFollow2D/car"]
 modulate = Color(13, 13, 13, 1)
-material = SubResource("ShaderMaterial_hgfgy")
+material = SubResource("ShaderMaterial_ahqkt")
 position = Vector2(202.819, 11.153)
 texture = ExtResource("12_iwf45")
 flip_h = true
+
+[node name="wheel_1" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+position = Vector2(-141.068, 61.0966)
+texture = ExtResource("11_wrdj4")
+
+[node name="wheel_2" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+position = Vector2(131.811, 61.7056)
+texture = ExtResource("11_wrdj4")
 
 [node name="toilet" type="Sprite2D" parent="breathline/PathFollow2D"]
 visible = false
@@ -1029,18 +1043,22 @@ rotation = -0.694738
 [node name="trees_more" type="Node" parent="."]
 
 [node name="tree_8" type="Sprite2D" parent="trees_more"]
+light_mask = 0
 position = Vector2(1086, 599)
 texture = ExtResource("13_k2do7")
 
 [node name="tree_5" type="Sprite2D" parent="trees_more"]
+light_mask = 0
 position = Vector2(973, 572)
 texture = ExtResource("14_g2vcy")
 
 [node name="tree_6" type="Sprite2D" parent="trees_more"]
+light_mask = 0
 position = Vector2(811, 641)
 texture = ExtResource("14_g2vcy")
 
 [node name="tree_4" type="Sprite2D" parent="trees_more"]
+light_mask = 0
 position = Vector2(564, 411)
 texture = ExtResource("15_brwyq")
 
@@ -1082,25 +1100,31 @@ texture = ExtResource("17_n7f12")
 [node name="trees" type="Node" parent="."]
 
 [node name="tree_1" type="Sprite2D" parent="trees"]
+light_mask = 0
 position = Vector2(125, 234)
 texture = ExtResource("12_jncqt")
 
 [node name="tree_9" type="Sprite2D" parent="trees"]
+light_mask = 0
 position = Vector2(290, 199)
 texture = ExtResource("15_brwyq")
 
 [node name="tree_8" type="Sprite2D" parent="trees"]
+light_mask = 0
 position = Vector2(245, 365)
 texture = ExtResource("12_jncqt")
 
 [node name="tree_7" type="Sprite2D" parent="trees"]
+light_mask = 0
 position = Vector2(305, 464)
 texture = ExtResource("13_k2do7")
 
 [node name="tree_3" type="Sprite2D" parent="trees"]
+light_mask = 0
 position = Vector2(129, 429)
 texture = ExtResource("14_g2vcy")
 
 [node name="tree_2" type="Sprite2D" parent="trees"]
+light_mask = 0
 position = Vector2(372, 523)
 texture = ExtResource("13_k2do7")

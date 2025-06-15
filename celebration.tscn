@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ckybw80l3pjfs"]
+[gd_scene load_steps=13 format=3 uid="uid://ckybw80l3pjfs"]
 
 [ext_resource type="Script" uid="uid://b4q3wqq0tdbk2" path="res://celebration.gd" id="1_42tbd"]
 
@@ -66,11 +66,8 @@ scale_min = 10.0
 scale_max = 10.0
 color_initial_ramp = SubResource("GradientTexture1D_50f44")
 
-[sub_resource type="Gradient" id="Gradient_ow7us"]
-offsets = PackedFloat32Array(0, 0.430769, 0.846154)
-colors = PackedColorArray(0.716296, 0.716296, 0.716296, 1, 0.747587, 0.747587, 0.747587, 1, 0, 0, 0, 0)
-
 [sub_resource type="Gradient" id="Gradient_6015a"]
+interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.410256, 0.85641, 1)
 colors = PackedColorArray(0.995178, 0.307696, 0, 1, 0.98859, 0.833651, 3.08037e-06, 1, 1, 0.238553, 0.241029, 1, 0.724095, 0, 0.0899664, 1)
 
@@ -101,6 +98,7 @@ trail_sections = 2
 process_material = SubResource("ParticleProcessMaterial_7o1av")
 
 [node name="firework" type="CPUParticles2D" parent="."]
+modulate = Color(3, 3, 3, 1)
 position = Vector2(1032, 736)
 scale = Vector2(10, 10)
 emitting = false
@@ -116,6 +114,6 @@ initial_velocity_min = 10.0
 initial_velocity_max = 10.0
 scale_amount_min = 15.0
 scale_amount_max = 25.0
-color_ramp = SubResource("Gradient_ow7us")
 color_initial_ramp = SubResource("Gradient_6015a")
+hue_variation_min = 1.0
 hue_variation_max = 1.0

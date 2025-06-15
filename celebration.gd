@@ -40,13 +40,16 @@ func create_new_firework() -> void:
 		
 		# Create a new color to offset the hue with.
 		var random_color : Color = Color( randf_range( 0.0, 1.0 ), randf_range( 0.0, 1.0 ), randf_range( 0.0, 1.0 ) )
-		random_color *= 18.5 # add a glow effect
+		# glow effect for mobile mode.
+		#random_color *= 18.5 # add a glow effect
 		var random_gradient : PackedColorArray = PackedColorArray()
 
 		var new_color_ramp : Resource = new_firework.color_initial_ramp.duplicate()
 		
 		for i in range( 0, new_color_ramp.colors.size() ):
-			random_gradient.append( new_color_ramp.colors[i] * random_color )
+			random_gradient.append( new_color_ramp.colors[i] + random_color )
+			# for mobile mode.
+			#random_gradient.append( new_color_ramp.colors[i] * random_color )
 		new_color_ramp.colors = random_gradient
 		new_firework.color_initial_ramp = new_color_ramp
 		

@@ -47,6 +47,9 @@ extends Node2D
 @onready var tree_1: AnimatedSprite2D = $tree1
 @onready var tree_2: AnimatedSprite2D = $tree2
 @onready var tree_3: AnimatedSprite2D = $tree3
+@onready var pine_tree_1: AnimatedSprite2D = $pine_tree1
+@onready var pine_tree_2: AnimatedSprite2D = $pine_tree2
+@onready var sheep: AnimatedSprite2D = $sheep
 
 @onready var cloud_0: AnimatedSprite2D = $cloud0
 @onready var cloud_1: AnimatedSprite2D = $cloud1
@@ -95,7 +98,7 @@ var last_breath : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	all_animated_trees  = [ tree_0 , tree_1 , tree_2 , tree_3  ]
+	all_animated_trees  = [ sheep, pine_tree_1, pine_tree_2, tree_0 , tree_1 , tree_2 , tree_3  ]
 	all_animated_clouds = [ cloud_0, cloud_1, cloud_2, cloud_3 ]
 
 	randomize()

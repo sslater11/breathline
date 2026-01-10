@@ -4,10 +4,6 @@ or a house/garage the car drives in to
 Allow the user to enter custom time lengths.
 Add different breath types.
 
-add a helicopter
-
-add a button to switch between different vehicles
-
 stop snow from falling when the game is paused
 
 add spacebar to pause/play the scene

@@ -1,4 +1,4 @@
-[gd_scene load_steps=196 format=3 uid="uid://bikbqdev5c825"]
+[gd_scene load_steps=232 format=3 uid="uid://bikbqdev5c825"]
 
 [ext_resource type="Script" uid="uid://c1vtd17mqywml" path="res://node_2d.gd" id="1_g6fdy"]
 [ext_resource type="Texture2D" uid="uid://cdncv2sxb7xg0" path="res://icon.svg" id="2_bvv4u"]
@@ -15,19 +15,51 @@
 [ext_resource type="PackedScene" uid="uid://b4kt580jgclxf" path="res://all_buttons.tscn" id="14_ro3g8"]
 [ext_resource type="Texture2D" uid="uid://c7h5h3n8mogbd" path="res://assets/bunny_booty_1.png" id="15_5ft3x"]
 [ext_resource type="Texture2D" uid="uid://e3cs7d50kqvd" path="res://assets/bunny_booty_2.png" id="16_7tq3y"]
+[ext_resource type="Texture2D" uid="uid://x36jdhu817yw" path="res://assets/helicopter_from_chatgpt.png" id="17_6orn5"]
+[ext_resource type="Texture2D" uid="uid://b2of3278imbjw" path="res://assets/helicopter_blades/helicopter_blades_001.png" id="17_037st"]
 [ext_resource type="PackedScene" uid="uid://ckybw80l3pjfs" path="res://celebration.tscn" id="18_0abnx"]
 [ext_resource type="Texture2D" uid="uid://chcdox8ne6vio" path="res://assets/wheel.png" id="18_1fr6y"]
+[ext_resource type="Texture2D" uid="uid://oxtk6wjgpeso" path="res://assets/helicopter_blades/helicopter_blades_002.png" id="18_6orn5"]
 [ext_resource type="Texture2D" uid="uid://cluqvags4tib0" path="res://assets/cloud_0_200px_x_131px.png" id="18_7vxoj"]
 [ext_resource type="Texture2D" uid="uid://bjgot1ottbfdm" path="res://assets/cloud_1_205px_x_130px_blink.png" id="19_ei405"]
+[ext_resource type="Texture2D" uid="uid://c8ux6bpshocw4" path="res://assets/helicopter_blades/helicopter_blades_003.png" id="19_whnp6"]
+[ext_resource type="Texture2D" uid="uid://bia7pwe1p6c1o" path="res://assets/helicopter_blades/helicopter_blades_004.png" id="20_22e24"]
 [ext_resource type="Texture2D" uid="uid://doto77wa2kjjk" path="res://assets/cloud_2_205px_x_130px.png" id="20_e8dv2"]
 [ext_resource type="Texture2D" uid="uid://c6rop7r0ju47p" path="res://assets/cloud_3_186px_x_136px.png" id="21_2nhjh"]
+[ext_resource type="Texture2D" uid="uid://ds62axfbuieun" path="res://assets/helicopter_blades/helicopter_blades_005.png" id="21_m7xe6"]
 [ext_resource type="Texture2D" uid="uid://dk2sqgqwt46cg" path="res://assets/tree0.png" id="22_bjha6"]
+[ext_resource type="Texture2D" uid="uid://dl72rlddohtmr" path="res://assets/helicopter_blades/helicopter_blades_006.png" id="22_wqmsq"]
+[ext_resource type="Texture2D" uid="uid://deo7w6gk6yomj" path="res://assets/helicopter_blades/helicopter_blades_007.png" id="23_fkgk1"]
 [ext_resource type="Texture2D" uid="uid://vj3c3p5y5ep1" path="res://assets/tree1.png" id="23_gt76g"]
 [ext_resource type="Texture2D" uid="uid://in0cs84wuofv" path="res://assets/tree2.png" id="24_1fr6y"]
+[ext_resource type="Texture2D" uid="uid://c5pam1u27gavq" path="res://assets/helicopter_blades/helicopter_blades_008.png" id="24_qgxp6"]
 [ext_resource type="Texture2D" uid="uid://bde2hv8rm7xub" path="res://assets/tree3.png" id="25_2hxjc"]
+[ext_resource type="Texture2D" uid="uid://cjmgnf3axp4e" path="res://assets/helicopter_blades/helicopter_blades_009.png" id="25_akb8o"]
 [ext_resource type="Texture2D" uid="uid://durn1531gp1qf" path="res://assets/pine_tree_1_250_x_250.png" id="26_2hxjc"]
+[ext_resource type="Texture2D" uid="uid://bslxudpmyil7t" path="res://assets/helicopter_blades/helicopter_blades_010.png" id="26_t3mf0"]
 [ext_resource type="Texture2D" uid="uid://c81rtefc0qb0s" path="res://assets/pine_tree_2_220_x_151.png" id="27_ebxd8"]
+[ext_resource type="Texture2D" uid="uid://cjtw3oy0cmnhk" path="res://assets/helicopter_blades/helicopter_blades_011.png" id="27_kejda"]
 [ext_resource type="Texture2D" uid="uid://d0l68kbc4u1y1" path="res://assets/sheep_eating_150_x_100.png" id="28_2u7jv"]
+[ext_resource type="Texture2D" uid="uid://bn3vy1i1tadl3" path="res://assets/helicopter_blades/helicopter_blades_012.png" id="28_uqk8q"]
+[ext_resource type="Texture2D" uid="uid://djmpc8yamr11w" path="res://assets/helicopter_blades/helicopter_blades_013.png" id="29_6uidu"]
+[ext_resource type="Texture2D" uid="uid://c47fro0dke4in" path="res://assets/helicopter_blades/helicopter_rear_blades.png" id="30_24dk6"]
+[ext_resource type="Texture2D" uid="uid://dgu2ruuj35odr" path="res://assets/helicopter_blades/helicopter_blades_014.png" id="30_qu7as"]
+[ext_resource type="Texture2D" uid="uid://do81tp5widdqy" path="res://assets/helicopter_blades/helicopter_blades_015.png" id="31_lyuya"]
+[ext_resource type="Texture2D" uid="uid://cbt7ly1pqyu2p" path="res://assets/helicopter_blades/helicopter_blades_016.png" id="32_5fipt"]
+[ext_resource type="Texture2D" uid="uid://dwt05lguuyw4n" path="res://assets/helicopter_blades/helicopter_blades_017.png" id="33_j02gt"]
+[ext_resource type="Texture2D" uid="uid://dcyjdqcsr4o7i" path="res://assets/helicopter_blades/helicopter_blades_018.png" id="34_thyvg"]
+[ext_resource type="Texture2D" uid="uid://dfsm1p2eyf6rd" path="res://assets/helicopter_blades/helicopter_blades_019.png" id="35_nsnm2"]
+[ext_resource type="Texture2D" uid="uid://lqc56s7xkxri" path="res://assets/helicopter_blades/helicopter_blades_020.png" id="36_f8kvm"]
+[ext_resource type="Texture2D" uid="uid://bl4yxuyhbapno" path="res://assets/helicopter_blades/helicopter_blades_021.png" id="37_3hhlv"]
+[ext_resource type="Texture2D" uid="uid://m1oeh4xcnvcd" path="res://assets/helicopter_blades/helicopter_blades_022.png" id="38_d88dk"]
+[ext_resource type="Texture2D" uid="uid://cf848dknswx3" path="res://assets/helicopter_blades/helicopter_blades_023.png" id="39_122lf"]
+[ext_resource type="Texture2D" uid="uid://pmwtoelht4n7" path="res://assets/helicopter_blades/helicopter_blades_024.png" id="40_r3ryn"]
+[ext_resource type="Texture2D" uid="uid://cpo3q6iinkpl3" path="res://assets/helicopter_blades/helicopter_blades_025.png" id="41_7ct8v"]
+[ext_resource type="Texture2D" uid="uid://boupveoaflg58" path="res://assets/helicopter_blades/helicopter_blades_026.png" id="42_sg3tl"]
+[ext_resource type="Texture2D" uid="uid://bfpcnm8l8lobv" path="res://assets/helicopter_blades/helicopter_blades_027.png" id="43_0fsb4"]
+[ext_resource type="Texture2D" uid="uid://d2v6exjgq34al" path="res://assets/helicopter_blades/helicopter_blades_028.png" id="44_vl5tj"]
+[ext_resource type="Texture2D" uid="uid://civ1juqi7haui" path="res://assets/helicopter_blades/helicopter_blades_029.png" id="45_16pp4"]
+[ext_resource type="Texture2D" uid="uid://m82sk6lq1tx" path="res://assets/helicopter_blades/helicopter_blades_030.png" id="46_5od4l"]
 
 [sub_resource type="Gradient" id="Gradient_txb2v"]
 offsets = PackedFloat32Array(0, 0.394872, 0.68718, 1)
@@ -141,6 +173,138 @@ scale_max = 5.0
 color_ramp = SubResource("GradientTexture1D_bjha6")
 color_initial_ramp = SubResource("GradientTexture1D_2nhjh")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tw2kk"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_jyeld"]
+offsets = PackedFloat32Array(0, 0.34, 0.766667, 1)
+colors = PackedColorArray(0.366281, 0.125629, 0, 1, 0.642328, 0.21792, 0.00508434, 1, 0.448469, 0.231384, 0.00552536, 1, 0.603929, 0.236465, 0, 0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4himb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_037st")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_6orn5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_whnp6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_22e24")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_m7xe6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_wqmsq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_fkgk1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_qgxp6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_akb8o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_t3mf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_kejda")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_uqk8q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_6uidu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_qu7as")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_lyuya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_5fipt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_j02gt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_thyvg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_nsnm2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_f8kvm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_3hhlv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_d88dk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_122lf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_r3ryn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_7ct8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_sg3tl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_0fsb4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_vl5tj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_16pp4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_5od4l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="Animation" id="Animation_22e24"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_whnp6"]
+resource_name = "helicopter_rear_blades"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("helicopter_rear_blades:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m7xe6"]
+_data = {
+&"RESET": SubResource("Animation_22e24"),
+&"helicopter_rear_blades": SubResource("Animation_whnp6")
+}
+
 [sub_resource type="Gradient" id="Gradient_1fr6y"]
 offsets = PackedFloat32Array(0, 0.351759, 1)
 colors = PackedColorArray(0.932146, 0.563803, 3.85046e-07, 1, 0.927229, 0.561307, 0.00134882, 0.977076, 0.717647, 0.454902, 0.0588235, 0)
@@ -155,14 +319,6 @@ fill_from = Vector2(0.73, 0.27)
 fill_to = Vector2(0.34, 0.72)
 metadata/_snap_enabled = true
 metadata/_snap_count = 100
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tw2kk"]
-blend_mode = 1
-light_mode = 1
-
-[sub_resource type="Gradient" id="Gradient_jyeld"]
-offsets = PackedFloat32Array(0, 0.34, 0.766667, 1)
-colors = PackedColorArray(0.366281, 0.125629, 0, 1, 0.642328, 0.21792, 0.00508434, 1, 0.448469, 0.231384, 0.00552536, 1, 0.603929, 0.236465, 0, 0)
 
 [sub_resource type="Gradient" id="Gradient_t30ig"]
 offsets = PackedFloat32Array(0, 0.518519, 0.598765, 0.666667, 1)
@@ -1571,30 +1727,15 @@ position = Vector2(1.2752, -2.06309)
 scale = Vector2(0.016, 0.016)
 flip_h = true
 
-[node name="car" type="Sprite2D" parent="breathline/PathFollow2D"]
+[node name="vehicle" type="Node2D" parent="breathline/PathFollow2D"]
+
+[node name="car" type="Sprite2D" parent="breathline/PathFollow2D/vehicle"]
 z_index = 5
 scale = Vector2(0.016, 0.016)
 texture = ExtResource("14_gt76g")
 flip_h = true
 
-[node name="headlight_beam" type="PointLight2D" parent="breathline/PathFollow2D/car"]
-self_modulate = Color(0.246539, 0.2867, 0.833646, 1)
-light_mask = 3
-visibility_layer = 3
-z_as_relative = false
-position = Vector2(481.635, 28.9894)
-rotation = -2.28987
-scale = Vector2(5, 5)
-color = Color(1, 0.753843, 0.510672, 1)
-energy = 2.15
-range_z_min = -4096
-range_z_max = 10
-range_layer_max = 9
-shadow_enabled = true
-texture = SubResource("GradientTexture2D_w1qdb")
-texture_scale = 3.38
-
-[node name="headlights" type="PointLight2D" parent="breathline/PathFollow2D/car"]
+[node name="headlights" type="PointLight2D" parent="breathline/PathFollow2D/vehicle/car"]
 light_mask = 2
 material = SubResource("CanvasItemMaterial_tw2kk")
 position = Vector2(265.879, -54.2329)
@@ -1609,7 +1750,7 @@ shadow_enabled = true
 texture = ExtResource("7_qhy7c")
 texture_scale = 0.15
 
-[node name="car_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/car"]
+[node name="car_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/vehicle/car"]
 z_index = 4
 position = Vector2(-170.981, 111.887)
 rotation = -2.76112
@@ -1624,13 +1765,65 @@ initial_velocity_max = 28.57
 scale_amount_max = 10.0
 color_ramp = SubResource("Gradient_jyeld")
 
-[node name="wheel_1" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+[node name="wheel_1" type="Sprite2D" parent="breathline/PathFollow2D/vehicle/car"]
 position = Vector2(-141.068, 61.0966)
 texture = ExtResource("18_1fr6y")
 
-[node name="wheel_2" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+[node name="wheel_2" type="Sprite2D" parent="breathline/PathFollow2D/vehicle/car"]
 position = Vector2(131.811, 61.7056)
 texture = ExtResource("18_1fr6y")
+
+[node name="helicopter" type="Sprite2D" parent="breathline/PathFollow2D/vehicle"]
+visible = false
+position = Vector2(0, -7.2)
+rotation = 3.14159
+scale = Vector2(0.008, -0.008)
+texture = ExtResource("17_6orn5")
+
+[node name="helicopter_blades" type="AnimatedSprite2D" parent="breathline/PathFollow2D/vehicle/helicopter"]
+position = Vector2(-124.449, -260.564)
+rotation = 3.14159
+scale = Vector2(2, -2)
+sprite_frames = SubResource("SpriteFrames_4himb")
+autoplay = "default"
+frame_progress = 0.641553
+speed_scale = 7.5
+
+[node name="helicopter_rear_blades" type="Sprite2D" parent="breathline/PathFollow2D/vehicle/helicopter"]
+position = Vector2(573.258, -72.088)
+texture = ExtResource("30_24dk6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="breathline/PathFollow2D/vehicle/helicopter"]
+libraries = {
+&"": SubResource("AnimationLibrary_m7xe6")
+}
+autoplay = "helicopter_rear_blades"
+speed_scale = 2.0
+
+[node name="headlight_beam" type="PointLight2D" parent="breathline/PathFollow2D/vehicle"]
+self_modulate = Color(0.246539, 0.2867, 0.833646, 1)
+light_mask = 3
+visibility_layer = 3
+z_as_relative = false
+position = Vector2(7.70616, 0.46383)
+rotation = -2.28987
+scale = Vector2(0.08, 0.08)
+color = Color(1, 0.753843, 0.510672, 1)
+energy = 2.15
+range_z_min = -4096
+range_z_max = 10
+range_layer_max = 9
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_w1qdb")
+texture_scale = 3.38
+
+[node name="car_headlight_beam_anchor" type="Node2D" parent="breathline/PathFollow2D/vehicle"]
+position = Vector2(7.70616, 0.46383)
+scale = Vector2(0.016, 0.016)
+
+[node name="helicopter_headlight_beam_anchor" type="Node2D" parent="breathline/PathFollow2D/vehicle"]
+position = Vector2(8.775, -6.4)
+scale = Vector2(0.016, 0.016)
 
 [node name="carorig" type="Sprite2D" parent="breathline/PathFollow2D"]
 visible = false

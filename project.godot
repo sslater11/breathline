@@ -21,6 +21,7 @@ config/windows_native_icon="uid://3h84pp71nokb"
 
 SoundsScene="*res://sounds_scene.tscn"
 Globals="*res://Globals.gd"
+SignalBus="*res://signal_bus.gd"
 
 [debug]
 

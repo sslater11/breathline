@@ -7,20 +7,26 @@
 # You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 extends Node2D
-@onready var headlights: PointLight2D = $breathline/PathFollow2D/car/headlights
-@onready var brakelights: PointLight2D = $breathline/PathFollow2D/car/brakelights
+@onready var headlights: PointLight2D = $breathline/PathFollow2D/vehicle/car/headlights
+@onready var brakelights: PointLight2D = $breathline/PathFollow2D/vehicle/car/brakelights
+@onready var headlight_beam: PointLight2D = $breathline/PathFollow2D/vehicle/headlight_beam
 @onready var world_lighting2: DirectionalLight2D = $world_lighting2
+
+@onready var car_headlight_beam_anchor: Node2D = $breathline/PathFollow2D/vehicle/car_headlight_beam_anchor
+@onready var helicopter_headlight_beam_anchor: Node2D = $breathline/PathFollow2D/vehicle/helicopter_headlight_beam_anchor
+
 
 @onready var breathline: Path2D = $breathline
 
-@onready var car: Sprite2D = $breathline/PathFollow2D/car
-@onready var wheel_1: Sprite2D = $breathline/PathFollow2D/car/wheel_1
-@onready var wheel_2: Sprite2D = $breathline/PathFollow2D/car/wheel_2
+@onready var vehicle: Node2D = $breathline/PathFollow2D/vehicle
+@onready var helicopter: Sprite2D = $breathline/PathFollow2D/vehicle/helicopter
+@onready var car: Sprite2D = $breathline/PathFollow2D/vehicle/car
+@onready var wheel_1: Sprite2D = $breathline/PathFollow2D/vehicle/car/wheel_1
+@onready var wheel_2: Sprite2D = $breathline/PathFollow2D/vehicle/car/wheel_2
 @onready var toilet: Sprite2D = $breathline/PathFollow2D/toilet
 @onready var camera_2d: Camera2D = $breathline/camera_path_follow/Camera2D
-@onready var headlight_beam: PointLight2D = $breathline/PathFollow2D/car/headlight_beam
 
-@onready var car_trail_particles: CPUParticles2D = $breathline/PathFollow2D/car/car_trail_particles
+@onready var car_trail_particles: CPUParticles2D = $breathline/PathFollow2D/vehicle/car/car_trail_particles
 @onready var toilet_trail_particles: CPUParticles2D = $breathline/PathFollow2D/toilet/toilet_trail_particles
 @onready var rain_particles: CPUParticles2D = $breathline/camera_path_follow/rain_particles
 @onready var shit_everywhere_particles: GPUParticles2D = $breathline/camera_path_follow/shit_everywhere_particles
@@ -40,7 +46,7 @@ extends Node2D
 @onready var bunny: Node = $bunny
 @onready var shit_spray_particles: CPUParticles2D = $bunny/shit_spray_particles
 @onready var celebration: Node2D = $breathline/camera_path_follow/Celebration
-@onready var headlight_sprite: Sprite2D = $breathline/PathFollow2D/car/headlight_sprite
+@onready var headlight_sprite: Sprite2D = $breathline/PathFollow2D/vehicle/car/headlight_sprite
 @onready var line_road_marking: Line2D = $line_road_marking
 
 @onready var tree_0: AnimatedSprite2D = $tree0
@@ -104,11 +110,14 @@ func _ready() -> void:
 	randomize()
 	SoundsScene.start_background_music()
 	
+	SignalBus.car_chosen.connect( switch_to_car )
+	SignalBus.helicopter_chosen.connect( switch_to_helicopter )
+	
 	Globals.total_time_in_millis = 0
 	for i in breath_length:
 		Globals.total_time_in_millis += i * 1000 * Globals.total_breath_rounds
 
-	car.visible = false
+	vehicle.visible = false
 	car_trail_particles.emitting = false
 
 	toilet.visible = false
@@ -202,7 +211,7 @@ func _process(delta : float) -> void:
 		Globals.are_fireworks_on = true
 
 
-	if car.global_position.x > breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() -1 ].x - 500:
+	if vehicle.global_position.x > breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() -1 ].x - 500:
 		if has_shit_spray_played == false:
 			has_shit_spray_played = true
 			animation_breathe.play("shit_spray")
@@ -213,10 +222,10 @@ func _process(delta : float) -> void:
 			Globals.are_fireworks_on = true
 			#Globals.is_playing = false
 	if Globals.is_playing:
-		if (car.visible == false) and (toilet.visible == false):
-			car.visible = true
+		if (vehicle.visible == false) and (toilet.visible == false):
+			vehicle.visible = true
 
-		car.z_index = car.global_position.y - 150
+		vehicle.z_index = vehicle.global_position.y - 150
 		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
 		var current_breath : int = 0
 
@@ -447,3 +456,13 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 			sprite.z_index = -1500 + y_offset + (sprite.get_texture_of_current_frame().get_height() * sprite.scale.y)# make it less, so the car and ground can appear in front of the clouds.
 
 			all_clouds.append( sprite )
+
+func switch_to_car():
+	headlight_beam.position = car_headlight_beam_anchor.position
+	car.visible = true
+	helicopter.visible = false
+
+func switch_to_helicopter():
+	headlight_beam.position = helicopter_headlight_beam_anchor.position
+	car.visible = false
+	helicopter.visible = true

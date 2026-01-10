@@ -12,6 +12,11 @@ extends Node2D
 @onready var music_on_off: Button = $music_on_off
 @onready var voice_on_off: Button = $voice_on_off
 @onready var countdown: RichTextLabel = $countdown
+@onready var vehicle_selection_menu: Node2D = $vehicle_selection_menu
+@onready var vehicle_selection: Button = $vehicle_selection
+
+const icon_car = preload("res://assets/icon_car.png")
+const icon_helicopter = preload("res://assets/icon_helicopter.png")
 
 var show_countup : bool = false
 
@@ -86,3 +91,17 @@ func update_voice_on_off_icon() -> void:
 	else:
 		voice_on_off.icon = preload("res://assets/voice_off.png")
 		voice_on_off.text = "Voice Off"
+
+
+func _on_vehicle_selection_pressed() -> void:
+	vehicle_selection_menu.visible = not vehicle_selection_menu.visible
+
+func _on_helicopter_pressed() -> void:
+	vehicle_selection.icon = icon_helicopter
+	vehicle_selection_menu.visible = false
+	SignalBus.helicopter_chosen.emit()
+	
+func _on_car_pressed() -> void:
+	vehicle_selection.icon = icon_car
+	vehicle_selection_menu.visible = false
+	SignalBus.car_chosen.emit()

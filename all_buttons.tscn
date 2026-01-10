@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4kt580jgclxf"]
+[gd_scene load_steps=53 format=3 uid="uid://b4kt580jgclxf"]
 
 [ext_resource type="Script" uid="uid://dq6n5ktqivcg6" path="res://all_buttons.gd" id="1_eqcxi"]
 [ext_resource type="Texture2D" uid="uid://dmtffhy0ymbd4" path="res://assets/restart.png" id="2_ycagm"]
@@ -6,12 +6,239 @@
 [ext_resource type="Texture2D" uid="uid://5dj7du15eryn" path="res://assets/music_on.png" id="4_twshn"]
 [ext_resource type="Texture2D" uid="uid://cbvhybhcu8tya" path="res://assets/voice_on.png" id="5_qtmb7"]
 [ext_resource type="Script" uid="uid://djmo3kaiuh7hh" path="res://countdown.gd" id="6_175rw"]
+[ext_resource type="Texture2D" uid="uid://cpsbqgg0mfin3" path="res://assets/icon_car.png" id="6_cbqw8"]
+[ext_resource type="Texture2D" uid="uid://x36jdhu817yw" path="res://assets/helicopter_from_chatgpt.png" id="7_0ar4b"]
+[ext_resource type="Texture2D" uid="uid://b2of3278imbjw" path="res://assets/helicopter_blades/helicopter_blades_001.png" id="8_6a244"]
+[ext_resource type="Texture2D" uid="uid://oxtk6wjgpeso" path="res://assets/helicopter_blades/helicopter_blades_002.png" id="9_okwof"]
+[ext_resource type="Texture2D" uid="uid://c8ux6bpshocw4" path="res://assets/helicopter_blades/helicopter_blades_003.png" id="10_btwor"]
+[ext_resource type="Texture2D" uid="uid://bia7pwe1p6c1o" path="res://assets/helicopter_blades/helicopter_blades_004.png" id="11_o1je4"]
+[ext_resource type="Texture2D" uid="uid://ds62axfbuieun" path="res://assets/helicopter_blades/helicopter_blades_005.png" id="12_rmvs4"]
+[ext_resource type="Texture2D" uid="uid://dl72rlddohtmr" path="res://assets/helicopter_blades/helicopter_blades_006.png" id="13_udr28"]
+[ext_resource type="Texture2D" uid="uid://deo7w6gk6yomj" path="res://assets/helicopter_blades/helicopter_blades_007.png" id="14_cn4lx"]
+[ext_resource type="Texture2D" uid="uid://c5pam1u27gavq" path="res://assets/helicopter_blades/helicopter_blades_008.png" id="15_fc3he"]
+[ext_resource type="Texture2D" uid="uid://cjmgnf3axp4e" path="res://assets/helicopter_blades/helicopter_blades_009.png" id="16_2ufg3"]
+[ext_resource type="Texture2D" uid="uid://bslxudpmyil7t" path="res://assets/helicopter_blades/helicopter_blades_010.png" id="17_4jxdc"]
+[ext_resource type="Texture2D" uid="uid://cjtw3oy0cmnhk" path="res://assets/helicopter_blades/helicopter_blades_011.png" id="18_d1t0w"]
+[ext_resource type="Texture2D" uid="uid://bn3vy1i1tadl3" path="res://assets/helicopter_blades/helicopter_blades_012.png" id="19_g7lwt"]
+[ext_resource type="Texture2D" uid="uid://djmpc8yamr11w" path="res://assets/helicopter_blades/helicopter_blades_013.png" id="20_7mjw2"]
+[ext_resource type="Texture2D" uid="uid://dgu2ruuj35odr" path="res://assets/helicopter_blades/helicopter_blades_014.png" id="21_sbwfn"]
+[ext_resource type="Texture2D" uid="uid://do81tp5widdqy" path="res://assets/helicopter_blades/helicopter_blades_015.png" id="22_imfec"]
+[ext_resource type="Texture2D" uid="uid://cbt7ly1pqyu2p" path="res://assets/helicopter_blades/helicopter_blades_016.png" id="23_b5owj"]
+[ext_resource type="Texture2D" uid="uid://dwt05lguuyw4n" path="res://assets/helicopter_blades/helicopter_blades_017.png" id="24_0nrlf"]
+[ext_resource type="Texture2D" uid="uid://dcyjdqcsr4o7i" path="res://assets/helicopter_blades/helicopter_blades_018.png" id="25_meh8v"]
+[ext_resource type="Texture2D" uid="uid://dfsm1p2eyf6rd" path="res://assets/helicopter_blades/helicopter_blades_019.png" id="26_jookx"]
+[ext_resource type="Texture2D" uid="uid://lqc56s7xkxri" path="res://assets/helicopter_blades/helicopter_blades_020.png" id="27_oto8v"]
+[ext_resource type="Texture2D" uid="uid://bl4yxuyhbapno" path="res://assets/helicopter_blades/helicopter_blades_021.png" id="28_j2yyl"]
+[ext_resource type="Texture2D" uid="uid://m1oeh4xcnvcd" path="res://assets/helicopter_blades/helicopter_blades_022.png" id="29_wyunv"]
+[ext_resource type="Texture2D" uid="uid://cf848dknswx3" path="res://assets/helicopter_blades/helicopter_blades_023.png" id="30_y5dii"]
+[ext_resource type="Texture2D" uid="uid://pmwtoelht4n7" path="res://assets/helicopter_blades/helicopter_blades_024.png" id="31_shnib"]
+[ext_resource type="Texture2D" uid="uid://cpo3q6iinkpl3" path="res://assets/helicopter_blades/helicopter_blades_025.png" id="32_m4ax0"]
+[ext_resource type="Texture2D" uid="uid://boupveoaflg58" path="res://assets/helicopter_blades/helicopter_blades_026.png" id="33_4c3nv"]
+[ext_resource type="Texture2D" uid="uid://bfpcnm8l8lobv" path="res://assets/helicopter_blades/helicopter_blades_027.png" id="34_2gpg0"]
+[ext_resource type="Texture2D" uid="uid://d2v6exjgq34al" path="res://assets/helicopter_blades/helicopter_blades_028.png" id="35_sivrh"]
+[ext_resource type="Texture2D" uid="uid://civ1juqi7haui" path="res://assets/helicopter_blades/helicopter_blades_029.png" id="36_jk22k"]
+[ext_resource type="Texture2D" uid="uid://m82sk6lq1tx" path="res://assets/helicopter_blades/helicopter_blades_030.png" id="37_g4nct"]
+[ext_resource type="Texture2D" uid="uid://c47fro0dke4in" path="res://assets/helicopter_blades/helicopter_rear_blades.png" id="38_tk4su"]
+[ext_resource type="Texture2D" uid="uid://dugvvj4lodwi2" path="res://assets/car.png" id="39_3hg4k"]
+[ext_resource type="Texture2D" uid="uid://chcdox8ne6vio" path="res://assets/wheel.png" id="40_0ar4b"]
 
 [sub_resource type="Gradient" id="Gradient_2jpk7"]
 colors = PackedColorArray(0.404, 0.937, 0.988, 0.5, 0.404, 0.937, 0.988, 0.5)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_it0u1"]
 gradient = SubResource("Gradient_2jpk7")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2icbh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_6a244")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_okwof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_btwor")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_o1je4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_rmvs4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_udr28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cn4lx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_fc3he")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_2ufg3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_4jxdc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_d1t0w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_g7lwt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_7mjw2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_sbwfn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_imfec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_b5owj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_0nrlf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_meh8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_jookx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_oto8v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_j2yyl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_wyunv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_y5dii")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_shnib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_m4ax0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_4c3nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_2gpg0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_sivrh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_jk22k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_g4nct")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="Animation" id="Animation_22e24"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_whnp6"]
+resource_name = "helicopter_rear_blades"
+length = 0.25
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("helicopter_rear_blades:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m7xe6"]
+_data = {
+&"RESET": SubResource("Animation_22e24"),
+&"helicopter_rear_blades": SubResource("Animation_whnp6")
+}
+
+[sub_resource type="Animation" id="Animation_okwof"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wheel_2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wheel_1:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_6a244"]
+resource_name = "wheels_spinning"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("wheel_1:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("wheel_2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_btwor"]
+_data = {
+&"RESET": SubResource("Animation_okwof"),
+&"wheels_spinning": SubResource("Animation_6a244")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cblsw"]
+viewport_path = NodePath("car_sub_viewport_container/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ejnqw"]
+viewport_path = NodePath("helicopter_sub_viewport_container/SubViewport")
 
 [node name="AllButtons" type="Node2D"]
 script = ExtResource("1_eqcxi")
@@ -32,9 +259,9 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 
 [node name="play_pause" type="Button" parent="."]
-offset_left = 208.0
-offset_right = 472.0
-offset_bottom = 362.0
+offset_left = 160.0
+offset_right = 424.0
+offset_bottom = 402.0
 scale = Vector2(0.401082, 0.401082)
 theme_override_font_sizes/font_size = 50
 text = "Playing"
@@ -43,9 +270,9 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 
 [node name="music_on_off" type="Button" parent="."]
-offset_left = 416.0
-offset_right = 680.0
-offset_bottom = 362.0
+offset_left = 320.0
+offset_right = 584.0
+offset_bottom = 402.0
 scale = Vector2(0.401082, 0.401082)
 theme_override_font_sizes/font_size = 50
 text = "Music Off"
@@ -54,15 +281,133 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 
 [node name="voice_on_off" type="Button" parent="."]
-offset_left = 624.0
-offset_right = 888.0
-offset_bottom = 362.0
+offset_left = 480.0
+offset_right = 744.0
+offset_bottom = 402.0
 scale = Vector2(0.401082, 0.401082)
 theme_override_font_sizes/font_size = 50
 text = "Voice Off"
 icon = ExtResource("5_qtmb7")
 icon_alignment = 1
 vertical_icon_alignment = 0
+
+[node name="vehicle_selection" type="Button" parent="."]
+offset_left = 640.0
+offset_right = 904.0
+offset_bottom = 402.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Vehicle"
+icon = ExtResource("6_cbqw8")
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="helicopter_sub_viewport_container" type="SubViewportContainer" parent="."]
+offset_left = -616.0
+offset_top = -1616.0
+offset_right = 920.0
+offset_bottom = -592.0
+
+[node name="SubViewport" type="SubViewport" parent="helicopter_sub_viewport_container"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1536, 1024)
+render_target_update_mode = 4
+
+[node name="HelicopterFromChatgpt" type="Sprite2D" parent="helicopter_sub_viewport_container/SubViewport"]
+position = Vector2(762, 716)
+scale = Vector2(-1, 1)
+texture = ExtResource("7_0ar4b")
+
+[node name="helicopter_blades" type="AnimatedSprite2D" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt"]
+position = Vector2(-124.449, -260.564)
+rotation = 3.14159
+scale = Vector2(2, -2)
+sprite_frames = SubResource("SpriteFrames_2icbh")
+autoplay = "default"
+frame_progress = 0.437125
+speed_scale = 7.5
+
+[node name="helicopter_rear_blades" type="Sprite2D" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt"]
+position = Vector2(573.258, -72.088)
+rotation = -0.556039
+texture = ExtResource("38_tk4su")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt"]
+libraries = {
+&"": SubResource("AnimationLibrary_m7xe6")
+}
+autoplay = "helicopter_rear_blades"
+speed_scale = 2.0
+
+[node name="car_sub_viewport_container" type="SubViewportContainer" parent="."]
+offset_left = 952.0
+offset_top = -1300.0
+offset_right = 1464.0
+offset_bottom = -788.0
+
+[node name="SubViewport" type="SubViewport" parent="car_sub_viewport_container"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(500, 500)
+render_target_update_mode = 4
+
+[node name="Car" type="Sprite2D" parent="car_sub_viewport_container/SubViewport"]
+position = Vector2(250, 250)
+texture = ExtResource("39_3hg4k")
+flip_h = true
+
+[node name="wheels_animation" type="AnimationPlayer" parent="car_sub_viewport_container/SubViewport/Car"]
+libraries = {
+&"": SubResource("AnimationLibrary_btwor")
+}
+
+[node name="wheel_1" type="Sprite2D" parent="car_sub_viewport_container/SubViewport/Car"]
+position = Vector2(-141.614, 61.5)
+rotation = 6.28319
+scale = Vector2(0.954545, 0.954545)
+texture = ExtResource("40_0ar4b")
+
+[node name="wheel_2" type="Sprite2D" parent="car_sub_viewport_container/SubViewport/Car"]
+position = Vector2(130.386, 61.5)
+rotation = 6.28319
+scale = Vector2(0.954545, 0.954545)
+texture = ExtResource("40_0ar4b")
+
+[node name="vehicle_selection_menu" type="Node2D" parent="."]
+visible = false
+position = Vector2(816, -54)
+
+[node name="background_vehicle_selection" type="Sprite2D" parent="vehicle_selection_menu"]
+position = Vector2(-123, 337.5)
+scale = Vector2(1.03906, 189)
+texture = SubResource("GradientTexture1D_it0u1")
+
+[node name="car_button" type="Button" parent="vehicle_selection_menu"]
+offset_left = -112.0
+offset_top = 244.0
+offset_right = 152.0
+offset_bottom = 646.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Car"
+icon = SubResource("ViewportTexture_cblsw")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="helicopter_button" type="Button" parent="vehicle_selection_menu"]
+offset_left = -240.0
+offset_top = 244.0
+offset_right = 24.0
+offset_bottom = 646.0
+scale = Vector2(0.401082, 0.401082)
+theme_override_font_sizes/font_size = 50
+text = "Helicopter"
+icon = SubResource("ViewportTexture_ejnqw")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
 
 [node name="countdown" type="RichTextLabel" parent="."]
 offset_left = 736.0
@@ -81,3 +426,6 @@ script = ExtResource("6_175rw")
 [connection signal="pressed" from="play_pause" to="." method="_on_play_pause_pressed"]
 [connection signal="pressed" from="music_on_off" to="." method="_on_music_on_off_pressed"]
 [connection signal="pressed" from="voice_on_off" to="." method="_on_voice_on_off_pressed"]
+[connection signal="pressed" from="vehicle_selection" to="." method="_on_vehicle_selection_pressed"]
+[connection signal="pressed" from="vehicle_selection_menu/car_button" to="." method="_on_car_pressed"]
+[connection signal="pressed" from="vehicle_selection_menu/helicopter_button" to="." method="_on_helicopter_pressed"]

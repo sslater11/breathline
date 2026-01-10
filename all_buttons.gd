@@ -34,6 +34,7 @@ func _process(delta: float) -> void:
 func _on_reset_button_pressed() -> void:
 	if not Globals.is_start_button_visible:
 		Globals.start_time_in_millis = Time.get_ticks_msec()
+		Globals.has_celebration_sound_played = false
 		if Globals.is_playing == false:
 			Globals.is_playing = true
 			Globals.is_first_breath = true

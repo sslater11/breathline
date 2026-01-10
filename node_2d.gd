@@ -211,16 +211,6 @@ func _process(delta : float) -> void:
 		Globals.are_fireworks_on = true
 
 
-	if vehicle.global_position.x > breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() -1 ].x - 500:
-		if has_shit_spray_played == false:
-			has_shit_spray_played = true
-			animation_breathe.play("shit_spray")
-			car_trail_particles.emitting = false
-			#shit_everywhere_particles.emitting = true
-			
-			animation_breathe.play("fireworks")
-			Globals.are_fireworks_on = true
-			#Globals.is_playing = false
 	if Globals.is_playing:
 		if (vehicle.visible == false) and (toilet.visible == false):
 			vehicle.visible = true
@@ -246,6 +236,22 @@ func _process(delta : float) -> void:
 		path_follow_2d.progress_ratio     = car_progress
 		camera_path_follow.progress_ratio = car_progress
 		
+		
+		if vehicle.global_position.x > breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() -1 ].x - 500:
+			if Globals.has_celebration_sound_played == false:
+				SoundsScene.play_celebration()
+				Globals.has_celebration_sound_played = true
+			
+			if has_shit_spray_played == false:
+				has_shit_spray_played = true
+				animation_breathe.play("shit_spray")
+				car_trail_particles.emitting = false
+				#shit_everywhere_particles.emitting = true
+				
+				animation_breathe.play("fireworks")
+				Globals.are_fireworks_on = true
+			#Globals.is_playing = false
+
 
 		# Animation for each breath.
 		# Calculate the current breath.

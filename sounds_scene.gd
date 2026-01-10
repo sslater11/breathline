@@ -16,7 +16,14 @@ extends Node2D
 @onready var breathe_out : AudioStreamPlayer = $breathe_out
 @onready var breathe_hold: AudioStreamPlayer = $breathe_hold
 
+@onready var celebration_sound_1: AudioStreamPlayer = $celebration_sound_1
+@onready var celebration_sound_2: AudioStreamPlayer = $celebration_sound_2
+@onready var celebration_sound_3_with_cymbal: AudioStreamPlayer = $celebration_sound_3_with_cymbal
+@onready var celebration_sound_3_without_cymbal: AudioStreamPlayer = $celebration_sound_3_without_cymbal
+
+
 var all_background_music : Array[AudioStreamPlayer] = []
+var all_celebration_sounds : Array[AudioStreamPlayer] = []
 
 var is_background_music_allowed_to_play : bool = false
 var is_background_music_playing : bool = false
@@ -28,6 +35,7 @@ var current_track_volume : float = 0.0
 func _ready() -> void:
 	randomize()
 	all_background_music = [ kirks_song_1, kirks_song_2, kirks_song_3 ]
+	all_celebration_sounds = [ celebration_sound_1, celebration_sound_2, celebration_sound_3_with_cymbal, celebration_sound_3_without_cymbal ]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -224,3 +232,14 @@ func fade_out_music(all_tracks : Array[AudioStreamPlayer], start_volume: float, 
 #
 #func play_pokeball_open() -> void:
 	#pokeball_open.play( 0.0 )
+
+func play_celebration() -> void:
+	fade_out_music(all_background_music, 0.001, -60.0, 0.35)
+
+	# Play a random celebration
+	if len( all_celebration_sounds ) > 0:
+		var celebration_track_index : int = randi() % len( all_celebration_sounds )
+		all_celebration_sounds[ celebration_track_index ].play( 0.0 )
+		await all_celebration_sounds[ celebration_track_index ].finished
+
+	fade_out_music(all_background_music, -60.0, 0.001, 0.35)

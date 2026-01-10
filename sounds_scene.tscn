@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b3bp53mq72y42"]
+[gd_scene load_steps=12 format=3 uid="uid://b3bp53mq72y42"]
 
 [ext_resource type="Script" uid="uid://cddsn0wobfjt3" path="res://sounds_scene.gd" id="1_ybcvh"]
 [ext_resource type="AudioStream" uid="uid://bpvv6dlwq2r82" path="res://assets/soumds/kirks_song_1.mp3" id="2_42fmv"]
@@ -7,6 +7,10 @@
 [ext_resource type="AudioStream" uid="uid://bgoka0eqq0wb2" path="res://assets/soumds/in.mp3" id="5_fvhep"]
 [ext_resource type="AudioStream" uid="uid://d5fn16xqcif4" path="res://assets/soumds/out.mp3" id="6_u60cn"]
 [ext_resource type="AudioStream" uid="uid://bx2b1mkn2tuq6" path="res://assets/soumds/hold.mp3" id="7_h3e2e"]
+[ext_resource type="AudioStream" uid="uid://bsg0cp7ko3rl8" path="res://assets/soumds/celebration_sound_1.mp3" id="8_s0jlk"]
+[ext_resource type="AudioStream" uid="uid://epmm70msb8mi" path="res://assets/soumds/celebration_sound_2.mp3" id="9_qxkuy"]
+[ext_resource type="AudioStream" uid="uid://0bvsxb2c12ak" path="res://assets/soumds/celebration_sound_3_with_crash_cymbal.mp3" id="10_1iy0x"]
+[ext_resource type="AudioStream" uid="uid://cfgoeg3cbv8ia" path="res://assets/soumds/celebration_sound_3_without_crash_cymbal.mp3" id="11_u0iay"]
 
 [node name="Sounds" type="Node2D"]
 script = ExtResource("1_ybcvh")
@@ -35,3 +39,19 @@ pitch_scale = 1.5
 stream = ExtResource("7_h3e2e")
 volume_db = 5.0
 pitch_scale = 1.5
+
+[node name="celebration_sound_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_s0jlk")
+volume_db = -20.0
+
+[node name="celebration_sound_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_qxkuy")
+volume_db = -17.0
+
+[node name="celebration_sound_3_with_cymbal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_1iy0x")
+volume_db = -5.0
+
+[node name="celebration_sound_3_without_cymbal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_u0iay")
+volume_db = -5.0

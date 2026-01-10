@@ -16,6 +16,7 @@ var start_time_in_millis : int = 0
 var total_time_in_millis : int = 0
 var paused_time_in_millis : int = 0
 var total_breath_rounds : int = 16
+var has_celebration_sound_played : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

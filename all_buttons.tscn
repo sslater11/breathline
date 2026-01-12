@@ -304,9 +304,9 @@ vertical_icon_alignment = 0
 
 [node name="helicopter_sub_viewport_container" type="SubViewportContainer" parent="."]
 offset_left = -616.0
-offset_top = -1616.0
+offset_top = -2936.0
 offset_right = 920.0
-offset_bottom = -592.0
+offset_bottom = -1912.0
 
 [node name="SubViewport" type="SubViewport" parent="helicopter_sub_viewport_container"]
 transparent_bg = true
@@ -342,9 +342,9 @@ speed_scale = 2.0
 
 [node name="car_sub_viewport_container" type="SubViewportContainer" parent="."]
 offset_left = 952.0
-offset_top = -1300.0
+offset_top = -2476.0
 offset_right = 1464.0
-offset_bottom = -788.0
+offset_bottom = -1964.0
 
 [node name="SubViewport" type="SubViewport" parent="car_sub_viewport_container"]
 transparent_bg = true

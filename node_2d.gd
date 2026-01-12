@@ -201,6 +201,10 @@ func _ready() -> void:
 	#bunny.position = Vector2( last_point.x-140, last_point.y -200)
 	
 func _process(delta : float) -> void:
+	if (snow_particles.emitting == false) and (Globals.is_playing == true):
+		snow_particles.preprocess = 0.0
+	snow_particles.emitting = Globals.is_playing
+	
 	if Globals.is_first_breath and Globals.is_playing:
 		Globals.is_first_breath = false
 		animation_breathe_in()

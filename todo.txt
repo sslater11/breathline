@@ -1,9 +1,12 @@
+make the scenery change as we progress through the session, showing we're nearing the end.
+add: kirk's grass sprite so the sheep aren't eating mud any more lol.
+fix: sheep sometimes appear above the road, in the air.
+fix: turn fireworks off after reset button is pressed
+	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.
 Add the house to the finish line.
 
 Allow the user to enter custom time lengths.
 Add different breath types.
-
-stop snow from falling when the game is paused
 
 add spacebar to pause/play the scene
 

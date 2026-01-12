@@ -449,9 +449,11 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 			else:
 				y_offset -= randi_range( 0, 200 )
 
+		var random_sprite : AnimatedSprite2D = all_animated_sprites[ randi_range( 0, all_animated_sprites.size()-1 ) ]
 		var sprite : SelfDestroyingSprite = SelfDestroyingSprite.new()
+		sprite.offset = random_sprite.offset
 		sprite.centered = false
-		sprite.sprite_frames = all_animated_sprites[ randi_range(0, all_animated_sprites.size()-1) ].sprite_frames
+		sprite.sprite_frames = random_sprite.sprite_frames
 		sprite.position = Vector2( x_offset + randi_range( 0,50 ), y_offset )
 		var sprite_scale : float = randf_range( 0.5, 1.0 )
 		sprite.scale = Vector2( sprite_scale, sprite_scale )
@@ -460,6 +462,7 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 		add_child( sprite )
 		if is_below_road:
 			sprite.z_index = y_offset + (sprite.get_texture_of_current_frame().get_height() * sprite.scale.y)
+			sprite.z_index += sprite.offset.y * sprite.scale.y
 
 			all_trees.append( sprite )
 		else:

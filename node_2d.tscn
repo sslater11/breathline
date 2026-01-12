@@ -2021,3 +2021,4 @@ sprite_frames = SubResource("SpriteFrames_bcdmj")
 position = Vector2(-752, -752)
 sprite_frames = SubResource("SpriteFrames_5f7vl")
 frame_progress = 0.403591
+offset = Vector2(0, 100)

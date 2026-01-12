@@ -7,8 +7,6 @@
 # You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 extends Button
-@onready var start_button: Node2D = $".."
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,10 +23,12 @@ func _on_pressed() -> void:
 	# quick 10 second video for buttons - https://www.youtube.com/watch?v=mlS1p7-9u6k
 	# Click "Node" tab at the top of properties, to see all the signals this node has.
 	Globals.total_breath_rounds = 1
-	print(Globals.total_breath_rounds)
 	Globals.is_start_button_visible = false
-	start_button.visible = false
-	self.visible = false
+	get_parent().visible = false
+	
+	get_parent().fade_out_color_rect.visible = true
+	get_parent().fade_out_animation.play( "fade_out" )
+	await get_parent().fade_out_animation.animation_finished
 
 	Globals.start_time_in_millis = Time.get_ticks_msec()
 	Globals.is_playing = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=232 format=3 uid="uid://bikbqdev5c825"]
+[gd_scene load_steps=235 format=3 uid="uid://bikbqdev5c825"]
 
 [ext_resource type="Script" uid="uid://c1vtd17mqywml" path="res://node_2d.gd" id="1_g6fdy"]
 [ext_resource type="Texture2D" uid="uid://cdncv2sxb7xg0" path="res://icon.svg" id="2_bvv4u"]
@@ -70,6 +70,42 @@ _data = {
 "points": PackedVector2Array(-84.0048, -100.051, 84.0048, 100.051, 0, 0, -73.9999, -1.01444, 73.9999, 1.01444, 369, 229, -172.545, 7.55099, 172.545, -7.55099, 789, 421, -88.7242, -4.71937, 88.7242, 4.71937, 1245, 451, -95.3313, -1.88775, 95.3313, 1.88775, 1474, 12, -204.107, 52.9167, 204.107, -52.9167, 1694, 155)
 }
 point_count = 6
+
+[sub_resource type="Animation" id="Animation_m7xe6"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wqmsq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkgk1"]
+_data = {
+&"RESET": SubResource("Animation_wqmsq"),
+&"fade_in": SubResource("Animation_m7xe6")
+}
 
 [sub_resource type="Gradient" id="Gradient_fs4d3"]
 colors = PackedColorArray(0.8, 0.8, 0.8, 1, 0.8, 0.8, 0.8, 1)
@@ -1587,6 +1623,20 @@ position = Vector2(-31.2192, -40.5754)
 rotation = -0.87236
 zoom = Vector2(0.55, 0.55)
 
+[node name="fade_in" type="ColorRect" parent="breathline/camera_path_follow/Camera2D"]
+z_index = 4096
+offset_left = -1370.94
+offset_top = -1451.14
+offset_right = 1270.06
+offset_bottom = 846.863
+color = Color(0, 0, 0, 1)
+
+[node name="fade_in_animation" type="AnimationPlayer" parent="breathline/camera_path_follow/Camera2D/fade_in"]
+libraries = {
+&"": SubResource("AnimationLibrary_fkgk1")
+}
+autoplay = "fade_in"
+
 [node name="background" type="Sprite2D" parent="breathline/camera_path_follow"]
 modulate = Color(0.402557, 0.938194, 0.988738, 1)
 z_index = -4096
@@ -1611,7 +1661,7 @@ scale_amount_max = 150.0
 color_ramp = SubResource("Gradient_355fv")
 
 [node name="snow_particles" type="CPUParticles2D" parent="breathline/camera_path_follow"]
-z_index = 4096
+z_index = 4000
 position = Vector2(507.171, -1823.57)
 rotation = -0.87236
 emitting = false
@@ -1706,7 +1756,10 @@ scale = Vector2(1.299, 1)
 
 [node name="StartButton" parent="breathline/camera_path_follow" instance=ExtResource("13_l4sco")]
 visible = false
-position = Vector2(-496.849, 100.352)
+offset_left = -496.849
+offset_top = 100.352
+offset_right = -232.849
+offset_bottom = 410.352
 rotation = -0.872665
 scale = Vector2(3.08965, 2.37826)
 

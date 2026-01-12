@@ -1,5 +1,6 @@
 make the scenery change as we progress through the session, showing we're nearing the end.
 add: kirk's grass sprite so the sheep aren't eating mud any more lol.
+
 fix: turn fireworks off after reset button is pressed
 	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.
 Add the house to the finish line.
@@ -9,8 +10,7 @@ Add different breath types.
 
 add spacebar to pause/play the scene
 
-fade in on level start
-maybe add a 'hold' breath before the in and not play sound for the first 'hold' that is encountered.
+on start, maybe add a 'hold' breath before the in and not play sound for the first 'hold' that is encountered.
   gives the user time to get ready.
 
 New level ideas

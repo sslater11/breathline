@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://chn3pxy46w1fm"]
+[gd_scene load_steps=143 format=3 uid="uid://chn3pxy46w1fm"]
 
 [ext_resource type="Script" uid="uid://dg68o68icwj3q" path="res://start_scene.gd" id="1_33mov"]
 [ext_resource type="PackedScene" uid="uid://cpcdxy573u2de" path="res://start_button.tscn" id="1_mbe3m"]
@@ -20,6 +20,43 @@
 [ext_resource type="Texture2D" uid="uid://doto77wa2kjjk" path="res://assets/cloud_2_205px_x_130px.png" id="16_wrdj4"]
 [ext_resource type="Texture2D" uid="uid://bjgot1ottbfdm" path="res://assets/cloud_1_205px_x_130px_blink.png" id="17_n7f12"]
 [ext_resource type="Texture2D" uid="uid://c6rop7r0ju47p" path="res://assets/cloud_3_186px_x_136px.png" id="18_wjhjx"]
+
+[sub_resource type="Animation" id="Animation_wrdj4"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_n7f12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0s3qj"]
+_data = {
+&"RESET": SubResource("Animation_n7f12"),
+&"fade_out": SubResource("Animation_wrdj4")
+}
 
 [sub_resource type="Curve2D" id="Curve2D_hnjuv"]
 _data = {
@@ -812,9 +849,27 @@ animations = [{
 [node name="StartScene" type="Node2D"]
 script = ExtResource("1_33mov")
 
-[node name="StartButton" parent="." instance=ExtResource("1_mbe3m")]
+[node name="fade_out" type="ColorRect" parent="."]
+z_index = 2000
+offset_left = -794.0
+offset_top = -892.0
+offset_right = 2413.0
+offset_bottom = 1437.0
+color = Color(0, 0, 0, 0)
+
+[node name="fade_out_animation" type="AnimationPlayer" parent="fade_out"]
+libraries = {
+&"": SubResource("AnimationLibrary_0s3qj")
+}
+
+[node name="StartButton" parent="." node_paths=PackedStringArray("fade_out_color_rect", "fade_out_animation") instance=ExtResource("1_mbe3m")]
 z_index = 100
-position = Vector2(420, 173)
+offset_left = 420.0
+offset_top = 173.0
+offset_right = 684.0
+offset_bottom = 483.0
+fade_out_color_rect = NodePath("../fade_out")
+fade_out_animation = NodePath("../fade_out/fade_out_animation")
 
 [node name="line_road_marking" type="Line2D" parent="."]
 top_level = true

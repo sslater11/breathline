@@ -10,7 +10,6 @@ Add the house to the finish line.
 make the sheep animations start on a random frame on scene load.
 
 put a flashing red light on the helicopter.
-put a spotlight on the helicopter to show at night.
 
 Allow the user to enter custom time lengths.
 Add different breath types.

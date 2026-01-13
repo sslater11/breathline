@@ -344,6 +344,7 @@ _data = {
 [sub_resource type="Gradient" id="Gradient_1fr6y"]
 offsets = PackedFloat32Array(0, 0.351759, 1)
 colors = PackedColorArray(0.932146, 0.563803, 3.85046e-07, 1, 0.927229, 0.561307, 0.00134882, 0.977076, 0.717647, 0.454902, 0.0588235, 0)
+metadata/_snap_enabled = true
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_w1qdb"]
 gradient = SubResource("Gradient_1fr6y")
@@ -353,7 +354,6 @@ use_hdr = true
 fill = 1
 fill_from = Vector2(0.73, 0.27)
 fill_to = Vector2(0.34, 0.72)
-metadata/_snap_enabled = true
 metadata/_snap_count = 100
 
 [sub_resource type="Gradient" id="Gradient_t30ig"]
@@ -1854,6 +1854,24 @@ libraries = {
 }
 autoplay = "helicopter_rear_blades"
 speed_scale = 2.0
+
+[node name="spotlight" type="PointLight2D" parent="breathline/PathFollow2D/vehicle/helicopter"]
+self_modulate = Color(0.246539, 0.2867, 0.833646, 1)
+light_mask = 3
+visibility_layer = 3
+z_as_relative = false
+position = Vector2(-140.929, 1091.78)
+rotation = -1.86781
+scale = Vector2(12.5, -12.5)
+skew = -1.07687
+color = Color(1, 0.753843, 0.510672, 1)
+energy = 2.15
+range_z_min = -4096
+range_z_max = 10
+range_layer_max = 9
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_w1qdb")
+texture_scale = 3.38
 
 [node name="headlight_beam" type="PointLight2D" parent="breathline/PathFollow2D/vehicle"]
 self_modulate = Color(0.246539, 0.2867, 0.833646, 1)

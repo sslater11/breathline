@@ -7,6 +7,7 @@
 # You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 extends Node2D
+@onready var spotlight: PointLight2D = $breathline/PathFollow2D/vehicle/helicopter/spotlight
 @onready var headlights: PointLight2D = $breathline/PathFollow2D/vehicle/car/headlights
 @onready var brakelights: PointLight2D = $breathline/PathFollow2D/vehicle/car/brakelights
 @onready var headlight_beam: PointLight2D = $breathline/PathFollow2D/vehicle/headlight_beam
@@ -331,6 +332,7 @@ func animation_scene_start() -> void:
 	#tween.tween_property( headlights, "energy", 0, tween_length / 2.0 )
 	tween.tween_property( brakelights, "energy", 0, tween_length / 2.0 )
 	
+	tween.tween_property( spotlight,      "energy", 0.0, tween_length / 2.0 )
 	tween.tween_property( headlight_beam, "energy", 0.0, tween_length / 2.0 )
 
 func animation_breathe_in() -> void:
@@ -354,6 +356,7 @@ func animation_breathe_in() -> void:
 	#tween.tween_property( headlights, "energy", 0, tween_length / 2.0 )
 	tween.tween_property( brakelights, "energy", 0, tween_length / 2.0 )
 	
+	tween.tween_property( spotlight,      "energy", 0.0, tween_length / 2.0 )
 	tween.tween_property( headlight_beam, "energy", 0.0, tween_length / 2.0 )
 
 
@@ -382,6 +385,7 @@ func animation_breathe_out() -> void:
 	tween.tween_property( headlights, "energy", 75, tween_length / 2.0 )
 	tween.tween_property( brakelights, "energy", 75, tween_length / 2.0 )
 
+	tween.tween_property( spotlight,      "energy", 1.0, tween_length )
 	tween.tween_property( headlight_beam, "energy", 2.5, tween_length )
 	
 func set_text_breath( text : String ) -> void:

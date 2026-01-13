@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 		
 		# update the countdown timer.
 		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
-		var time_left : int = Globals.total_time_in_millis - current_time_in_millis
+		var time_left : int = Globals.total_time_in_millis - current_time_in_millis - Globals.start_time_offset_in_millis
 		if time_left > 0:
 			var countdown_minutes : int = abs( time_left / 1000 / 60 )
 			var countdown_seconds : int = abs( (time_left / 1000) - (countdown_minutes * 60) )

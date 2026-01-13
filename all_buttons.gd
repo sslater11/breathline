@@ -37,7 +37,6 @@ func _on_reset_button_pressed() -> void:
 		Globals.has_celebration_sound_played = false
 		if Globals.is_playing == false:
 			Globals.is_playing = true
-			Globals.is_first_breath = true
 			update_play_pause_icon()
 			
 			SoundsScene.resume_background_music()

@@ -10,8 +10,8 @@ extends Node
 
 var is_start_button_visible : bool = true
 var is_playing : bool= false
-var is_first_breath : bool = true
 var are_fireworks_on : bool = false
+var start_time_offset_in_millis : int = 0
 var start_time_in_millis : int = 0
 var total_time_in_millis : int = 0
 var paused_time_in_millis : int = 0

@@ -17,8 +17,15 @@ Add different breath types.
 
 add spacebar to pause/play the scene
 
-on start, maybe add a 'hold' breath before the in and not play sound for the first 'hold' that is encountered.
-  gives the user time to get ready.
+add a menu on start to choose
+	vehicle
+	scene
+	time
+	snow on/off
+	voice on/off
+		or even chimes on/off
+
+add musical chimes for in, hold & out
 
 New level ideas
 A boat on water that goes up and down

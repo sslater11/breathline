@@ -15,6 +15,7 @@ vertical_icon_alignment = 0
 script = ExtResource("1_44r3r")
 
 [node name="Button2" type="Button" parent="."]
+layout_mode = 0
 offset_left = 288.0
 offset_top = 72.0
 offset_right = 552.0

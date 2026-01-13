@@ -87,6 +87,8 @@ var breath_length : Array[float] = [4.0, 7.0, 6.0, 2.0] # Deep Calm from Breathl
 
 var straight_path : Curve2D = Curve2D.new()
 
+var intro_breath_length : float = 10.0
+
 # These are to keep all sprites that are made using godot's gui.
 var all_animated_trees  : Array[AnimatedSprite2D] = []
 var all_animated_clouds : Array[AnimatedSprite2D] = []
@@ -113,7 +115,7 @@ func _ready() -> void:
 	SignalBus.car_chosen.connect( switch_to_car )
 	SignalBus.helicopter_chosen.connect( switch_to_helicopter )
 	
-	Globals.total_time_in_millis = 0
+	Globals.total_time_in_millis = intro_breath_length * 1000
 	for i in breath_length:
 		Globals.total_time_in_millis += i * 1000 * Globals.total_breath_rounds
 
@@ -129,20 +131,32 @@ func _ready() -> void:
 	shit_everywhere_particles.emitting = false
 
 	Globals.start_time_in_millis = Time.get_ticks_msec()
-	#Globals.start_time_in_millis -= 4.85 * 60 * 1000 # make it start a bit later
+	Globals.start_time_offset_in_millis = (intro_breath_length / 2) * 1000
+	#Globals.start_time_in_millis -= 4.75 * 60 * 1000 # make it start a bit later
+	#Globals.start_time_in_millis -= 2.85 * 60 * 1000 # make it start a bit later
 	
 	# Make sure both the sprite and path have the same position in
 	# the properties setting as this makes the sprite follow the line properly.
 	breathline.curve.clear_points()
 	
 	var bend_size : float = float( LINE_LENGTH_FOR_ONE_SECOND ) * BEND_MULTIPLIER
-	var bend_in  : Vector2 = Vector2( 0, 0 )
-	var bend_out : Vector2 = Vector2( 0, 0 )
+	var bend_in  : Vector2 = Vector2( -bend_size, 0 )
+	var bend_out : Vector2 = Vector2( bend_size,  0 )
 
 	# Starting point
 	if breathline.curve.point_count == 0:
 		breathline.curve.add_point( Vector2( START_X, START_Y ) )
-	
+
+
+	# Intro line, not part of the breathing
+	var first_x : float = breathline.curve.get_point_position( breathline.curve.point_count - 1 ).x
+	var first_y : float = breathline.curve.get_point_position( breathline.curve.point_count - 1 ).y
+	var intro_line_end_x : float = first_x + ( intro_breath_length * LINE_LENGTH_FOR_ONE_SECOND )
+	var intro_line_end_y : float = first_y
+	breathline.curve.add_point( Vector2( intro_line_end_x, intro_line_end_y ), bend_in, bend_out )
+
+
+	# The rest of the breathline points.
 	for k in range( Globals.total_breath_rounds ):
 		print(Globals.total_breath_rounds)
 		for i in range( breath_length.size() ):
@@ -162,16 +176,16 @@ func _ready() -> void:
 
 			if i % 4 == 0:
 				bend_in  = Vector2( -bend_size, 0 )
-				bend_out = Vector2( bend_size, -0 )
+				bend_out = Vector2( bend_size,  0 )
 			elif i % 4 == 1:
 				bend_in  = Vector2( -bend_size, 0 )
-				bend_out = Vector2( bend_size, 0 )
+				bend_out = Vector2( bend_size,  0 )
 			elif i % 4 == 2:
 				bend_in  = Vector2( -bend_size, 0 )
-				bend_out = Vector2( bend_size, 0 )
+				bend_out = Vector2( bend_size,  0 )
 			elif i % 4 == 1:
 				bend_in  = Vector2( -bend_size, 0 )
-				bend_out = Vector2( bend_size, 0 )
+				bend_out = Vector2( bend_size,  0 )
 
 			breathline.curve.add_point( Vector2( new_x, new_y ), bend_in, bend_out )
 
@@ -205,9 +219,6 @@ func _process(delta : float) -> void:
 		snow_particles.preprocess = 0.0
 	snow_particles.emitting = Globals.is_playing
 	
-	if Globals.is_first_breath and Globals.is_playing:
-		Globals.is_first_breath = false
-		animation_breathe_in()
 	if Input.is_key_pressed(KEY_F):
 		if Globals.are_fireworks_on == false:
 			celebration.visible = true
@@ -220,7 +231,7 @@ func _process(delta : float) -> void:
 			vehicle.visible = true
 
 		vehicle.z_index = vehicle.global_position.y - 150
-		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis
+		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
 		var current_breath : int = 0
 
 		# Use pure maths to figure out the current breath that we are on.
@@ -259,14 +270,11 @@ func _process(delta : float) -> void:
 
 		# Animation for each breath.
 		# Calculate the current breath.
-		# Get the current breath in time as a float
-		# Convert the float to a number from 0.0 - 1.0
-		var current_breath_as_float : float = (current_time_in_millis / 1000) / float(total_breath_length)
-		
-		# Working code to time the animations
-		var breath : float = (current_time_in_millis / 1000) % total_breath_length
+		var breath : float = float(int(current_time_in_millis - (intro_breath_length * 1000)) % (total_breath_length * 1000)) / 1000
 
-		if breath < breath_length[0]:
+		if breath < 0.0:
+			current_breath = -1
+		elif breath < breath_length[0]:
 			current_breath = 0
 		elif breath < breath_length[0] + breath_length[1]:
 			current_breath = 1
@@ -276,20 +284,24 @@ func _process(delta : float) -> void:
 			current_breath = 3
 		
 		
-		if current_breath != last_breath:
+		if (current_breath != last_breath):
 			last_breath = current_breath
-			if current_breath % 4 == 0:
+			
+			if current_breath == -1:
+				animation_scene_start()
+
+			elif current_breath % 4 == 0:
 				animation_breathe_in()
 
-			if current_breath % 4 == 1:
+			elif current_breath % 4 == 1:
 				set_text_breath("HOLD")
 				print("hold after breath in")
 				SoundsScene.play_breathe_hold()
 
-			if current_breath % 4 == 2:
+			elif current_breath % 4 == 2:
 				animation_breathe_out()
 
-			if current_breath % 4 == 3:
+			elif current_breath % 4 == 3:
 				set_text_breath("HOLD")
 				SoundsScene.play_breathe_hold()
 				print("hold after breath out")
@@ -299,6 +311,27 @@ func _process(delta : float) -> void:
 		spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
 		spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
 		update_cloud_locations( delta )
+
+func animation_scene_start() -> void:
+	set_text_breath("")
+	print("scene start")
+	var tween : Tween = get_tree().create_tween()
+	var tween_length : float = breath_length[0] - 0.2
+	tween.set_parallel( true )
+
+	# Set to 0 in compatibility mode.
+	tween.tween_property( world_lighting2, "energy", 0.0, tween_length )
+	# use 0.45 when the project is in mobile mode.
+	#tween.tween_property( world_lighting2, "energy", 0.45, tween_length )
+	
+	tween.tween_property( sun, "modulate", Color(3.0, 3.0, 3.0, 1.0 ), tween_length )
+	tween.tween_property( moon_glow, "modulate", Color(1, 1, 1, 0.0 ), tween_length * 1.85 )
+	
+	tween.tween_property( background_sprite, "modulate", LIGHT_SKY, tween_length )
+	#tween.tween_property( headlights, "energy", 0, tween_length / 2.0 )
+	tween.tween_property( brakelights, "energy", 0, tween_length / 2.0 )
+	
+	tween.tween_property( headlight_beam, "energy", 0.0, tween_length / 2.0 )
 
 func animation_breathe_in() -> void:
 	set_text_breath("IN")
@@ -376,22 +409,6 @@ func draw_ground() -> void:
 	const GROUND_COLOR : Color = Color( 0.5, 0.0, 0.0 )
 	var y_offset = line_road_marking.width * 3
 	
-	# Draw the ground before the breathline starts.
-	for i in range(0, LINE_COUNT ):
-		var line : Line2D = Line2D.new()
-		line.z_index = -1
-		line.width = line_road_marking.width
-		line.default_color = GROUND_COLOR
-		
-		var breathline_starting_point : Vector2 = breathline.curve.get_baked_points()[0]
-		breathline_starting_point.x += 5 # padding to avoid a gap showing.
-		breathline_starting_point.y = breathline_starting_point.y + (i * line.width) + y_offset
-		var starting_point : Vector2 = Vector2( breathline_starting_point.x - camera_rect.size.x, breathline_starting_point.y )
-		line.add_point( starting_point )
-		line.add_point( breathline_starting_point )
-			#line.add_point( Vector2( k.x, k.y + 500 ) )
-		#all_ground_lines.append(line)
-		add_child( line )
 
 
 	# Draw the ground for the main breathline

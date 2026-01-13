@@ -1673,6 +1673,8 @@ lifetime_randomness = 0.37
 emission_shape = 3
 emission_rect_extents = Vector2(2100, 1)
 gravity = Vector2(-300, 200)
+initial_velocity_min = 5.0
+initial_velocity_max = 100.0
 scale_amount_max = 10.0
 color = Color(3, 3, 3, 1)
 color_initial_ramp = SubResource("Gradient_iynr7")
@@ -1877,13 +1879,6 @@ scale = Vector2(0.016, 0.016)
 [node name="helicopter_headlight_beam_anchor" type="Node2D" parent="breathline/PathFollow2D/vehicle"]
 position = Vector2(8.775, -6.4)
 scale = Vector2(0.016, 0.016)
-
-[node name="carorig" type="Sprite2D" parent="breathline/PathFollow2D"]
-visible = false
-light_mask = 2
-z_index = 5
-scale = Vector2(0.016, 0.016)
-flip_h = true
 
 [node name="toilet" type="Sprite2D" parent="breathline/PathFollow2D"]
 z_index = 5

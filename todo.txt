@@ -3,7 +3,14 @@ add: kirk's grass sprite so the sheep aren't eating mud any more lol.
 
 fix: turn fireworks off after reset button is pressed
 	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.
+
 Add the house to the finish line.
+	write a draw_finish_line() function to draw a new line at the end of the breathline, and put the house on it somewhere.
+
+make the sheep animations start on a random frame on scene load.
+
+put a flashing red light on the helicopter.
+put a spotlight on the helicopter to show at night.
 
 Allow the user to enter custom time lengths.
 Add different breath types.

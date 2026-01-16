@@ -7,8 +7,6 @@ fix: turn fireworks off after reset button is pressed
 Add the house to the finish line.
 	write a draw_finish_line() function to draw a new line at the end of the breathline, and put the house on it somewhere.
 
-make the sheep animations start on a random frame on scene load.
-
 put a flashing red light on the helicopter.
 
 Allow the user to enter custom time lengths.

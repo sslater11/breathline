@@ -475,6 +475,7 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 		sprite.offset = random_sprite.offset
 		sprite.centered = false
 		sprite.sprite_frames = random_sprite.sprite_frames
+		sprite.frame = randi_range( 0, sprite.sprite_frames.get_frame_count("default") )
 		sprite.position = Vector2( x_offset + randi_range( 0,50 ), y_offset )
 		var sprite_scale : float = randf_range( 0.5, 1.0 )
 		sprite.scale = Vector2( sprite_scale, sprite_scale )

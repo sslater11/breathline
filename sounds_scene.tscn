@@ -27,18 +27,17 @@ stream = ExtResource("4_3lcsg")
 [node name="breathe_in" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_fvhep")
 volume_db = 5.0
-pitch_scale = 1.5
-max_polyphony = 2
+max_polyphony = 3
 
 [node name="breathe_out" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_u60cn")
 volume_db = 5.0
-pitch_scale = 1.5
+max_polyphony = 3
 
 [node name="breathe_hold" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_h3e2e")
 volume_db = 5.0
-pitch_scale = 1.5
+max_polyphony = 3
 
 [node name="celebration_sound_1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_s0jlk")

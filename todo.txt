@@ -1,18 +1,58 @@
-make the scenery change as we progress through the session, showing we're nearing the end.
-add: kirk's grass sprite so the sheep aren't eating mud any more lol.
+Breadcrumbs:
+	Where did I leave off, what did I just do:
+		
+	What would I have done next if I were to continue:
+		
+	Hints:
+	Choose a natural stopping point where I'm looking forward to the next step:
+		Pause a netflix show mid episode, too many cliffhangers at the end, making me watch more.
+		writing a novel, stop at the end of a scene or paragraph.
+		Code, stop after a minor change. Others say to leave a little cliff hanger, incomplete code will cause me to come back later.
+
+
+
+
+fix: tree spawing happens too late after the initial spawn on scene load.
+	calculate this variable properly, accounting for different breath lengths: SPAWN_TIME_OFFSET_IN_MILLIS
+
+
+
+Quick/easy low hanging fruit things:
+	fix the "ouT" and "holD" sounds which have a very harsh t and d on the end.
+		open in audacity and add a fade out on the end.
+	fix: fireworks sometimes have a particle in the middle that doesn't move.
+		I've probably set some velocity, gravity or acceleration to zero,
+		so set it to something higher so that the particles are always moving.
+
+	Upgrade project to godot 4.5
+
+	push to github, it's already on there, I just need a new github token to upload it.
+
 
 fix: turn fireworks off after reset button is pressed
 	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.
 
+put a flashing red light on the helicopter.
+
+fix: brake lights on the car.
+	There are references to the brake lights in code, and there's a node for it.
+	Needs testing on web, mobile and desktop
+	Watch a video on lighting in godot to find the right node to use.
+
+
 Add the house to the finish line.
 	write a draw_finish_line() function to draw a new line at the end of the breathline, and put the house on it somewhere.
 
-put a flashing red light on the helicopter.
 
 Allow the user to enter custom time lengths.
-Add different breath types.
+	The time lengths will be displayed as the actual length of the line based on the length of all the breaths added together,
+	therefore, we'll probably never see a round number, which I don't mind, but maybe ask Kirk about this,
+	because people may not like this idea.
+	Maybe ask Kirk, Sam and Rachel's oppinion on this, because I don't care which time is shown.
 
-add spacebar to pause/play the scene
+Add different breath types.
+	box breathing, calm breathing, etc.
+
 
 add a menu on start to choose
 	vehicle
@@ -22,7 +62,17 @@ add a menu on start to choose
 	voice on/off
 		or even chimes on/off
 
+
+
++-------------------------------------+
+| Todo items for kirk to help with :) |
++-------------------------------------+
+
+add: kirk's grass sprite so the sheep aren't eating mud any more lol.
 add musical chimes for in, hold & out
+make the scenery change as we progress through the session, showing we're nearing the end.
+	Talk to kirk about this, because it's his idea and I'm not sure how to do this.
+
 
 New level ideas
 A boat on water that goes up and down
@@ -33,3 +83,6 @@ A boat on water that goes up and down
 
 Birdies flying in the air up and down
   could add planes, hot air balloons and other birdies flying in the opposite direction.
+
+
+

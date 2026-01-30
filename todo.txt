@@ -19,10 +19,6 @@ Quick/easy low hanging fruit things:
 
 	push to github, it's already on there, I just need a new github token to upload it.
 
-	make the game pause/play on spacebar pressed.
-		it only pauses on spacebar if we press the play/pause button then press space bar.
-		make sure space bar doesn't trigger the other buttons once they've been clicked!
-
 
 fix: turn fireworks off after reset button is pressed
 	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.

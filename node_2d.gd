@@ -180,10 +180,14 @@ func _ready() -> void:
 
 	else:
 		# Setup trees and clouds for main game
-		for i in range( SPAWN_TIME_OFFSET_IN_MILLIS / 20 ):
-			var position_on_line : float = float(i) / float( SPAWN_TIME_OFFSET_IN_MILLIS )
-			spawn_texture_randomly( all_animated_trees , true , position_on_line, 5  )
-			spawn_texture_randomly( all_animated_clouds, false, position_on_line, 25 )
+		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
+		var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + current_time_in_millis
+
+		for i in range(0, final_spawn_position_in_millis, 10 ):
+			var spawn_position_as_percent : float = float(i) / float( Globals.total_time_in_millis )
+
+			spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
+			spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
 
 	# Move bunny to the end of the line.
 	#var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
@@ -277,11 +281,16 @@ func _process(delta : float) -> void:
 				SoundsScene.play_breathe_hold()
 				print("hold after breath out")
 
-		var spawn_position_as_percent : float = float(current_time_in_millis + SPAWN_TIME_OFFSET_IN_MILLIS) / float( Globals.total_time_in_millis )
+		var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + current_time_in_millis
+		var spawn_position_as_percent : float = final_spawn_position_in_millis / float( Globals.total_time_in_millis )
 
 		spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
 		spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
 		update_cloud_locations( delta )
+
+func get_length_of_breathline_on_screen_in_millis() -> int:
+	var line_length_on_screen_in_seconds : float = (get_viewport_rect().size.x / get_viewport().get_camera_2d().zoom.x) / Globals.line_length_for_one_second
+	return int( line_length_on_screen_in_seconds * 1000 )
 
 func animation_scene_start() -> void:
 	set_text_breath("")
@@ -460,12 +469,12 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 
 			all_clouds.append( sprite )
 
-func switch_to_car():
+func switch_to_car() -> void:
 	headlight_beam.position = car_headlight_beam_anchor.position
 	car.visible = true
 	helicopter.visible = false
 
-func switch_to_helicopter():
+func switch_to_helicopter() -> void:
 	headlight_beam.position = helicopter_headlight_beam_anchor.position
 	car.visible = false
 	helicopter.visible = true

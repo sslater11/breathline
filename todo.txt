@@ -16,6 +16,7 @@ fix: tree spawing happens too late after the initial spawn on scene load.
 	calculate this variable properly, accounting for different breath lengths: SPAWN_TIME_OFFSET_IN_MILLIS
 
 
+fix: demo scene's start position is too late
 
 Quick/easy low hanging fruit things:
 	fix the "ouT" and "holD" sounds which have a very harsh t and d on the end.
@@ -27,6 +28,10 @@ Quick/easy low hanging fruit things:
 	Upgrade project to godot 4.5
 
 	push to github, it's already on there, I just need a new github token to upload it.
+
+	make the game pause/play on spacebar pressed.
+		it only pauses on spacebar if we press the play/pause button then press space bar.
+		make sure space bar doesn't trigger the other buttons once they've been clicked!
 
 
 fix: turn fireworks off after reset button is pressed

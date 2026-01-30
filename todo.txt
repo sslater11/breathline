@@ -17,8 +17,6 @@ Quick/easy low hanging fruit things:
 		I've probably set some velocity, gravity or acceleration to zero,
 		so set it to something higher so that the particles are always moving.
 
-	Upgrade project to godot 4.5
-
 	push to github, it's already on there, I just need a new github token to upload it.
 
 	make the game pause/play on spacebar pressed.

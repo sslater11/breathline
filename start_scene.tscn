@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=3 uid="uid://chn3pxy46w1fm"]
+[gd_scene format=3 uid="uid://chn3pxy46w1fm"]
 
 [ext_resource type="Script" uid="uid://dg68o68icwj3q" path="res://start_scene.gd" id="1_33mov"]
 [ext_resource type="PackedScene" uid="uid://cpcdxy573u2de" path="res://start_button.tscn" id="1_mbe3m"]
@@ -846,10 +846,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="StartScene" type="Node2D"]
+[node name="StartScene" type="Node2D" unique_id=775364615]
 script = ExtResource("1_33mov")
 
-[node name="fade_out" type="ColorRect" parent="."]
+[node name="fade_out" type="ColorRect" parent="." unique_id=1595486452]
 z_index = 2000
 offset_left = -794.0
 offset_top = -892.0
@@ -857,12 +857,10 @@ offset_right = 2413.0
 offset_bottom = 1437.0
 color = Color(0, 0, 0, 0)
 
-[node name="fade_out_animation" type="AnimationPlayer" parent="fade_out"]
-libraries = {
-&"": SubResource("AnimationLibrary_0s3qj")
-}
+[node name="fade_out_animation" type="AnimationPlayer" parent="fade_out" unique_id=47885347]
+libraries/ = SubResource("AnimationLibrary_0s3qj")
 
-[node name="StartButton" parent="." node_paths=PackedStringArray("fade_out_color_rect", "fade_out_animation") instance=ExtResource("1_mbe3m")]
+[node name="StartButton" parent="." unique_id=1514575352 node_paths=PackedStringArray("fade_out_color_rect", "fade_out_animation") instance=ExtResource("1_mbe3m")]
 z_index = 100
 offset_left = 420.0
 offset_top = 173.0
@@ -871,7 +869,7 @@ offset_bottom = 483.0
 fade_out_color_rect = NodePath("../fade_out")
 fade_out_animation = NodePath("../fade_out/fade_out_animation")
 
-[node name="line_road_marking" type="Line2D" parent="."]
+[node name="line_road_marking" type="Line2D" parent="." unique_id=411194583]
 top_level = true
 z_index = -1
 points = PackedVector2Array(0, 0, 19.55, 5.25)
@@ -881,10 +879,10 @@ round_precision = 7
 antialiased = true
 script = ExtResource("3_oq0ge")
 
-[node name="breathline" type="Path2D" parent="."]
+[node name="breathline" type="Path2D" parent="." unique_id=340706977]
 curve = SubResource("Curve2D_hnjuv")
 
-[node name="background" type="Sprite2D" parent="breathline"]
+[node name="background" type="Sprite2D" parent="breathline" unique_id=1198724891]
 modulate = Color(0.402557, 0.938194, 0.988738, 1)
 z_index = -4096
 position = Vector2(843, 449)
@@ -892,16 +890,16 @@ rotation = -0.000305003
 scale = Vector2(10.9812, 2259.45)
 texture = SubResource("GradientTexture1D_jrnks")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="breathline/background"]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="breathline/background" unique_id=916346688]
 visible = false
 
-[node name="camera_path_follow" type="PathFollow2D" parent="breathline"]
-position = Vector2(462.267, 232.235)
+[node name="camera_path_follow" type="PathFollow2D" parent="breathline" unique_id=23938385]
+position = Vector2(462.26746, 232.235)
 rotation = 0.87236
 progress = 990.99
 rotates = false
 
-[node name="rain_particles" type="CPUParticles2D" parent="breathline/camera_path_follow"]
+[node name="rain_particles" type="CPUParticles2D" parent="breathline/camera_path_follow" unique_id=1458561586]
 position = Vector2(-767.181, -613.717)
 rotation = -0.87236
 emitting = false
@@ -914,7 +912,7 @@ scale_amount_min = 30.0
 scale_amount_max = 150.0
 color_ramp = SubResource("Gradient_wdg3m")
 
-[node name="snow_particles" type="CPUParticles2D" parent="breathline/camera_path_follow"]
+[node name="snow_particles" type="CPUParticles2D" parent="breathline/camera_path_follow" unique_id=1251870327]
 z_index = 4096
 position = Vector2(507.171, -1823.57)
 rotation = -0.87236
@@ -931,7 +929,7 @@ scale_amount_max = 10.0
 color = Color(3, 3, 3, 1)
 color_initial_ramp = SubResource("Gradient_4han8")
 
-[node name="shit_everywhere_particles" type="GPUParticles2D" parent="breathline/camera_path_follow"]
+[node name="shit_everywhere_particles" type="GPUParticles2D" parent="breathline/camera_path_follow" unique_id=1718172039]
 z_index = 2000
 material = SubResource("CanvasItemMaterial_2qpoi")
 position = Vector2(-22.6602, -19.9409)
@@ -943,7 +941,7 @@ speed_scale = 0.2
 collision_base_size = 102.14
 process_material = SubResource("ParticleProcessMaterial_r50mw")
 
-[node name="wind_particles" type="GPUParticles2D" parent="breathline/camera_path_follow"]
+[node name="wind_particles" type="GPUParticles2D" parent="breathline/camera_path_follow" unique_id=1194390413]
 z_index = 300
 position = Vector2(333.728, -397.475)
 emitting = false
@@ -956,7 +954,7 @@ trail_enabled = true
 trail_lifetime = 0.7
 process_material = SubResource("ParticleProcessMaterial_d10lx")
 
-[node name="sun" type="Sprite2D" parent="breathline/camera_path_follow"]
+[node name="sun" type="Sprite2D" parent="breathline/camera_path_follow" unique_id=1010116327]
 modulate = Color(1, 1, 1, 0.303)
 z_index = -4093
 position = Vector2(114.107, -734.907)
@@ -964,7 +962,7 @@ rotation = -0.87236
 scale = Vector2(0.272501, 0.274975)
 texture = ExtResource("3_k2do7")
 
-[node name="moon_glow" type="Sprite2D" parent="breathline/camera_path_follow"]
+[node name="moon_glow" type="Sprite2D" parent="breathline/camera_path_follow" unique_id=1670472782]
 modulate = Color(1, 1, 1, 0.303)
 z_index = -4095
 position = Vector2(114.485, -734.588)
@@ -972,7 +970,7 @@ rotation = -0.87236
 scale = Vector2(0.277499, 0.2775)
 texture = ExtResource("4_g2vcy")
 
-[node name="moon" type="Sprite2D" parent="breathline/camera_path_follow"]
+[node name="moon" type="Sprite2D" parent="breathline/camera_path_follow" unique_id=73537906]
 modulate = Color(1.4, 1.4, 1.4, 1)
 z_index = -4094
 position = Vector2(114.177, -734.48)
@@ -980,18 +978,18 @@ rotation = -0.87236
 scale = Vector2(0.27, 0.27)
 texture = ExtResource("5_brwyq")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="breathline"]
+[node name="PathFollow2D" type="PathFollow2D" parent="breathline" unique_id=1011861117]
 position = Vector2(-410, 379)
-rotation = -0.694738
+rotation = -0.83424497
 scale = Vector2(20, 20)
 
-[node name="car" type="Sprite2D" parent="breathline/PathFollow2D"]
+[node name="car" type="Sprite2D" parent="breathline/PathFollow2D" unique_id=1293157302]
 z_index = -10
 scale = Vector2(0.016, 0.016)
 texture = ExtResource("9_0s3qj")
 flip_h = true
 
-[node name="headlight_beam" type="PointLight2D" parent="breathline/PathFollow2D/car"]
+[node name="headlight_beam" type="PointLight2D" parent="breathline/PathFollow2D/car" unique_id=614898737]
 self_modulate = Color(0.246539, 0.2867, 0.833646, 1)
 light_mask = 3
 visibility_layer = 3
@@ -1008,7 +1006,7 @@ shadow_enabled = true
 texture = SubResource("GradientTexture2D_n7f12")
 texture_scale = 3.38
 
-[node name="headlights" type="PointLight2D" parent="breathline/PathFollow2D/car"]
+[node name="headlights" type="PointLight2D" parent="breathline/PathFollow2D/car" unique_id=603698322]
 light_mask = 2
 material = SubResource("CanvasItemMaterial_0s3qj")
 position = Vector2(265.879, -54.2329)
@@ -1023,7 +1021,7 @@ shadow_enabled = true
 texture = ExtResource("10_5tv0e")
 texture_scale = 0.15
 
-[node name="brakelights" type="PointLight2D" parent="breathline/PathFollow2D/car"]
+[node name="brakelights" type="PointLight2D" parent="breathline/PathFollow2D/car" unique_id=869389334]
 light_mask = 2
 z_index = 6
 position = Vector2(-220.564, -27.0569)
@@ -1037,7 +1035,7 @@ range_item_cull_mask = 2
 texture = ExtResource("10_5tv0e")
 texture_scale = 0.05
 
-[node name="car_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/car"]
+[node name="car_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/car" unique_id=1355469880]
 z_index = 4
 position = Vector2(-170.981, 111.887)
 rotation = -2.76112
@@ -1052,29 +1050,29 @@ initial_velocity_max = 28.57
 scale_amount_max = 10.0
 color_ramp = SubResource("Gradient_5tv0e")
 
-[node name="headlight_sprite" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+[node name="headlight_sprite" type="Sprite2D" parent="breathline/PathFollow2D/car" unique_id=630556199]
 modulate = Color(13, 13, 13, 1)
 material = SubResource("ShaderMaterial_ahqkt")
 position = Vector2(202.819, 11.153)
 texture = ExtResource("12_iwf45")
 flip_h = true
 
-[node name="wheel_1" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+[node name="wheel_1" type="Sprite2D" parent="breathline/PathFollow2D/car" unique_id=1837784651]
 position = Vector2(-141.068, 61.0966)
 texture = ExtResource("11_wrdj4")
 
-[node name="wheel_2" type="Sprite2D" parent="breathline/PathFollow2D/car"]
+[node name="wheel_2" type="Sprite2D" parent="breathline/PathFollow2D/car" unique_id=806119536]
 position = Vector2(131.811, 61.7056)
 texture = ExtResource("11_wrdj4")
 
-[node name="toilet" type="Sprite2D" parent="breathline/PathFollow2D"]
+[node name="toilet" type="Sprite2D" parent="breathline/PathFollow2D" unique_id=1395224036]
 visible = false
 z_index = 5
 position = Vector2(-8.6891, 7.39405)
 scale = Vector2(0.0113685, 0.0113685)
 texture = ExtResource("13_6edj7")
 
-[node name="toilet_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/toilet"]
+[node name="toilet_trail_particles" type="CPUParticles2D" parent="breathline/PathFollow2D/toilet" unique_id=535604201]
 z_index = -1
 position = Vector2(-22.4533, 234.245)
 rotation = 1.5708
@@ -1091,95 +1089,95 @@ initial_velocity_max = 28.57
 scale_amount_max = 10.0
 color_ramp = SubResource("Gradient_216v0")
 
-[node name="path_follow_for_trees" type="PathFollow2D" parent="breathline"]
+[node name="path_follow_for_trees" type="PathFollow2D" parent="breathline" unique_id=1831672587]
 position = Vector2(-410, 379)
-rotation = -0.694738
+rotation = -0.83424497
 
-[node name="trees_more" type="Node" parent="."]
+[node name="trees_more" type="Node" parent="." unique_id=2117003603]
 
-[node name="tree_8" type="Sprite2D" parent="trees_more"]
+[node name="tree_8" type="Sprite2D" parent="trees_more" unique_id=929120412]
 light_mask = 0
 position = Vector2(1086, 599)
 texture = ExtResource("13_k2do7")
 
-[node name="tree_5" type="Sprite2D" parent="trees_more"]
+[node name="tree_5" type="Sprite2D" parent="trees_more" unique_id=1743735153]
 light_mask = 0
 position = Vector2(973, 572)
 texture = ExtResource("14_g2vcy")
 
-[node name="tree_6" type="Sprite2D" parent="trees_more"]
+[node name="tree_6" type="Sprite2D" parent="trees_more" unique_id=284962534]
 light_mask = 0
 position = Vector2(811, 641)
 texture = ExtResource("14_g2vcy")
 
-[node name="tree_4" type="Sprite2D" parent="trees_more"]
+[node name="tree_4" type="Sprite2D" parent="trees_more" unique_id=1893006143]
 light_mask = 0
 position = Vector2(564, 462)
 texture = ExtResource("15_brwyq")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=2099405192]
 z_index = -1500
 
-[node name="cloud0" type="AnimatedSprite2D" parent="Node2D"]
+[node name="cloud0" type="AnimatedSprite2D" parent="Node2D" unique_id=215628375]
 position = Vector2(1100, 396)
 sprite_frames = SubResource("SpriteFrames_wrdj4")
 
-[node name="cloud1" type="AnimatedSprite2D" parent="Node2D"]
+[node name="cloud1" type="AnimatedSprite2D" parent="Node2D" unique_id=101524763]
 position = Vector2(862, 86)
 sprite_frames = SubResource("SpriteFrames_n7f12")
 
-[node name="cloud2" type="AnimatedSprite2D" parent="Node2D"]
+[node name="cloud2" type="AnimatedSprite2D" parent="Node2D" unique_id=1094523842]
 position = Vector2(449, 181)
 sprite_frames = SubResource("SpriteFrames_0s3qj")
 
-[node name="cloud3" type="AnimatedSprite2D" parent="Node2D"]
+[node name="cloud3" type="AnimatedSprite2D" parent="Node2D" unique_id=2055822019]
 position = Vector2(935, 25)
 sprite_frames = SubResource("SpriteFrames_5tv0e")
 
-[node name="clouds" type="Node2D" parent="."]
+[node name="clouds" type="Node2D" parent="." unique_id=2014597607]
 visible = false
 z_index = -1500
 
-[node name="Cloud0" type="Sprite2D" parent="clouds"]
+[node name="Cloud0" type="Sprite2D" parent="clouds" unique_id=1831236330]
 position = Vector2(1100, 396)
 texture = ExtResource("15_wjhjx")
 
-[node name="Cloud4" type="Sprite2D" parent="clouds"]
+[node name="Cloud4" type="Sprite2D" parent="clouds" unique_id=676880151]
 position = Vector2(862, 86)
 texture = ExtResource("16_wrdj4")
 
-[node name="Cloud1" type="Sprite2D" parent="clouds"]
+[node name="Cloud1" type="Sprite2D" parent="clouds" unique_id=2429309]
 position = Vector2(246, 97)
 texture = ExtResource("17_n7f12")
 
-[node name="trees" type="Node" parent="."]
+[node name="trees" type="Node" parent="." unique_id=1618462436]
 
-[node name="tree_1" type="Sprite2D" parent="trees"]
+[node name="tree_1" type="Sprite2D" parent="trees" unique_id=1712334310]
 light_mask = 0
 position = Vector2(125, 234)
 texture = ExtResource("12_jncqt")
 
-[node name="tree_9" type="Sprite2D" parent="trees"]
+[node name="tree_9" type="Sprite2D" parent="trees" unique_id=263606283]
 light_mask = 0
 position = Vector2(290, 199)
 texture = ExtResource("15_brwyq")
 
-[node name="tree_8" type="Sprite2D" parent="trees"]
+[node name="tree_8" type="Sprite2D" parent="trees" unique_id=114650479]
 light_mask = 0
 position = Vector2(245, 365)
 texture = ExtResource("12_jncqt")
 
-[node name="tree_7" type="Sprite2D" parent="trees"]
+[node name="tree_7" type="Sprite2D" parent="trees" unique_id=1539749883]
 light_mask = 0
 position = Vector2(305, 464)
 texture = ExtResource("13_k2do7")
 
-[node name="tree_3" type="Sprite2D" parent="trees"]
+[node name="tree_3" type="Sprite2D" parent="trees" unique_id=1968842631]
 light_mask = 0
 position = Vector2(129, 429)
 texture = ExtResource("14_g2vcy")
 
-[node name="tree_2" type="Sprite2D" parent="trees"]
+[node name="tree_2" type="Sprite2D" parent="trees" unique_id=371147327]
 light_mask = 0
 position = Vector2(372, 523)
 texture = ExtResource("13_k2do7")

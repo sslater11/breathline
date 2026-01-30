@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://b4kt580jgclxf"]
+[gd_scene format=3 uid="uid://b4kt580jgclxf"]
 
 [ext_resource type="Script" uid="uid://dq6n5ktqivcg6" path="res://all_buttons.gd" id="1_eqcxi"]
 [ext_resource type="Texture2D" uid="uid://dmtffhy0ymbd4" path="res://assets/restart.png" id="2_ycagm"]
@@ -240,15 +240,15 @@ viewport_path = NodePath("car_sub_viewport_container/SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ejnqw"]
 viewport_path = NodePath("helicopter_sub_viewport_container/SubViewport")
 
-[node name="AllButtons" type="Node2D"]
+[node name="AllButtons" type="Node2D" unique_id=1458836514]
 script = ExtResource("1_eqcxi")
 
-[node name="background" type="Sprite2D" parent="."]
+[node name="background" type="Sprite2D" parent="." unique_id=60105785]
 position = Vector2(575.25, 81.5)
 scale = Vector2(4.56836, 215)
 texture = SubResource("GradientTexture1D_it0u1")
 
-[node name="reset" type="Button" parent="."]
+[node name="reset" type="Button" parent="." unique_id=13098381]
 offset_right = 264.0
 offset_bottom = 362.0
 scale = Vector2(0.401082, 0.401082)
@@ -258,7 +258,7 @@ icon = ExtResource("2_ycagm")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="play_pause" type="Button" parent="."]
+[node name="play_pause" type="Button" parent="." unique_id=1522492405]
 offset_left = 160.0
 offset_right = 424.0
 offset_bottom = 402.0
@@ -269,7 +269,7 @@ icon = ExtResource("3_2x4nk")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="music_on_off" type="Button" parent="."]
+[node name="music_on_off" type="Button" parent="." unique_id=1257161747]
 offset_left = 320.0
 offset_right = 584.0
 offset_bottom = 402.0
@@ -280,7 +280,7 @@ icon = ExtResource("4_twshn")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="voice_on_off" type="Button" parent="."]
+[node name="voice_on_off" type="Button" parent="." unique_id=557806107]
 offset_left = 480.0
 offset_right = 744.0
 offset_bottom = 402.0
@@ -291,7 +291,7 @@ icon = ExtResource("5_qtmb7")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="vehicle_selection" type="Button" parent="."]
+[node name="vehicle_selection" type="Button" parent="." unique_id=1152972420]
 offset_left = 640.0
 offset_right = 904.0
 offset_bottom = 402.0
@@ -302,24 +302,24 @@ icon = ExtResource("6_cbqw8")
 icon_alignment = 1
 vertical_icon_alignment = 0
 
-[node name="helicopter_sub_viewport_container" type="SubViewportContainer" parent="."]
+[node name="helicopter_sub_viewport_container" type="SubViewportContainer" parent="." unique_id=1796224753]
 offset_left = -616.0
 offset_top = -2936.0
 offset_right = 920.0
 offset_bottom = -1912.0
 
-[node name="SubViewport" type="SubViewport" parent="helicopter_sub_viewport_container"]
+[node name="SubViewport" type="SubViewport" parent="helicopter_sub_viewport_container" unique_id=825941397]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1536, 1024)
 render_target_update_mode = 4
 
-[node name="HelicopterFromChatgpt" type="Sprite2D" parent="helicopter_sub_viewport_container/SubViewport"]
+[node name="HelicopterFromChatgpt" type="Sprite2D" parent="helicopter_sub_viewport_container/SubViewport" unique_id=128056199]
 position = Vector2(762, 716)
 scale = Vector2(-1, 1)
 texture = ExtResource("7_0ar4b")
 
-[node name="helicopter_blades" type="AnimatedSprite2D" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt"]
+[node name="helicopter_blades" type="AnimatedSprite2D" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt" unique_id=997957224]
 position = Vector2(-124.449, -260.564)
 rotation = 3.14159
 scale = Vector2(2, -2)
@@ -328,62 +328,58 @@ autoplay = "default"
 frame_progress = 0.437125
 speed_scale = 7.5
 
-[node name="helicopter_rear_blades" type="Sprite2D" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt"]
+[node name="helicopter_rear_blades" type="Sprite2D" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt" unique_id=1800628610]
 position = Vector2(573.258, -72.088)
 rotation = -0.556039
 texture = ExtResource("38_tk4su")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt"]
-libraries = {
-&"": SubResource("AnimationLibrary_m7xe6")
-}
-autoplay = "helicopter_rear_blades"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="helicopter_sub_viewport_container/SubViewport/HelicopterFromChatgpt" unique_id=75400659]
+libraries/ = SubResource("AnimationLibrary_m7xe6")
+autoplay = &"helicopter_rear_blades"
 speed_scale = 2.0
 
-[node name="car_sub_viewport_container" type="SubViewportContainer" parent="."]
+[node name="car_sub_viewport_container" type="SubViewportContainer" parent="." unique_id=1095696385]
 offset_left = 952.0
 offset_top = -2476.0
 offset_right = 1464.0
 offset_bottom = -1964.0
 
-[node name="SubViewport" type="SubViewport" parent="car_sub_viewport_container"]
+[node name="SubViewport" type="SubViewport" parent="car_sub_viewport_container" unique_id=1480821761]
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(500, 500)
 render_target_update_mode = 4
 
-[node name="Car" type="Sprite2D" parent="car_sub_viewport_container/SubViewport"]
+[node name="Car" type="Sprite2D" parent="car_sub_viewport_container/SubViewport" unique_id=651828095]
 position = Vector2(250, 250)
 texture = ExtResource("39_3hg4k")
 flip_h = true
 
-[node name="wheels_animation" type="AnimationPlayer" parent="car_sub_viewport_container/SubViewport/Car"]
-libraries = {
-&"": SubResource("AnimationLibrary_btwor")
-}
+[node name="wheels_animation" type="AnimationPlayer" parent="car_sub_viewport_container/SubViewport/Car" unique_id=517485892]
+libraries/ = SubResource("AnimationLibrary_btwor")
 
-[node name="wheel_1" type="Sprite2D" parent="car_sub_viewport_container/SubViewport/Car"]
+[node name="wheel_1" type="Sprite2D" parent="car_sub_viewport_container/SubViewport/Car" unique_id=1522449330]
 position = Vector2(-141.614, 61.5)
 rotation = 6.28319
 scale = Vector2(0.954545, 0.954545)
 texture = ExtResource("40_0ar4b")
 
-[node name="wheel_2" type="Sprite2D" parent="car_sub_viewport_container/SubViewport/Car"]
+[node name="wheel_2" type="Sprite2D" parent="car_sub_viewport_container/SubViewport/Car" unique_id=1767184903]
 position = Vector2(130.386, 61.5)
 rotation = 6.28319
 scale = Vector2(0.954545, 0.954545)
 texture = ExtResource("40_0ar4b")
 
-[node name="vehicle_selection_menu" type="Node2D" parent="."]
+[node name="vehicle_selection_menu" type="Node2D" parent="." unique_id=136613626]
 visible = false
 position = Vector2(816, -54)
 
-[node name="background_vehicle_selection" type="Sprite2D" parent="vehicle_selection_menu"]
+[node name="background_vehicle_selection" type="Sprite2D" parent="vehicle_selection_menu" unique_id=1192859074]
 position = Vector2(-123, 337.5)
 scale = Vector2(1.03906, 189)
 texture = SubResource("GradientTexture1D_it0u1")
 
-[node name="car_button" type="Button" parent="vehicle_selection_menu"]
+[node name="car_button" type="Button" parent="vehicle_selection_menu" unique_id=116051709]
 offset_left = -112.0
 offset_top = 244.0
 offset_right = 152.0
@@ -396,7 +392,7 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="helicopter_button" type="Button" parent="vehicle_selection_menu"]
+[node name="helicopter_button" type="Button" parent="vehicle_selection_menu" unique_id=1753535195]
 offset_left = -240.0
 offset_top = 244.0
 offset_right = 24.0
@@ -409,7 +405,7 @@ icon_alignment = 1
 vertical_icon_alignment = 0
 expand_icon = true
 
-[node name="countdown" type="RichTextLabel" parent="."]
+[node name="countdown" type="RichTextLabel" parent="." unique_id=1871962037]
 offset_left = 736.0
 offset_top = -28.0
 offset_right = 1152.0

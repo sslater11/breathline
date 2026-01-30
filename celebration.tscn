@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ckybw80l3pjfs"]
+[gd_scene format=3 uid="uid://ckybw80l3pjfs"]
 
 [ext_resource type="Script" uid="uid://b4q3wqq0tdbk2" path="res://celebration.gd" id="1_42tbd"]
 
@@ -71,16 +71,16 @@ interpolation_mode = 2
 offsets = PackedFloat32Array(0, 0.410256, 0.85641, 1)
 colors = PackedColorArray(0.995178, 0.307696, 0, 1, 0.98859, 0.833651, 3.08037e-06, 1, 1, 0.238553, 0.241029, 1, 0.724095, 0, 0.0899664, 1)
 
-[node name="Celebration" type="Node2D"]
+[node name="Celebration" type="Node2D" unique_id=542448386]
 script = ExtResource("1_42tbd")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=824796358]
 visible = false
 position = Vector2(778.5, 517)
 scale = Vector2(9.50391, 1770)
 texture = SubResource("GradientTexture1D_ncrsc")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1838665283]
 position = Vector2(1032, 736)
 scale = Vector2(10, 10)
 emitting = false
@@ -88,7 +88,7 @@ sub_emitter = NodePath("boom")
 visibility_rect = Rect2(-100, -100, 100, 100)
 process_material = SubResource("ParticleProcessMaterial_gh871")
 
-[node name="boom" type="GPUParticles2D" parent="GPUParticles2D"]
+[node name="boom" type="GPUParticles2D" parent="GPUParticles2D" unique_id=270419433]
 z_index = -1
 emitting = false
 amount = 100
@@ -97,7 +97,7 @@ explosiveness = 1.0
 trail_sections = 2
 process_material = SubResource("ParticleProcessMaterial_7o1av")
 
-[node name="firework" type="CPUParticles2D" parent="."]
+[node name="firework" type="CPUParticles2D" parent="." unique_id=1799252957]
 modulate = Color(3, 3, 3, 1)
 position = Vector2(1032, 736)
 scale = Vector2(10, 10)

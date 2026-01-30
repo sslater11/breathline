@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj504yufcwjf7"
-path="res://.godot/imported/car_headlight.png-ae88659b9c180affb73aa8c4abc6ea56.ctex"
+uid="uid://dnmawvm0883fy"
+path="res://.godot/imported/houses_300_x_300.png-02bc155f5c6e2ffad5bc927785352374.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://car_headlight.png"
-dest_files=["res://.godot/imported/car_headlight.png-ae88659b9c180affb73aa8c4abc6ea56.ctex"]
+source_file="res://assets/houses_300_x_300.png"
+dest_files=["res://.godot/imported/houses_300_x_300.png-02bc155f5c6e2ffad5bc927785352374.ctex"]
 
 [params]
 

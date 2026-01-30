@@ -13,9 +13,6 @@ Breadcrumbs:
 Quick/easy low hanging fruit things:
 	fix the "ouT" and "holD" sounds which have a very harsh t and d on the end.
 		open in audacity and add a fade out on the end.
-	fix: fireworks sometimes have a particle in the middle that doesn't move.
-		I've probably set some velocity, gravity or acceleration to zero,
-		so set it to something higher so that the particles are always moving.
 
 	push to github, it's already on there, I just need a new github token to upload it.
 

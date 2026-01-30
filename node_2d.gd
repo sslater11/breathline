@@ -168,26 +168,15 @@ func _ready() -> void:
 	line_particles.emission_points = breathline.curve.get_baked_points()
 	draw_ground()
 	
-	# TODO:
-	# figure out a better way of generating the trees and clouds dynamically.
-	# This only works for the 2 time lengths we've set.
-	if Globals.total_breath_rounds == 1:
-		# Setup trees and clouds for demo scene
-		for i in range( SPAWN_TIME_OFFSET_IN_MILLIS * 0.525 ):
-			var position_on_line : float = float(i) / float( SPAWN_TIME_OFFSET_IN_MILLIS )
-			spawn_texture_randomly( all_animated_trees , true , position_on_line, 50  )
-			spawn_texture_randomly( all_animated_clouds, false, position_on_line, 250 )
+	# Setup trees and clouds for main game
+	var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
+	var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + current_time_in_millis
 
-	else:
-		# Setup trees and clouds for main game
-		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
-		var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + current_time_in_millis
+	for i in range(0, final_spawn_position_in_millis, 10 ):
+		var spawn_position_as_percent : float = float(i) / float( Globals.total_time_in_millis )
 
-		for i in range(0, final_spawn_position_in_millis, 10 ):
-			var spawn_position_as_percent : float = float(i) / float( Globals.total_time_in_millis )
-
-			spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
-			spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
+		spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
+		spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
 
 	# Move bunny to the end of the line.
 	#var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]

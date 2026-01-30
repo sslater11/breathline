@@ -10,14 +10,6 @@ Breadcrumbs:
 		Code, stop after a minor change. Others say to leave a little cliff hanger, incomplete code will cause me to come back later.
 
 
-
-
-fix: tree spawing happens too late after the initial spawn on scene load.
-	calculate this variable properly, accounting for different breath lengths: SPAWN_TIME_OFFSET_IN_MILLIS
-
-
-fix: demo scene's start position is too late
-
 Quick/easy low hanging fruit things:
 	fix the "ouT" and "holD" sounds which have a very harsh t and d on the end.
 		open in audacity and add a fade out on the end.
@@ -47,6 +39,11 @@ fix: brake lights on the car.
 
 Add the house to the finish line.
 	write a draw_finish_line() function to draw a new line at the end of the breathline, and put the house on it somewhere.
+	use this line of code to get the position.
+	var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
+	the tree/sheep spawn draws a bit past the breathline, sometimes in the water, so test that it doesn't overlap with the house.
+		set spawn rate to a really high rate to test it.
+
 
 
 Allow the user to enter custom time lengths.

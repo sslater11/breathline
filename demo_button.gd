@@ -22,7 +22,7 @@ func _on_pressed() -> void:
 	# Hint for me on how to use buttons:
 	# quick 10 second video for buttons - https://www.youtube.com/watch?v=mlS1p7-9u6k
 	# Click "Node" tab at the top of properties, to see all the signals this node has.
-	Globals.total_breath_rounds = 1
+	Globals.total_breath_rounds = 2
 	Globals.is_start_button_visible = false
 	get_parent().visible = false
 	

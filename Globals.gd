@@ -52,9 +52,6 @@ func set_start_time_offset( offset_in_millis : int ) -> void:
 	start_time_offset_in_millis = get_length_of_a_full_breath_round_in_millis() - offset_in_millis # a full breath round minus a few seconds will give us a good starting position when the scene loads.
 
 
-
-
-
 func set_square_breathing() -> void:
 	breath_length = [ 2, 2, 2, 2 ]
 	reset_length_of_a_full_breath_round()

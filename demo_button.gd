@@ -32,4 +32,4 @@ func _on_pressed() -> void:
 
 	Globals.start_time_in_millis = Time.get_ticks_msec()
 	Globals.is_playing = true
-	get_tree().change_scene_to_file("res://node_2d.tscn")
+	get_tree().change_scene_to_file("res://breathline.tscn")

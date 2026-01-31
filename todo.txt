@@ -31,13 +31,6 @@ Add the house to the finish line.
 		set spawn rate to a really high rate to test it.
 
 
-
-Allow the user to enter custom time lengths.
-	The time lengths will be displayed as the actual length of the line based on the length of all the breaths added together,
-	therefore, we'll probably never see a round number, which I don't mind, but maybe ask Kirk about this,
-	because people may not like this idea.
-	Maybe ask Kirk, Sam and Rachel's oppinion on this, because I don't care which time is shown.
-
 Add different breath types.
 	box breathing, calm breathing, etc.
 

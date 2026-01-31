@@ -846,6 +846,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrdj4"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [node name="StartScene" type="Node2D" unique_id=775364615]
 script = ExtResource("1_33mov")
 
@@ -862,10 +874,10 @@ libraries/ = SubResource("AnimationLibrary_0s3qj")
 
 [node name="StartButton" parent="." unique_id=1514575352 node_paths=PackedStringArray("fade_out_color_rect", "fade_out_animation") instance=ExtResource("1_mbe3m")]
 z_index = 100
-offset_left = 420.0
-offset_top = 173.0
-offset_right = 684.0
-offset_bottom = 483.0
+offset_left = 464.0
+offset_top = 117.0
+offset_right = 728.0
+offset_bottom = 491.0
 fade_out_color_rect = NodePath("../fade_out")
 fade_out_animation = NodePath("../fade_out/fade_out_animation")
 
@@ -1115,40 +1127,24 @@ light_mask = 0
 position = Vector2(564, 462)
 texture = ExtResource("15_brwyq")
 
-[node name="Node2D" type="Node2D" parent="." unique_id=2099405192]
+[node name="clouds" type="Node2D" parent="." unique_id=2099405192]
 z_index = -1500
 
-[node name="cloud0" type="AnimatedSprite2D" parent="Node2D" unique_id=215628375]
+[node name="cloud0" type="AnimatedSprite2D" parent="clouds" unique_id=215628375]
 position = Vector2(1100, 396)
 sprite_frames = SubResource("SpriteFrames_wrdj4")
 
-[node name="cloud1" type="AnimatedSprite2D" parent="Node2D" unique_id=101524763]
+[node name="cloud1" type="AnimatedSprite2D" parent="clouds" unique_id=101524763]
 position = Vector2(862, 86)
 sprite_frames = SubResource("SpriteFrames_n7f12")
 
-[node name="cloud2" type="AnimatedSprite2D" parent="Node2D" unique_id=1094523842]
+[node name="cloud2" type="AnimatedSprite2D" parent="clouds" unique_id=1094523842]
 position = Vector2(449, 181)
 sprite_frames = SubResource("SpriteFrames_0s3qj")
 
-[node name="cloud3" type="AnimatedSprite2D" parent="Node2D" unique_id=2055822019]
+[node name="cloud3" type="AnimatedSprite2D" parent="clouds" unique_id=2055822019]
 position = Vector2(935, 25)
 sprite_frames = SubResource("SpriteFrames_5tv0e")
-
-[node name="clouds" type="Node2D" parent="." unique_id=2014597607]
-visible = false
-z_index = -1500
-
-[node name="Cloud0" type="Sprite2D" parent="clouds" unique_id=1831236330]
-position = Vector2(1100, 396)
-texture = ExtResource("15_wjhjx")
-
-[node name="Cloud4" type="Sprite2D" parent="clouds" unique_id=676880151]
-position = Vector2(862, 86)
-texture = ExtResource("16_wrdj4")
-
-[node name="Cloud1" type="Sprite2D" parent="clouds" unique_id=2429309]
-position = Vector2(246, 97)
-texture = ExtResource("17_n7f12")
 
 [node name="trees" type="Node" parent="." unique_id=1618462436]
 
@@ -1181,3 +1177,37 @@ texture = ExtResource("14_g2vcy")
 light_mask = 0
 position = Vector2(372, 523)
 texture = ExtResource("13_k2do7")
+
+[node name="timer" type="Node2D" parent="." unique_id=1291528109]
+z_index = 100
+position = Vector2(452, 312)
+
+[node name="label_selected_time_in_minutes" type="RichTextLabel" parent="timer" unique_id=635097702]
+offset_top = 72.0
+offset_right = 300.0
+offset_bottom = 142.0
+theme_override_font_sizes/normal_font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_wrdj4")
+text = "5 minutes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="time_up_button" type="Button" parent="timer" unique_id=1672942452]
+offset_right = 300.0
+offset_bottom = 70.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 40
+action_mode = 0
+text = "△"
+
+[node name="time_down_button" type="Button" parent="timer" unique_id=168291231]
+offset_top = 144.0
+offset_right = 300.0
+offset_bottom = 214.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 40
+action_mode = 0
+text = "▽"
+
+[connection signal="pressed" from="timer/time_up_button" to="." method="_on_time_up_button_pressed"]
+[connection signal="pressed" from="timer/time_down_button" to="." method="_on_time_down_button_pressed"]

@@ -4,25 +4,27 @@
 [ext_resource type="Texture2D" uid="uid://qkcbovksbuxp" path="res://assets/play_white.png" id="1_p82kt"]
 [ext_resource type="Script" uid="uid://dcdkj1d3h7nlw" path="res://demo_button.gd" id="3_uu34q"]
 
-[node name="Button" type="Button" unique_id=231350552]
+[node name="start_button" type="Button" unique_id=231350552]
 offset_right = 264.0
 offset_bottom = 310.0
+scale = Vector2(0.5, 0.5)
 theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
 text = "Tap to Start"
 icon = ExtResource("1_p82kt")
 icon_alignment = 1
 vertical_icon_alignment = 0
 script = ExtResource("1_44r3r")
 
-[node name="Button2" type="Button" parent="." unique_id=2052475459]
+[node name="demo_button" type="Button" parent="." unique_id=2052475459]
 layout_mode = 0
 offset_left = 288.0
-offset_top = 72.0
 offset_right = 552.0
-offset_bottom = 382.0
-scale = Vector2(0.5, 0.5)
+offset_bottom = 374.0
 focus_mode = 0
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(0.446777, 0.44677705, 0.44677705, 1)
+theme_override_colors/icon_normal_color = Color(0.446777, 0.44677705, 0.44677705, 1)
+theme_override_font_sizes/font_size = 40
 text = "Demo mode"
 icon = ExtResource("1_p82kt")
 icon_alignment = 1
@@ -30,4 +32,4 @@ vertical_icon_alignment = 0
 script = ExtResource("3_uu34q")
 
 [connection signal="pressed" from="." to="." method="_on_pressed"]
-[connection signal="pressed" from="Button2" to="Button2" method="_on_pressed"]
+[connection signal="pressed" from="demo_button" to="demo_button" method="_on_pressed"]

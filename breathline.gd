@@ -410,31 +410,26 @@ func draw_ground() -> void:
 
 func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_below_road : bool, position_as_percent : float, spawn_amount : int ) -> void:
 	var should_spawn : int = randi_range( 0, spawn_amount )
-	if should_spawn == 1:
+	if should_spawn == 1 and(position_as_percent < 1.0):
+		var sprite_scale : float = randf_range( 0.5, 1.0 )
 		var y_offset : float = 0
 		var x_offset : float = 0
 		
-		if position_as_percent < 1.0:
-			path_follow_for_trees.progress_ratio = position_as_percent
-			x_offset = path_follow_for_trees.position.x
-			y_offset = path_follow_for_trees.position.y
-			
-			var camera_rect : Rect2 = camera_2d.get_viewport_rect()
-			if is_below_road:
-				y_offset += randi_range( 0, get_viewport().get_camera_2d().global_position.y )
+		path_follow_for_trees.progress_ratio = position_as_percent
+		x_offset = path_follow_for_trees.position.x
+		y_offset = path_follow_for_trees.position.y
+		
+		var camera_rect : Rect2 = camera_2d.get_viewport_rect()
+		if is_below_road:
+			# Position trees below the breathline.
+			y_offset += randi_range( 0, get_viewport().get_camera_2d().global_position.y )
 
-			else:
-				# Draw clouds anywhere on the background.
-				var min_y_offset : float = camera_2d.get_screen_center_position().y - (camera_rect.size.y)
-				var max_y_offset : float = camera_2d.get_screen_center_position().y + (camera_rect.size.y / 2)
-				
-				y_offset = randi_range( min_y_offset, max_y_offset )
 		else:
-			y_offset = breathline.curve.get_baked_points()[ len( breathline.curve.get_baked_points() ) -1 ].y
-			if is_below_road:
-				y_offset += randi_range( 0, 200 )
-			else:
-				y_offset -= randi_range( 0, 200 )
+			# Draw clouds anywhere on the background.
+			var min_y_offset : float = camera_2d.get_screen_center_position().y - (camera_rect.size.y)
+			var max_y_offset : float = camera_2d.get_screen_center_position().y + (camera_rect.size.y / 2)
+				
+			y_offset = randi_range( min_y_offset, max_y_offset )
 
 		var random_sprite : AnimatedSprite2D = all_animated_sprites[ randi_range( 0, all_animated_sprites.size()-1 ) ]
 		var sprite : SelfDestroyingSprite = SelfDestroyingSprite.new()
@@ -442,20 +437,34 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 		sprite.centered = false
 		sprite.sprite_frames = random_sprite.sprite_frames
 		sprite.frame = randi_range( 0, sprite.sprite_frames.get_frame_count("default") )
-		sprite.position = Vector2( x_offset + randi_range( 0,50 ), y_offset )
-		var sprite_scale : float = randf_range( 0.5, 1.0 )
+
+		x_offset += randi_range( 0, sprite.get_texture_of_current_frame().get_width() * sprite_scale )
+
+		sprite.position = Vector2( x_offset, y_offset )
 		sprite.scale = Vector2( sprite_scale, sprite_scale )
 		sprite.play("default")
 		
-		add_child( sprite )
 		if is_below_road:
 			sprite.z_index = y_offset + (sprite.get_texture_of_current_frame().get_height() * sprite.scale.y)
 			sprite.z_index += sprite.offset.y * sprite.scale.y
 
-			all_trees.append( sprite )
+			# Test if the sprite goes past the end of the breathline.
+			var sprite_width : float = ( (sprite.get_texture_of_current_frame().get_width() / 1.0) * sprite.scale.x )
+			var sprite_right_side_boundary : float = sprite.position.x + ( sprite_width )
+			var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
+
+			if sprite_right_side_boundary < last_point.x:
+				# Draw the sprite, it's on the breathline.
+				add_child( sprite )
+				all_trees.append( sprite )
+			else:
+				# Don't draw the sprite, it'll be past the end of the breathline.
+				sprite.queue_free()
+
 		else:
 			sprite.z_index = -1500 + y_offset + (sprite.get_texture_of_current_frame().get_height() * sprite.scale.y)# make it less, so the car and ground can appear in front of the clouds.
 
+			add_child( sprite )
 			all_clouds.append( sprite )
 
 func switch_to_car() -> void:

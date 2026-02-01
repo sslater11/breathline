@@ -48,6 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://civ1juqi7haui" path="res://assets/helicopter_blades/helicopter_blades_029.png" id="46_vx303"]
 [ext_resource type="Texture2D" uid="uid://m82sk6lq1tx" path="res://assets/helicopter_blades/helicopter_blades_030.png" id="47_w8mwy"]
 [ext_resource type="Texture2D" uid="uid://c47fro0dke4in" path="res://assets/helicopter_blades/helicopter_rear_blades.png" id="48_ln4cy"]
+[ext_resource type="Gradient" uid="uid://chxpgr65w04lb" path="res://assets/gradients/headlight_beam_gradient_forest.tres" id="49_7odqh"]
 [ext_resource type="Texture2D" uid="uid://cdncv2sxb7xg0" path="res://icon.svg" id="49_mbaev"]
 [ext_resource type="Texture2D" uid="uid://cluqvags4tib0" path="res://assets/cloud_0_200px_x_131px.png" id="50_wrupa"]
 [ext_resource type="Texture2D" uid="uid://bjgot1ottbfdm" path="res://assets/cloud_1_205px_x_130px_blink.png" id="51_nyo0u"]
@@ -61,6 +62,10 @@
 [ext_resource type="Texture2D" uid="uid://c81rtefc0qb0s" path="res://assets/pine_tree_2_220_x_151.png" id="59_myadi"]
 [ext_resource type="Texture2D" uid="uid://d0l68kbc4u1y1" path="res://assets/sheep_eating_150_x_100.png" id="60_nwtk1"]
 [ext_resource type="Texture2D" uid="uid://dnmawvm0883fy" path="res://assets/houses_300_x_300.png" id="61_r3n5q"]
+[ext_resource type="Texture2D" uid="uid://yyrc8vqrpdku" path="res://assets/sand_dune_0.png" id="62_3ca5p"]
+
+[sub_resource type="Gradient" id="Gradient_7odqh"]
+colors = PackedColorArray(0.5764706, 0.5764706, 0.5764706, 1, 0.5764706, 0.5764706, 0.5764706, 1)
 
 [sub_resource type="Gradient" id="Gradient_txb2v"]
 offsets = PackedFloat32Array(0, 0.394872, 0.68718, 1)
@@ -342,13 +347,8 @@ _data = {
 &"helicopter_rear_blades": SubResource("Animation_whnp6")
 }
 
-[sub_resource type="Gradient" id="Gradient_1fr6y"]
-offsets = PackedFloat32Array(0, 0.351759, 1)
-colors = PackedColorArray(0.932146, 0.563803, 3.85046e-07, 1, 0.927229, 0.561307, 0.00134882, 0.977076, 0.717647, 0.454902, 0.0588235, 0)
-metadata/_snap_enabled = true
-
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_w1qdb"]
-gradient = SubResource("Gradient_1fr6y")
+gradient = ExtResource("49_7odqh")
 width = 24
 height = 24
 use_hdr = true
@@ -1582,6 +1582,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_7odqh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("62_3ca5p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Node2D" unique_id=743614988]
 script = ExtResource("1_jnvqv")
 
@@ -1601,7 +1612,8 @@ top_level = true
 z_index = -1
 points = PackedVector2Array(0, 0, 19.55, 5.25)
 width = 20.0
-default_color = Color(0.577008, 0.577008, 0.577008, 1)
+default_color = Color(0.5764706, 0.5764706, 0.5764706, 1)
+gradient = SubResource("Gradient_7odqh")
 round_precision = 7
 antialiased = true
 script = ExtResource("3_3ca5p")
@@ -1906,7 +1918,6 @@ z_as_relative = false
 position = Vector2(7.70616, 0.46383)
 rotation = -2.28987
 scale = Vector2(0.08, 0.08)
-color = Color(1, 0.753843, 0.510672, 1)
 energy = 2.15
 range_z_min = -4096
 range_z_max = 10
@@ -2101,10 +2112,12 @@ sprite_frames = SubResource("SpriteFrames_oixsq")
 [node name="pine_tree1" type="AnimatedSprite2D" parent="." unique_id=997791750]
 position = Vector2(-752, -752)
 sprite_frames = SubResource("SpriteFrames_uo258")
+offset = Vector2(0, 30)
 
 [node name="pine_tree2" type="AnimatedSprite2D" parent="." unique_id=1399559904]
 position = Vector2(-752, -752)
 sprite_frames = SubResource("SpriteFrames_bcdmj")
+offset = Vector2(0, 72)
 
 [node name="sheep" type="AnimatedSprite2D" parent="." unique_id=990362467]
 position = Vector2(-752, -752)
@@ -2114,3 +2127,8 @@ offset = Vector2(0, 100)
 
 [node name="house" type="AnimatedSprite2D" parent="." unique_id=1742833296]
 sprite_frames = SubResource("SpriteFrames_jri4a")
+
+[node name="sand_dune_0" type="AnimatedSprite2D" parent="." unique_id=1379308440]
+position = Vector2(-752, -752)
+sprite_frames = SubResource("SpriteFrames_7odqh")
+offset = Vector2(0, 90)

@@ -13,14 +13,16 @@ Quick/easy low hanging fruit things:
 		grep for "ffff"
 
 Make a scene changer
-	Fade the ground and breathline line colours to the new scene's colours.
-	Duplicate all automatically generated sprites and fade the old ones out and the new ones in.
-	OR
-	Do i make a scene changer that fades a new scene in from the right, so it slowly changes to the new scene as the level progresses.
+	Make a scene changer that fades a new scene in from the right, so it slowly changes to the new scene as the level progresses.
+		[x] Make the spawning change.
+		[x] Make the tween background change.
+		[x] Make a gradient to make the ground colour change
+		[x] 	do maths for what percent of the gradient will have the main colours.
+		[x] 	should be the same maths as calculating the time on the line.
+		reset the gradient when we press the reset button.
+
 	Scene ideas:
 		desert
-			orange/yellow for the ground
-			slightly more yellow breathline
 			sprites
 				sand piles
 				catuses
@@ -29,6 +31,15 @@ Make a scene changer
 			buildings in background
 			dark grey breathline road
 			pavement for ground
+		snow scene
+			white ground
+			white line
+			snow particle emitter on
+			sprites
+				snow dunes
+				snow men
+				trees with snow on them
+
 
 fix: turn fireworks off after reset button is pressed
 	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.

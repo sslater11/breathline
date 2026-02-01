@@ -64,17 +64,18 @@ extends Node2D
 @onready var cloud_2: AnimatedSprite2D = $cloud2
 @onready var cloud_3: AnimatedSprite2D = $cloud3
 
+@onready var sand_dune_0: AnimatedSprite2D = $sand_dune_0
+
 
 const START_X : float = 400.0
 const START_Y : float = 800.0
 const SPAWN_TIME_OFFSET_IN_MILLIS : int = 10000 #  Add a few seconds to spawn trees/clouds ahead of time.
 
-const DARK_SKY  : Color = Color(0.011, 0.244, 0.264) # Really Dark
-#const DARK_SKY  : Color = Color(0.055, 0.564, 0.604) # Little bit dark
-const LIGHT_SKY : Color = Color(0.592, 0.958, 0.994)
-
-
 var straight_path : Curve2D = Curve2D.new()
+
+var all_ground_lines       : Array[Line2D] = []
+var all_house_ground_lines : Array[Line2D] = []
+var all_water_lines        : Array[Line2D] = []
 
 # These are to keep all sprites that are made using godot's gui.
 var all_animated_trees  : Array[AnimatedSprite2D] = []
@@ -85,14 +86,46 @@ var all_trees  : Array[AnimatedSprite2D] = []
 var all_clouds : Array[AnimatedSprite2D] = []
 var clouds_to_remove : Array[int] = []
 
-var is_blue : bool = false
+var sprite_scale_min : float = 0.5
+var sprite_scale_max : float = 1.0
+
+var FOREST_SPRITE_SCALE_MIN : float = 0.5
+var FOREST_SPRITE_SCALE_MAX : float = 1.0
+
+var SAND_DUNE_SPRITE_SCALE_MIN : float = 0.5
+var SAND_DUNE_SPRITE_SCALE_MAX : float = 2.0
+
 
 var has_shit_spray_played : bool = false
 
 var last_breath : int = 0
 
+const COLOR_DESERT_BACKGROUND_LIGHT_SKY : Color = Color( 0.72, 0.38, 0.59 )
+const COLOR_DESERT_BACKGROUND_DARK_SKY  : Color = Color( 0.37, 0.19, 0.3)
+const COLOR_DESERT_GROUND : Color = Color( 1, 0.64, 0 )
+const COLOR_DESERT_ROAD : Color = Color(0.63, 0.4, 0)
+
+const COLOR_FOREST_BACKGROUND_LIGHT_SKY : Color = Color(0.592, 0.958, 0.994)
+const COLOR_FOREST_BACKGROUND_DARK_SKY  : Color = Color(0.011, 0.244, 0.264) # Really Dark
+const COLOR_FOREST_GROUND : Color = Color( 0.5, 0.0, 0.0 )
+const COLOR_FOREST_ROAD : Color = Color(0.55, 0.55, 0.55)
+
+var color_current_background_light : Color = COLOR_FOREST_BACKGROUND_LIGHT_SKY
+var color_current_background_dark  : Color = COLOR_FOREST_BACKGROUND_DARK_SKY
+var color_current_ground : Color = COLOR_FOREST_GROUND
+var color_current_road : Color = COLOR_FOREST_GROUND
+
+var ground_gradient : Gradient = null
+
+var is_snow_allowed : bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	ground_gradient = Gradient.new()
+	ground_gradient.set_color( 0, color_current_ground )
+	ground_gradient.set_color( 1, color_current_ground )
+	ground_gradient.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_LINEAR
+	
 	all_animated_trees  = [ sheep, pine_tree_1, pine_tree_2, tree_0 , tree_1 , tree_2 , tree_3  ]
 	all_animated_clouds = [ cloud_0, cloud_1, cloud_2, cloud_3 ]
 
@@ -170,7 +203,7 @@ func _ready() -> void:
 	draw_ground()
 	
 	# Setup trees and clouds for main game
-	var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
+	var current_time_in_millis : int = get_current_time_in_millis()
 	var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + current_time_in_millis
 
 	for i in range(0, final_spawn_position_in_millis, 10 ):
@@ -184,10 +217,8 @@ func _ready() -> void:
 	#bunny.position = Vector2( last_point.x-140, last_point.y -200)
 	
 func _process(delta : float) -> void:
-	if (snow_particles.emitting == false) and (Globals.is_playing == true):
-		snow_particles.preprocess = 0.0
-	snow_particles.emitting = Globals.is_playing
-	
+	snow_particles.emitting = Globals.is_playing and is_snow_allowed
+
 	if Input.is_key_pressed(KEY_F):
 		if Globals.are_fireworks_on == false:
 			celebration.visible = true
@@ -200,8 +231,7 @@ func _process(delta : float) -> void:
 			vehicle.visible = true
 
 		vehicle.z_index = vehicle.global_position.y - 150
-		var current_time_in_millis : int = Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
-
+		var current_time_in_millis : int = get_current_time_in_millis()
 
 		var car_progress = float(current_time_in_millis) / float(Globals.total_time_in_millis)
 
@@ -271,16 +301,25 @@ func _process(delta : float) -> void:
 				SoundsScene.play_breathe_hold()
 				print("hold after breath out")
 
-		var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + current_time_in_millis
-		var spawn_position_as_percent : float = final_spawn_position_in_millis / float( Globals.total_time_in_millis )
+		var spawn_position_as_percent : float = get_spawn_position_as_percent()
 
 		spawn_texture_randomly( all_animated_trees , true , spawn_position_as_percent, 5  )
 		spawn_texture_randomly( all_animated_clouds, false, spawn_position_as_percent, 25 )
 		update_cloud_locations( delta )
 
+
 func get_length_of_breathline_on_screen_in_millis() -> int:
 	var line_length_on_screen_in_seconds : float = (get_viewport_rect().size.x / get_viewport().get_camera_2d().zoom.x) / Globals.line_length_for_one_second
 	return int( line_length_on_screen_in_seconds * 1000 )
+
+func get_current_time_in_millis() -> int:
+	return Time.get_ticks_msec() - Globals.start_time_in_millis + Globals.start_time_offset_in_millis
+
+func get_spawn_position_as_percent() -> float:
+	var final_spawn_position_in_millis = get_length_of_breathline_on_screen_in_millis() + get_current_time_in_millis()
+	var spawn_position_as_percent : float = final_spawn_position_in_millis / float( Globals.total_time_in_millis )
+	return spawn_position_as_percent
+
 
 func animation_scene_start() -> void:
 	set_text_breath("")
@@ -297,12 +336,13 @@ func animation_scene_start() -> void:
 	tween.tween_property( sun, "modulate", Color(3.0, 3.0, 3.0, 1.0 ), tween_length )
 	tween.tween_property( moon_glow, "modulate", Color(1, 1, 1, 0.0 ), tween_length * 1.85 )
 	
-	tween.tween_property( background_sprite, "modulate", LIGHT_SKY, tween_length )
+	tween.tween_property( background_sprite, "modulate", color_current_background_light, tween_length )
 	#tween.tween_property( headlights, "energy", 0, tween_length / 2.0 )
 	tween.tween_property( brakelights, "energy", 0, tween_length / 2.0 )
 	
 	tween.tween_property( spotlight,      "energy", 0.0, tween_length / 2.0 )
 	tween.tween_property( headlight_beam, "energy", 0.0, tween_length / 2.0 )
+
 
 func animation_breathe_in() -> void:
 	set_text_breath("IN")
@@ -321,7 +361,7 @@ func animation_breathe_in() -> void:
 	tween.tween_property( sun, "modulate", Color(3.0, 3.0, 3.0, 1.0 ), tween_length )
 	tween.tween_property( moon_glow, "modulate", Color(1, 1, 1, 0.0 ), tween_length * 1.85 )
 	
-	tween.tween_property( background_sprite, "modulate", LIGHT_SKY, tween_length )
+	tween.tween_property( background_sprite, "modulate", color_current_background_light, tween_length )
 	#tween.tween_property( headlights, "energy", 0, tween_length / 2.0 )
 	tween.tween_property( brakelights, "energy", 0, tween_length / 2.0 )
 	
@@ -348,7 +388,7 @@ func animation_breathe_out() -> void:
 	# The glow won't show up when the screen size is too small, probably because the light pixels are behind the image.
 	#tween.tween_property( moon_glow, "modulate", Color(15, 10, 5, 0.100 ), (tween_length * 0.72) ) # perfect moon glow when no scene light change
 	tween.tween_property( moon_glow, "modulate", Color(20, 15, 8, 0.100 ), (tween_length * 0.6) ) # perfect moon glow when scene light darkens
-	tween.tween_property( background_sprite, "modulate", DARK_SKY, tween_length )
+	tween.tween_property( background_sprite, "modulate", color_current_background_dark, tween_length )
 	
 	# working headlight brightness on pc.
 	tween.tween_property( headlights, "energy", 75, tween_length / 2.0 )
@@ -379,19 +419,18 @@ func update_cloud_locations( delta : float) -> void:
 func draw_ground() -> void:
 	var camera_rect : Rect2 = camera_2d.get_viewport_rect()
 	const LINE_COUNT = 30
-	const GROUND_COLOR : Color = Color( 0.5, 0.0, 0.0 )
 	var y_offset = line_road_marking.width * 3
 	
 	# Draw the ground for the main breathline
-	#var all_ground_lines : Array[ Line2D ] = []
 	for i in range(0, LINE_COUNT ):
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
 		line.width = line_road_marking.width
-		line.default_color = GROUND_COLOR
+		line.gradient = ground_gradient
 		for k in breathline.curve.get_baked_points():
 			line.add_point( Vector2( k.x, k.y + (i * (line.width) + y_offset) ) )
 		add_child( line )
+		all_ground_lines.append( line )
 
 
 	# Draw the house at the end of the breathline.
@@ -414,7 +453,7 @@ func draw_ground() -> void:
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
 		line.width = line_road_marking.width
-		line.default_color = GROUND_COLOR
+		line.default_color = ground_gradient.sample( 1.0 )
 		
 		var ending_point : Vector2 = Vector2( \
 			house_ground_end_point_x,
@@ -425,9 +464,10 @@ func draw_ground() -> void:
 		line.add_point( starting_point )
 		line.add_point( ending_point )
 		add_child( line )
+		all_house_ground_lines.append( line )
 		
 		
-	# Draw the ground after the breathline has finished.
+	# Draw the water after the breathline has finished.
 	for i in range( 0, LINE_COUNT ):
 		var line : Line2D = Line2D.new()
 		line.z_index = -1
@@ -441,6 +481,7 @@ func draw_ground() -> void:
 		line.add_point( ending_point )
 		line.add_point( starting_point )
 		add_child( line )
+		all_water_lines.append( line )
 
 
 func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_below_road : bool, position_as_percent : float, spawn_amount : int ) -> void:
@@ -458,6 +499,7 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 		if is_below_road:
 			# Position trees below the breathline.
 			y_offset += randi_range( 0, get_viewport().get_camera_2d().global_position.y )
+			sprite_scale = randf_range( sprite_scale_min, sprite_scale_max )
 
 		else:
 			# Draw clouds anywhere on the background.
@@ -503,11 +545,78 @@ func spawn_texture_randomly( all_animated_sprites : Array[AnimatedSprite2D], is_
 			all_clouds.append( sprite )
 
 func switch_to_car() -> void:
+	change_scene_to_forest()
 	headlight_beam.position = car_headlight_beam_anchor.position
 	car.visible = true
 	helicopter.visible = false
 
 func switch_to_helicopter() -> void:
+	change_scene_to_desert()
 	headlight_beam.position = helicopter_headlight_beam_anchor.position
 	car.visible = false
 	helicopter.visible = true
+
+
+func change_scene_to_desert() -> void:
+	all_animated_trees = [ sand_dune_0 ]
+
+	is_snow_allowed = false
+
+	color_current_background_light = COLOR_DESERT_BACKGROUND_LIGHT_SKY
+	color_current_background_dark  = COLOR_DESERT_BACKGROUND_DARK_SKY
+	color_current_ground = COLOR_DESERT_GROUND
+	color_current_road = COLOR_DESERT_ROAD
+
+	sprite_scale_min = SAND_DUNE_SPRITE_SCALE_MIN
+	sprite_scale_max = SAND_DUNE_SPRITE_SCALE_MAX
+
+	headlight_beam.texture.gradient = preload("res://assets/gradients/headlight_beam_gradient_desert.tres")
+
+	after_scene_change()
+
+func change_scene_to_forest() -> void:
+	all_animated_trees  = [ sheep, pine_tree_1, pine_tree_2, tree_0 , tree_1 , tree_2 , tree_3  ]
+
+	is_snow_allowed = true
+
+	color_current_background_light = COLOR_FOREST_BACKGROUND_LIGHT_SKY
+	color_current_background_dark  = COLOR_FOREST_BACKGROUND_DARK_SKY
+	color_current_ground = COLOR_FOREST_GROUND
+	color_current_road = COLOR_FOREST_ROAD
+
+	sprite_scale_min = FOREST_SPRITE_SCALE_MIN
+	sprite_scale_max = FOREST_SPRITE_SCALE_MAX
+
+	headlight_beam.texture.gradient = preload("res://assets/gradients/headlight_beam_gradient_forest.tres")
+
+	after_scene_change()
+
+
+func after_scene_change() -> void:
+	ground_gradient = add_to_gradient( ground_gradient, color_current_ground )
+	for line in all_ground_lines:
+		line.gradient = ground_gradient
+
+	for line in all_house_ground_lines:
+		line.default_color = ground_gradient.sample( 1.0 )
+
+	line_road_marking.gradient = add_to_gradient( line_road_marking.gradient, color_current_road )
+
+
+func add_to_gradient( gradient : Gradient, end_color : Color ) -> Gradient:
+	var spawn_position_distance = float( get_length_of_breathline_on_screen_in_millis() ) / float( Globals.total_time_in_millis )
+	var spawn_position_as_percent : float = get_spawn_position_as_percent()
+
+	if spawn_position_as_percent >= 1.0:
+		return gradient
+
+	if spawn_position_as_percent + spawn_position_distance >= 1.0:
+		gradient.add_point( spawn_position_as_percent, gradient.sample( spawn_position_as_percent ) )
+		gradient.set_color( gradient.get_point_count()-1, end_color )
+		return gradient
+
+	gradient.add_point( spawn_position_as_percent, gradient.sample( spawn_position_as_percent ) )
+	gradient.add_point( spawn_position_as_percent + spawn_position_distance, end_color   )
+	gradient.set_color( gradient.get_point_count()-1, end_color )
+
+	return gradient

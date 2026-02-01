@@ -9,8 +9,26 @@ Breadcrumbs:
 
 
 Quick/easy low hanging fruit things:
-	none lol.
+	remove useless print statements. There's one that's "fffff fireworks" or something like that
+		grep for "ffff"
 
+Make a scene changer
+	Fade the ground and breathline line colours to the new scene's colours.
+	Duplicate all automatically generated sprites and fade the old ones out and the new ones in.
+	OR
+	Do i make a scene changer that fades a new scene in from the right, so it slowly changes to the new scene as the level progresses.
+	Scene ideas:
+		desert
+			orange/yellow for the ground
+			slightly more yellow breathline
+			sprites
+				sand piles
+				catuses
+				camels
+		town
+			buildings in background
+			dark grey breathline road
+			pavement for ground
 
 fix: turn fireworks off after reset button is pressed
 	might want to refactor the code for the button, so that it emits a signal, and a function then runs on the app's main scene.
@@ -21,14 +39,6 @@ fix: brake lights on the car.
 	There are references to the brake lights in code, and there's a node for it.
 	Needs testing on web, mobile and desktop
 	Watch a video on lighting in godot to find the right node to use.
-
-
-Add the house to the finish line.
-	write a draw_finish_line() function to draw a new line at the end of the breathline, and put the house on it somewhere.
-	use this line of code to get the position.
-	var last_point : Vector2 = breathline.curve.get_baked_points()[ breathline.curve.get_baked_points().size() - 1 ]
-	the tree/sheep spawn draws a bit past the breathline, sometimes in the water, so test that it doesn't overlap with the house.
-		set spawn rate to a really high rate to test it.
 
 
 Add different breath types.

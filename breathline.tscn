@@ -60,6 +60,7 @@
 [ext_resource type="Texture2D" uid="uid://durn1531gp1qf" path="res://assets/pine_tree_1_250_x_250.png" id="58_2g0pr"]
 [ext_resource type="Texture2D" uid="uid://c81rtefc0qb0s" path="res://assets/pine_tree_2_220_x_151.png" id="59_myadi"]
 [ext_resource type="Texture2D" uid="uid://d0l68kbc4u1y1" path="res://assets/sheep_eating_150_x_100.png" id="60_nwtk1"]
+[ext_resource type="Texture2D" uid="uid://dnmawvm0883fy" path="res://assets/houses_300_x_300.png" id="61_r3n5q"]
 
 [sub_resource type="Gradient" id="Gradient_txb2v"]
 offsets = PackedFloat32Array(0, 0.394872, 0.68718, 1)
@@ -1552,6 +1553,35 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ca5p"]
+atlas = ExtResource("61_r3n5q")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7odqh"]
+atlas = ExtResource("61_r3n5q")
+region = Rect2(0, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwdxe"]
+atlas = ExtResource("61_r3n5q")
+region = Rect2(300, 600, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jri4a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ca5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7odqh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwdxe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Node2D" unique_id=743614988]
 script = ExtResource("1_jnvqv")
 
@@ -2081,3 +2111,6 @@ position = Vector2(-752, -752)
 sprite_frames = SubResource("SpriteFrames_5f7vl")
 frame_progress = 0.403591
 offset = Vector2(0, 100)
+
+[node name="house" type="AnimatedSprite2D" parent="." unique_id=1742833296]
+sprite_frames = SubResource("SpriteFrames_jri4a")

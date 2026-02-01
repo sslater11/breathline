@@ -16,8 +16,9 @@ extends Node2D
 @onready var car_headlight_beam_anchor: Node2D = $breathline/PathFollow2D/vehicle/car_headlight_beam_anchor
 @onready var helicopter_headlight_beam_anchor: Node2D = $breathline/PathFollow2D/vehicle/helicopter_headlight_beam_anchor
 
-
 @onready var breathline: Path2D = $breathline
+
+@onready var house: AnimatedSprite2D = $house
 
 @onready var vehicle: Node2D = $breathline/PathFollow2D/vehicle
 @onready var helicopter: Sprite2D = $breathline/PathFollow2D/vehicle/helicopter
@@ -391,6 +392,39 @@ func draw_ground() -> void:
 		for k in breathline.curve.get_baked_points():
 			line.add_point( Vector2( k.x, k.y + (i * (line.width) + y_offset) ) )
 		add_child( line )
+
+
+	# Draw the house at the end of the breathline.
+	house.frame = randi_range( 0, house.sprite_frames.get_frame_count("default") )
+
+	var house_pos : Vector2 = breathline.curve.get_baked_points()[ len(breathline.curve.get_baked_points()) -1 ]
+	house_pos.x += house.sprite_frames.get_frame_texture("default", house.frame).get_width() * house.scale.x
+	house_pos.x += car.texture.get_width() / 1.0 * car.scale.x
+
+	house_pos.y -= house.sprite_frames.get_frame_texture("default", house.frame).get_height() / 8.0 * house.scale.y
+	house.position = house_pos
+
+	house.z_index = house.global_position.y - 150
+
+	var breathline_ending_point : Vector2 = breathline.curve.get_baked_points()[ len(breathline.curve.get_baked_points()) -1 ]
+
+	# Draw the ground under the house.
+	var house_ground_end_point_x = house.position.x + (house.sprite_frames.get_frame_texture("default", house.frame).get_width() * house.scale.x)
+	for i in range( 0, LINE_COUNT ):
+		var line : Line2D = Line2D.new()
+		line.z_index = -1
+		line.width = line_road_marking.width
+		line.default_color = GROUND_COLOR
+		
+		var ending_point : Vector2 = Vector2( \
+			house_ground_end_point_x,
+			breathline_ending_point.y + (i * line.width) + (line_road_marking.width * 2.5)
+		)
+		var starting_point : Vector2 = Vector2( breathline_ending_point.x, ending_point.y )
+		
+		line.add_point( starting_point )
+		line.add_point( ending_point )
+		add_child( line )
 		
 		
 	# Draw the ground after the breathline has finished.
@@ -400,11 +434,12 @@ func draw_ground() -> void:
 		line.width = line_road_marking.width
 		line.default_color = Color.AQUA
 		
-		var breathline_ending_point : Vector2 = breathline.curve.get_baked_points()[ len(breathline.curve.get_baked_points()) -1 ]
-		breathline_ending_point.y = breathline_ending_point.y + (i * line.width) + y_offset
-		var ending_point : Vector2 = Vector2( breathline_ending_point.x + camera_rect.size.x, breathline_ending_point.y )
+		var ending_point : Vector2 = Vector2( house_ground_end_point_x + camera_rect.size.x, 
+		breathline_ending_point.y + (i * line.width) + y_offset )
+		var starting_point : Vector2 = Vector2( house_ground_end_point_x, ending_point.y )
+
 		line.add_point( ending_point )
-		line.add_point( breathline_ending_point )
+		line.add_point( starting_point )
 		add_child( line )
 
 
